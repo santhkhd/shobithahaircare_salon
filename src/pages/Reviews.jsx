@@ -36,7 +36,7 @@ const Reviews = () => {
 
                     <div className="md:ml-12">
                         <a
-                            href="https://www.google.com/search?q=Shobitha+Haircare+Kanhangad#lrd=0x3ba47f3b39255555:0x7946979603f90b8f,3"
+                            href="https://g.page/r/CQ00DAVEaP9-EAE/review"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="btn-primary flex items-center gap-2"

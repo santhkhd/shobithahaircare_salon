@@ -5,6 +5,10 @@ import { useBooking } from '../context/BookingContext';
 import { services } from '../data/services';
 import { reviews } from '../data/reviews';
 import { FaStar, FaCheckCircle, FaCut, FaGem, FaSpa } from 'react-icons/fa';
+import BeforeAfterSlider from '../components/BeforeAfterSlider';
+import FAQ from '../components/FAQ';
+import InstagramFeed from '../components/InstagramFeed';
+import PriceCalculator from '../components/PriceCalculator';
 
 const Home = () => {
     const { openBooking } = useBooking();
@@ -179,6 +183,63 @@ const Home = () => {
                             </div>
                         ))}
                     </div>
+                </div>
+            </section>
+
+            {/* Transformation Section */}
+            <section className="section-padding bg-white overflow-hidden">
+                <div className="container-custom">
+                    <div className="flex flex-col lg:flex-row items-center gap-16">
+                        <div className="flex-1">
+                            <span className="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Transformations</span>
+                            <h2 className="text-4xl md:text-5xl heading-serif mb-6">Real Results, Real People</h2>
+                            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                                Our signature treatments don't just change your look—they change how you feel. Use the slider to see some of our recent hair transformations.
+                            </p>
+                            <div className="flex gap-6 items-center">
+                                <div className="text-center">
+                                    <div className="text-3xl font-bold text-gray-900">100%</div>
+                                    <div className="text-xs text-gray-400 uppercase font-bold tracking-widest mt-1">Chemical Free Options</div>
+                                </div>
+                                <div className="w-px h-10 bg-gray-200"></div>
+                                <div className="text-center">
+                                    <div className="text-3xl font-bold text-gray-900">2hr+</div>
+                                    <div className="text-xs text-gray-400 uppercase font-bold tracking-widest mt-1">Intensive Care</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex-1 w-full max-w-xl">
+                            <BeforeAfterSlider
+                                title="Keratin Transformation"
+                                beforeImage="https://images.unsplash.com/photo-1595152230535-0432bd0a09e1?q=80&w=1200"
+                                afterImage="https://images.unsplash.com/photo-1620331311520-246422ff83f9?q=80&w=1200"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <InstagramFeed />
+
+            {/* Price Estimator Section */}
+            <section className="section-padding bg-gray-50">
+                <div className="container-custom">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-5xl heading-serif mb-4">Quick Estimate</h2>
+                        <p className="text-gray-600">Get a rough idea of your treatment cost in seconds.</p>
+                    </div>
+                    <PriceCalculator openBooking={openBooking} />
+                </div>
+            </section>
+
+            {/* FAQ Section */}
+            <section className="section-padding bg-white">
+                <div className="container-custom">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-5xl heading-serif mb-4">Common Questions</h2>
+                        <p className="text-gray-600">Everything you need to know about our services.</p>
+                    </div>
+                    <FAQ />
                 </div>
             </section>
 

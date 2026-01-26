@@ -1,0 +1,37 @@
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import { BookingProvider } from './context/BookingContext';
+
+// Pages
+import Home from './pages/Home';
+import Services from './pages/Services';
+import ServiceDetail from './pages/ServiceDetail';
+import Bridal from './pages/Bridal';
+import Gallery from './pages/Gallery';
+import Pricing from './pages/Pricing';
+import Reviews from './pages/Reviews';
+import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
+
+function App() {
+    return (
+        <BookingProvider>
+            <Layout>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/services/:id" element={<ServiceDetail />} />
+                    <Route path="/bridal" element={<Bridal />} />
+                    <Route path="/gallery" element={<Gallery />} />
+                    <Route path="/pricing" element={<Pricing />} />
+                    <Route path="/reviews" element={<Reviews />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </Layout>
+        </BookingProvider>
+    );
+}
+
+export default App;

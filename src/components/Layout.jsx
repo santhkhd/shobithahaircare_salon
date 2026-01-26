@@ -12,6 +12,21 @@ const Layout = ({ children }) => {
         window.scrollTo(0, 0);
     }, [pathname]);
 
+    const [showScroll, setShowScroll] = React.useState(false);
+
+    useEffect(() => {
+        const checkScrollTop = () => {
+            if (!showScroll && window.pageYOffset > 400) {
+                setShowScroll(true);
+            } else if (showScroll && window.pageYOffset <= 400) {
+                setShowScroll(false);
+            }
+        };
+
+        window.addEventListener('scroll', checkScrollTop);
+        return () => window.removeEventListener('scroll', checkScrollTop);
+    }, [showScroll]);
+
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -27,13 +42,15 @@ const Layout = ({ children }) => {
             {/* Floating Buttons */}
             <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
                 {/* Scroll Top */}
-                <button
-                    onClick={scrollToTop}
-                    className="bg-gray-800 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 transition opacity-80 hover:opacity-100"
-                    aria-label="Scroll to top"
-                >
-                    <FaArrowUp />
-                </button>
+                {showScroll && (
+                    <button
+                        onClick={scrollToTop}
+                        className="bg-gray-800 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 transition opacity-80 hover:opacity-100"
+                        aria-label="Scroll to top"
+                    >
+                        <FaArrowUp />
+                    </button>
+                )}
 
                 {/* WhatsApp */}
                 <a

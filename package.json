@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://YOUR_USERNAME.github.io/shobithahaircare_salon",
+  "homepage": "https://santhkhd.github.io/shobithahaircare_salon",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

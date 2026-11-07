@@ -2,54 +2,97 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shobitha Haircare & Bridal Makeup</title>
-    <meta name="description" content="Premium Salon in Kanhangad, Kerala. Bridal Makeup, Haircare, Spa & More. Rated 4.9 Stars." />
-    <!-- Fonts -->
+    <title>Shobitha Haircare & Bridal Makeup | Premier Ladies Salon in Kanhangad</title>
+    <meta name="description" content="Kanhangad's premier ladies salon & bridal studio. Kerala bridal makeup, keratin treatment, permanent hair smoothening, facials & skin spa. Rated 4.9 Stars on Google (278+ Reviews)." />
+    <meta name="keywords" content="ladies beauty parlour in kanhangad, bridal makeup in kanhangad, hair salon in kanhangad, kerala bridal makeup, hair smoothening kanhangad, keratin treatment kanhangad, women haircut kanhangad" />
+    <meta name="author" content="Shobitha Haircare & Bridal Makeup" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://shobithasalon.pages.dev/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="business.business" />
+    <meta property="og:title" content="Shobitha Haircare & Bridal Makeup Studio | Kanhangad, Kerala" />
+    <meta property="og:description" content="Premier bridal makeover and luxury hair studio in Kanhangad. Muhurtham HD makeup, signature keratin therapy, hair smoothening, facials & waxing." />
+    <meta property="og:image" content="./images/hero-kerala-bride.jpg" />
+    <meta property="og:url" content="https://shobithasalon.pages.dev/" />
+    <meta property="og:site_name" content="Shobitha Haircare & Bridal Makeup" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shobitha Haircare & Bridal Makeup Studio | Kanhangad" />
+    <meta name="twitter:description" content="Premier Kerala bridal makeover & ladies hair studio in Kanhangad. Rated 4.9 Stars." />
+    <meta name="twitter:image" content="./images/hero-kerala-bride.jpg" />
+
+    <!-- Brand Icon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23C59A27'/><path d='M35 30 Q50 15 65 30 Q75 50 65 70 Q50 85 35 70 Q25 50 35 30 Z' fill='none' stroke='white' stroke-width='4'/><circle cx='50' cy='50' r='8' fill='white'/></svg>" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-gray-50 text-gray-900 font-sans antialiased selection:bg-primary selection:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
+    <!-- Structured Data (LocalBusiness / BeautySalon) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "BeautySalon",
         "name": "Shobitha Haircare & Bridal Makeup",
-        "image": "",
+        "image": "https://shobithasalon.pages.dev/images/hero-kerala-bride.jpg",
+        "logo": "https://shobithasalon.pages.dev/images/hero-kerala-bride.jpg",
+        "url": "https://shobithasalon.pages.dev/",
+        "telephone": "+918075340778",
+        "priceRange": "₹₹",
+        "currenciesAccepted": "INR",
+        "paymentAccepted": "Cash, UPI, Google Pay, PhonePe",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Vanila Square, Building, Municipal Bus Stand Road",
+          "streetAddress": "Vanila Square Building, Municipal Bus Stand Road",
           "addressLocality": "Kanhangad",
           "addressRegion": "Kerala",
           "postalCode": "671315",
           "addressCountry": "IN"
         },
-        "telephone": "+918075340778",
-        "priceRange": "$$",
-        "openingHoursSpecification": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
-          "opens": "10:00",
-          "closes": "18:00"
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "12.3164",
+          "longitude": "75.0945"
         },
-         "aggregateRating": {
+        "hasMap": "https://www.google.com/maps/dir//Shobitha+Haircare+%26+Bridal+Makeup+Municipal+Bus+Stand+Rd+Kanhangad,+Kerala+671315",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "10:00",
+            "closes": "18:00"
+          }
+        ],
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Kanhangad"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Kasaragod District"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Kerala"
+          }
+        ],
+        "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "4.9",
-          "reviewCount": "278"
+          "reviewCount": "278",
+          "bestRating": "5",
+          "worstRating": "1"
         }
       }
     </script>
+  </head>
+  <body class="bg-[#FAF8F5] text-gray-900 font-sans antialiased selection:bg-primary selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

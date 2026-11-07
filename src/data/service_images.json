@@ -1,0 +1,5171 @@
+{
+  "catalog_name": "Shobitha Haircare & Bridal Makeup Studio - Complete Image Library",
+  "total_images": 172,
+  "standard_dimensions": "800x1000 pixels",
+  "standard_aspect_ratio": "4:5 Portrait",
+  "standard_format": "WEBP",
+  "watermark_spec": "Shobitha Haircare & BRIDAL MAKEUP STUDIO (Top-Right)",
+  "generated_at": "2026-10-30T18:15:00Z",
+  "images": [
+    {
+      "id": 1,
+      "service_id": "basic-haircut",
+      "category": "Haircuts & Styling",
+      "image_title": "Basic Haircut",
+      "image_file_name": "basic-haircut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/basic-haircut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/basic-haircut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/basic-haircut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 55040,
+        "formatted": "53.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 2,
+      "service_id": "u-cut",
+      "category": "Haircuts & Styling",
+      "image_title": "U-Cut",
+      "image_file_name": "u-cut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/u-cut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/u-cut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/u-cut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 78180,
+        "formatted": "76.3 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 3,
+      "service_id": "v-cut",
+      "category": "Haircuts & Styling",
+      "image_title": "V-Cut",
+      "image_file_name": "v-cut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/v-cut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/v-cut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/v-cut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 54178,
+        "formatted": "52.9 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 4,
+      "service_id": "layer-cut",
+      "category": "Haircuts & Styling",
+      "image_title": "Layer Cut",
+      "image_file_name": "layer-cut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/layer-cut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/layer-cut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/layer-cut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 73696,
+        "formatted": "72.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 5,
+      "service_id": "step-cut",
+      "category": "Haircuts & Styling",
+      "image_title": "Step Cut",
+      "image_file_name": "step-cut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/step-cut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/step-cut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/step-cut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 55040,
+        "formatted": "53.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 6,
+      "service_id": "feather-cut",
+      "category": "Haircuts & Styling",
+      "image_title": "Feather Cut",
+      "image_file_name": "feather-cut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/feather-cut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/feather-cut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/feather-cut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 74966,
+        "formatted": "73.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 7,
+      "service_id": "butterfly-cut",
+      "category": "Haircuts & Styling",
+      "image_title": "Butterfly Cut",
+      "image_file_name": "butterfly-cut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/butterfly-cut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/butterfly-cut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/butterfly-cut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 73696,
+        "formatted": "72.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 8,
+      "service_id": "wolf-cut",
+      "category": "Haircuts & Styling",
+      "image_title": "Wolf Cut",
+      "image_file_name": "wolf-cut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/wolf-cut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/wolf-cut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/wolf-cut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 78180,
+        "formatted": "76.3 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 9,
+      "service_id": "bob-cut",
+      "category": "Haircuts & Styling",
+      "image_title": "Bob Cut",
+      "image_file_name": "bob-cut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/bob-cut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/bob-cut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/bob-cut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 56372,
+        "formatted": "55.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 10,
+      "service_id": "pixie-cut",
+      "category": "Haircuts & Styling",
+      "image_title": "Pixie Cut",
+      "image_file_name": "pixie-cut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/pixie-cut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/pixie-cut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/pixie-cut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 56372,
+        "formatted": "55.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 11,
+      "service_id": "bangs-fringe-cut",
+      "category": "Haircuts & Styling",
+      "image_title": "Bangs / Fringe Cut",
+      "image_file_name": "bangs-fringe-cut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/bangs-fringe-cut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/bangs-fringe-cut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/bangs-fringe-cut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 55040,
+        "formatted": "53.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 12,
+      "service_id": "hair-trimming",
+      "category": "Haircuts & Styling",
+      "image_title": "Hair Trimming",
+      "image_file_name": "hair-trimming.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/hair-trimming.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/hair-trimming.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-trimming",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 75860,
+        "formatted": "74.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 13,
+      "service_id": "split-end-trimming",
+      "category": "Haircuts & Styling",
+      "image_title": "Split-End Trimming",
+      "image_file_name": "split-end-trimming.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/split-end-trimming.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/split-end-trimming.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/split-end-trimming",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 59120,
+        "formatted": "57.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 14,
+      "service_id": "hair-wash",
+      "category": "Haircuts & Styling",
+      "image_title": "Hair Wash",
+      "image_file_name": "hair-wash.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/hair-wash.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/hair-wash.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-wash",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 64750,
+        "formatted": "63.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 15,
+      "service_id": "blow-dry",
+      "category": "Haircuts & Styling",
+      "image_title": "Blow Dry",
+      "image_file_name": "blow-dry.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/blow-dry.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/blow-dry.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/blow-dry",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 66778,
+        "formatted": "65.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 16,
+      "service_id": "hair-ironing-straightening-temporary",
+      "category": "Haircuts & Styling",
+      "image_title": "Hair Ironing / Straightening (Temporary)",
+      "image_file_name": "hair-ironing-straightening-temporary.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/hair-ironing-straightening-temporary.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/hair-ironing-straightening-temporary.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-ironing-straightening-temporary",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 78180,
+        "formatted": "76.3 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 17,
+      "service_id": "hair-curling",
+      "category": "Haircuts & Styling",
+      "image_title": "Hair Curling",
+      "image_file_name": "hair-curling.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/hair-curling.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/hair-curling.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-curling",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 72322,
+        "formatted": "70.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 18,
+      "service_id": "beach-waves",
+      "category": "Haircuts & Styling",
+      "image_title": "Beach Waves",
+      "image_file_name": "beach-waves.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/beach-waves.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/beach-waves.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/beach-waves",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 73844,
+        "formatted": "72.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 19,
+      "service_id": "hair-braiding",
+      "category": "Haircuts & Styling",
+      "image_title": "Hair Braiding",
+      "image_file_name": "hair-braiding.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/hair-braiding.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/hair-braiding.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-braiding",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 55040,
+        "formatted": "53.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 20,
+      "service_id": "party-hairstyle",
+      "category": "Haircuts & Styling",
+      "image_title": "Party Hairstyle",
+      "image_file_name": "party-hairstyle.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/party-hairstyle.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/party-hairstyle.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/party-hairstyle",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 75860,
+        "formatted": "74.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 21,
+      "service_id": "bridal-hairstyle",
+      "category": "Haircuts & Styling",
+      "image_title": "Bridal Hairstyle",
+      "image_file_name": "bridal-hairstyle.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/bridal-hairstyle.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/bridal-hairstyle.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/bridal-hairstyle",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 55040,
+        "formatted": "53.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 22,
+      "service_id": "updo-hairstyle",
+      "category": "Haircuts & Styling",
+      "image_title": "Updo Hairstyle",
+      "image_file_name": "updo-hairstyle.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/updo-hairstyle.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/updo-hairstyle.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/updo-hairstyle",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 75860,
+        "formatted": "74.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 23,
+      "service_id": "saree-hairstyle",
+      "category": "Haircuts & Styling",
+      "image_title": "Saree Hairstyle",
+      "image_file_name": "saree-hairstyle.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/saree-hairstyle.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/saree-hairstyle.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/saree-hairstyle",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 56672,
+        "formatted": "55.3 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 24,
+      "service_id": "kids-haircut",
+      "category": "Haircuts & Styling",
+      "image_title": "Kids' Haircut",
+      "image_file_name": "kids-haircut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/kids-haircut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/kids-haircut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/kids-haircut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 73818,
+        "formatted": "72.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 25,
+      "service_id": "senior-ladies-haircut",
+      "category": "Haircuts & Styling",
+      "image_title": "Senior Ladies' Haircut",
+      "image_file_name": "senior-ladies-haircut.webp",
+      "folder_name": "01-haircuts-and-styling",
+      "relative_path": "/images/services/01-haircuts-and-styling/senior-ladies-haircut.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/01-haircuts-and-styling/senior-ladies-haircut.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/senior-ladies-haircut",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 55040,
+        "formatted": "53.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 26,
+      "service_id": "hair-spa",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Basic Hair Spa",
+      "image_file_name": "basic-hair-spa.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/basic-hair-spa.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/basic-hair-spa.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-spa",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 67524,
+        "formatted": "65.9 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 27,
+      "service_id": "premium-hair-spa",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Premium Hair Spa",
+      "image_file_name": "premium-hair-spa.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/premium-hair-spa.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/premium-hair-spa.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/premium-hair-spa",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 67524,
+        "formatted": "65.9 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 28,
+      "service_id": "deep-conditioning",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Deep Conditioning",
+      "image_file_name": "deep-conditioning.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/deep-conditioning.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/deep-conditioning.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/deep-conditioning",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 66026,
+        "formatted": "64.5 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 29,
+      "service_id": "hair-mask-treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Hair Mask Treatment",
+      "image_file_name": "hair-mask-treatment.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/hair-mask-treatment.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/hair-mask-treatment.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-mask-treatment",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 64018,
+        "formatted": "62.5 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 30,
+      "service_id": "hot-oil-treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Hot Oil Treatment",
+      "image_file_name": "hot-oil-treatment.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/hot-oil-treatment.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/hot-oil-treatment.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hot-oil-treatment",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 68398,
+        "formatted": "66.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 31,
+      "service_id": "scalp-cleansing",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Scalp Cleansing",
+      "image_file_name": "scalp-cleansing.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/scalp-cleansing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/scalp-cleansing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/scalp-cleansing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 110280,
+        "formatted": "107.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 32,
+      "service_id": "scalp-massage",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Scalp Massage",
+      "image_file_name": "scalp-massage.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/scalp-massage.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/scalp-massage.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/scalp-massage",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 112724,
+        "formatted": "110.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 33,
+      "service_id": "anti-dandruff-scalp-care",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Anti-Dandruff Scalp Care",
+      "image_file_name": "anti-dandruff-scalp-care.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/anti-dandruff-scalp-care.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/anti-dandruff-scalp-care.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/anti-dandruff-scalp-care",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 112724,
+        "formatted": "110.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 34,
+      "service_id": "dry-hair-treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Dry Hair Treatment",
+      "image_file_name": "dry-hair-treatment.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/dry-hair-treatment.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/dry-hair-treatment.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/dry-hair-treatment",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 68500,
+        "formatted": "66.9 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 35,
+      "service_id": "frizz-control-treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Frizz Control Treatment",
+      "image_file_name": "frizz-control-treatment.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/frizz-control-treatment.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/frizz-control-treatment.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/frizz-control-treatment",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 66774,
+        "formatted": "65.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 36,
+      "service_id": "hair-damage-repair",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Hair Damage Repair",
+      "image_file_name": "hair-damage-repair.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/hair-damage-repair.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/hair-damage-repair.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-damage-repair",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 66026,
+        "formatted": "64.5 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 37,
+      "service_id": "protein-hair-treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Protein Hair Treatment",
+      "image_file_name": "protein-hair-treatment.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/protein-hair-treatment.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/protein-hair-treatment.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/protein-hair-treatment",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 66026,
+        "formatted": "64.5 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 38,
+      "service_id": "bond-repair-treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Bond Repair Treatment",
+      "image_file_name": "bond-repair-treatment.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/bond-repair-treatment.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/bond-repair-treatment.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/bond-repair-treatment",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 68500,
+        "formatted": "66.9 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 39,
+      "service_id": "hair-botox-treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Hair Botox Treatment",
+      "image_file_name": "hair-botox-treatment.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/hair-botox-treatment.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/hair-botox-treatment.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-botox-treatment",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 89986,
+        "formatted": "87.9 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 40,
+      "service_id": "keratin-treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Keratin Treatment",
+      "image_file_name": "keratin-treatment.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/keratin-treatment.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/keratin-treatment.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/keratin-treatment",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 92538,
+        "formatted": "90.4 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 41,
+      "service_id": "cysteine-treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Cysteine Treatment",
+      "image_file_name": "cysteine-treatment.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/cysteine-treatment.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/cysteine-treatment.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/cysteine-treatment",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 68500,
+        "formatted": "66.9 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 42,
+      "service_id": "herbal-hair-pack",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Herbal Hair Pack",
+      "image_file_name": "herbal-hair-pack.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/herbal-hair-pack.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/herbal-hair-pack.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/herbal-hair-pack",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 66596,
+        "formatted": "65.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 43,
+      "service_id": "herbal-hair-oil-treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "image_title": "Herbal Hair Oil Treatment",
+      "image_file_name": "herbal-hair-oil-treatment.webp",
+      "folder_name": "02-hair-spa-and-treatments",
+      "relative_path": "/images/services/02-hair-spa-and-treatments/herbal-hair-oil-treatment.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/02-hair-spa-and-treatments/herbal-hair-oil-treatment.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/herbal-hair-oil-treatment",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 67544,
+        "formatted": "66.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 44,
+      "service_id": "root-touch-up",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Root Touch-Up",
+      "image_file_name": "root-touch-up.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/root-touch-up.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/root-touch-up.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/root-touch-up",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 76482,
+        "formatted": "74.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 45,
+      "service_id": "hair-color",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Global Hair Colour",
+      "image_file_name": "global-hair-colour.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/global-hair-colour.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/global-hair-colour.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-color",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 79444,
+        "formatted": "77.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 46,
+      "service_id": "grey-hair-coverage",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Grey Hair Coverage",
+      "image_file_name": "grey-hair-coverage.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/grey-hair-coverage.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/grey-hair-coverage.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/grey-hair-coverage",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 76482,
+        "formatted": "74.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 47,
+      "service_id": "ammonia-free-hair-colour",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Ammonia-Free Hair Colour",
+      "image_file_name": "ammonia-free-hair-colour.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/ammonia-free-hair-colour.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/ammonia-free-hair-colour.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/ammonia-free-hair-colour",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 76482,
+        "formatted": "74.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 48,
+      "service_id": "fashion-hair-colour",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Fashion Hair Colour",
+      "image_file_name": "fashion-hair-colour.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/fashion-hair-colour.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/fashion-hair-colour.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/fashion-hair-colour",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 74896,
+        "formatted": "73.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 49,
+      "service_id": "highlights",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Highlights",
+      "image_file_name": "highlights.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/highlights.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/highlights.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/highlights",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 96598,
+        "formatted": "94.3 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 50,
+      "service_id": "lowlights",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Lowlights",
+      "image_file_name": "lowlights.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/lowlights.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/lowlights.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/lowlights",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 76482,
+        "formatted": "74.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 51,
+      "service_id": "balayage",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Balayage",
+      "image_file_name": "balayage.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/balayage.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/balayage.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/balayage",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 94990,
+        "formatted": "92.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 52,
+      "service_id": "ombre-colour",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Ombre Colour",
+      "image_file_name": "ombre-colour.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/ombre-colour.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/ombre-colour.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/ombre-colour",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 94990,
+        "formatted": "92.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 53,
+      "service_id": "babylights",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Babylights",
+      "image_file_name": "babylights.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/babylights.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/babylights.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/babylights",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 76482,
+        "formatted": "74.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 54,
+      "service_id": "money-piece-highlights",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Money Piece Highlights",
+      "image_file_name": "money-piece-highlights.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/money-piece-highlights.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/money-piece-highlights.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/money-piece-highlights",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 94990,
+        "formatted": "92.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 55,
+      "service_id": "colour-correction",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Colour Correction",
+      "image_file_name": "colour-correction.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/colour-correction.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/colour-correction.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/colour-correction",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 80494,
+        "formatted": "78.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 56,
+      "service_id": "hair-bleaching",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Hair Bleaching",
+      "image_file_name": "hair-bleaching.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/hair-bleaching.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/hair-bleaching.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-bleaching",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 74896,
+        "formatted": "73.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 57,
+      "service_id": "henna-hair-colour",
+      "category": "Hair Colour & Highlights",
+      "image_title": "Henna Hair Colour",
+      "image_file_name": "henna-hair-colour.webp",
+      "folder_name": "03-hair-colour-and-highlights",
+      "relative_path": "/images/services/03-hair-colour-and-highlights/henna-hair-colour.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/03-hair-colour-and-highlights/henna-hair-colour.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/henna-hair-colour",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 78380,
+        "formatted": "76.5 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 58,
+      "service_id": "hair-smoothening",
+      "category": "Smoothening & Chemical Hair Services",
+      "image_title": "Hair Smoothening",
+      "image_file_name": "hair-smoothening.webp",
+      "folder_name": "04-smoothening-and-chemical",
+      "relative_path": "/images/services/04-smoothening-and-chemical/hair-smoothening.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/04-smoothening-and-chemical/hair-smoothening.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-smoothening",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 50356,
+        "formatted": "49.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 59,
+      "service_id": "hair-rebonding",
+      "category": "Smoothening & Chemical Hair Services",
+      "image_title": "Hair Rebonding",
+      "image_file_name": "hair-rebonding.webp",
+      "folder_name": "04-smoothening-and-chemical",
+      "relative_path": "/images/services/04-smoothening-and-chemical/hair-rebonding.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/04-smoothening-and-chemical/hair-rebonding.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-rebonding",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 93866,
+        "formatted": "91.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 60,
+      "service_id": "permanent-hair-straightening",
+      "category": "Smoothening & Chemical Hair Services",
+      "image_title": "Permanent Hair Straightening",
+      "image_file_name": "permanent-hair-straightening.webp",
+      "folder_name": "04-smoothening-and-chemical",
+      "relative_path": "/images/services/04-smoothening-and-chemical/permanent-hair-straightening.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/04-smoothening-and-chemical/permanent-hair-straightening.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/permanent-hair-straightening",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 49660,
+        "formatted": "48.5 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 61,
+      "service_id": "hair-relaxing",
+      "category": "Smoothening & Chemical Hair Services",
+      "image_title": "Hair Relaxing",
+      "image_file_name": "hair-relaxing.webp",
+      "folder_name": "04-smoothening-and-chemical",
+      "relative_path": "/images/services/04-smoothening-and-chemical/hair-relaxing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/04-smoothening-and-chemical/hair-relaxing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-relaxing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 96286,
+        "formatted": "94.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 62,
+      "service_id": "permanent-hair-perming",
+      "category": "Smoothening & Chemical Hair Services",
+      "image_title": "Permanent Hair Perming",
+      "image_file_name": "permanent-hair-perming.webp",
+      "folder_name": "04-smoothening-and-chemical",
+      "relative_path": "/images/services/04-smoothening-and-chemical/permanent-hair-perming.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/04-smoothening-and-chemical/permanent-hair-perming.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/permanent-hair-perming",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 51858,
+        "formatted": "50.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 63,
+      "service_id": "root-lift-treatment",
+      "category": "Smoothening & Chemical Hair Services",
+      "image_title": "Root Lift Treatment",
+      "image_file_name": "root-lift-treatment.webp",
+      "folder_name": "04-smoothening-and-chemical",
+      "relative_path": "/images/services/04-smoothening-and-chemical/root-lift-treatment.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/04-smoothening-and-chemical/root-lift-treatment.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/root-lift-treatment",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 92634,
+        "formatted": "90.5 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 64,
+      "service_id": "basic-facial",
+      "category": "Facial & Skincare",
+      "image_title": "Basic Facial",
+      "image_file_name": "basic-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/basic-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/basic-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/basic-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 59176,
+        "formatted": "57.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 65,
+      "service_id": "fruit-facial",
+      "category": "Facial & Skincare",
+      "image_title": "Fruit Facial",
+      "image_file_name": "fruit-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/fruit-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/fruit-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/fruit-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 60416,
+        "formatted": "59.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 66,
+      "service_id": "herbal-facial",
+      "category": "Facial & Skincare",
+      "image_title": "Herbal Facial",
+      "image_file_name": "herbal-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/herbal-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/herbal-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/herbal-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 59176,
+        "formatted": "57.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 67,
+      "service_id": "hydrating-facial",
+      "category": "Facial & Skincare",
+      "image_title": "Hydrating Facial",
+      "image_file_name": "hydrating-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/hydrating-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/hydrating-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hydrating-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 63188,
+        "formatted": "61.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 68,
+      "service_id": "o3-gold-facial",
+      "category": "Facial & Skincare",
+      "image_title": "Gold Facial",
+      "image_file_name": "gold-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/gold-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/gold-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/o3-gold-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 59234,
+        "formatted": "57.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 69,
+      "service_id": "diamond-facial",
+      "category": "Facial & Skincare",
+      "image_title": "Diamond Facial",
+      "image_file_name": "diamond-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/diamond-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/diamond-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/diamond-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 61200,
+        "formatted": "59.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 70,
+      "service_id": "pearl-facial",
+      "category": "Facial & Skincare",
+      "image_title": "Pearl Facial",
+      "image_file_name": "pearl-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/pearl-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/pearl-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/pearl-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 59176,
+        "formatted": "57.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 71,
+      "service_id": "brightening-facial",
+      "category": "Facial & Skincare",
+      "image_title": "Brightening Facial",
+      "image_file_name": "brightening-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/brightening-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/brightening-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/brightening-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 57778,
+        "formatted": "56.4 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 72,
+      "service_id": "anti-ageing-facial",
+      "category": "Facial & Skincare",
+      "image_title": "Anti-Ageing Facial",
+      "image_file_name": "anti-ageing-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/anti-ageing-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/anti-ageing-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/anti-ageing-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 63188,
+        "formatted": "61.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 73,
+      "service_id": "acne-prone-skin-facial",
+      "category": "Facial & Skincare",
+      "image_title": "Acne-Prone Skin Facial",
+      "image_file_name": "acne-prone-skin-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/acne-prone-skin-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/acne-prone-skin-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/acne-prone-skin-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 62176,
+        "formatted": "60.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 74,
+      "service_id": "sensitive-skin-facial",
+      "category": "Facial & Skincare",
+      "image_title": "Sensitive Skin Facial",
+      "image_file_name": "sensitive-skin-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/sensitive-skin-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/sensitive-skin-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/sensitive-skin-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 57778,
+        "formatted": "56.4 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 75,
+      "service_id": "de-tan-facial",
+      "category": "Facial & Skincare",
+      "image_title": "De-Tan Facial",
+      "image_file_name": "de-tan-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/de-tan-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/de-tan-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/de-tan-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 61026,
+        "formatted": "59.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 76,
+      "service_id": "deep-cleansing-facial",
+      "category": "Facial & Skincare",
+      "image_title": "Deep Cleansing Facial",
+      "image_file_name": "deep-cleansing-facial.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/deep-cleansing-facial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/deep-cleansing-facial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/deep-cleansing-facial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 60416,
+        "formatted": "59.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 77,
+      "service_id": "basic-cleanup",
+      "category": "Facial & Skincare",
+      "image_title": "Basic Cleanup",
+      "image_file_name": "basic-cleanup.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/basic-cleanup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/basic-cleanup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/basic-cleanup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 63188,
+        "formatted": "61.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 78,
+      "service_id": "premium-cleanup",
+      "category": "Facial & Skincare",
+      "image_title": "Premium Cleanup",
+      "image_file_name": "premium-cleanup.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/premium-cleanup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/premium-cleanup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/premium-cleanup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 62176,
+        "formatted": "60.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 79,
+      "service_id": "blackhead-removal",
+      "category": "Facial & Skincare",
+      "image_title": "Blackhead Removal",
+      "image_file_name": "blackhead-removal.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/blackhead-removal.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/blackhead-removal.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/blackhead-removal",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 60416,
+        "formatted": "59.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 80,
+      "service_id": "whitehead-removal",
+      "category": "Facial & Skincare",
+      "image_title": "Whitehead Removal",
+      "image_file_name": "whitehead-removal.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/whitehead-removal.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/whitehead-removal.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/whitehead-removal",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 61026,
+        "formatted": "59.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 81,
+      "service_id": "face-mask-treatment",
+      "category": "Facial & Skincare",
+      "image_title": "Face Mask Treatment",
+      "image_file_name": "face-mask-treatment.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/face-mask-treatment.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/face-mask-treatment.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/face-mask-treatment",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 64308,
+        "formatted": "62.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 82,
+      "service_id": "face-bleaching",
+      "category": "Facial & Skincare",
+      "image_title": "Face Bleaching",
+      "image_file_name": "face-bleaching.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/face-bleaching.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/face-bleaching.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/face-bleaching",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 63188,
+        "formatted": "61.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 83,
+      "service_id": "skin-polishing",
+      "category": "Facial & Skincare",
+      "image_title": "Skin Polishing",
+      "image_file_name": "skin-polishing.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/skin-polishing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/skin-polishing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/skin-polishing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 64308,
+        "formatted": "62.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 84,
+      "service_id": "under-eye-care",
+      "category": "Facial & Skincare",
+      "image_title": "Under-Eye Care",
+      "image_file_name": "under-eye-care.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/under-eye-care.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/under-eye-care.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/under-eye-care",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 64308,
+        "formatted": "62.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 85,
+      "service_id": "bridal-skin-preparation",
+      "category": "Facial & Skincare",
+      "image_title": "Bridal Skin Preparation",
+      "image_file_name": "bridal-skin-preparation.webp",
+      "folder_name": "05-facial-and-skincare",
+      "relative_path": "/images/services/05-facial-and-skincare/bridal-skin-preparation.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/05-facial-and-skincare/bridal-skin-preparation.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/bridal-skin-preparation",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 62170,
+        "formatted": "60.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 86,
+      "service_id": "eyebrow-threading",
+      "category": "Threading & Face Grooming",
+      "image_title": "Eyebrow Threading",
+      "image_file_name": "eyebrow-threading.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/eyebrow-threading.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/eyebrow-threading.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/eyebrow-threading",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 53248,
+        "formatted": "52.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 87,
+      "service_id": "upper-lip-threading",
+      "category": "Threading & Face Grooming",
+      "image_title": "Upper Lip Threading",
+      "image_file_name": "upper-lip-threading.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/upper-lip-threading.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/upper-lip-threading.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/upper-lip-threading",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 69006,
+        "formatted": "67.4 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 88,
+      "service_id": "forehead-threading",
+      "category": "Threading & Face Grooming",
+      "image_title": "Forehead Threading",
+      "image_file_name": "forehead-threading.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/forehead-threading.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/forehead-threading.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/forehead-threading",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 67712,
+        "formatted": "66.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 89,
+      "service_id": "chin-threading",
+      "category": "Threading & Face Grooming",
+      "image_title": "Chin Threading",
+      "image_file_name": "chin-threading.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/chin-threading.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/chin-threading.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/chin-threading",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 67712,
+        "formatted": "66.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 90,
+      "service_id": "side-locks-threading",
+      "category": "Threading & Face Grooming",
+      "image_title": "Side Locks Threading",
+      "image_file_name": "side-locks-threading.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/side-locks-threading.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/side-locks-threading.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/side-locks-threading",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 64690,
+        "formatted": "63.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 91,
+      "service_id": "full-face-threading",
+      "category": "Threading & Face Grooming",
+      "image_title": "Full Face Threading",
+      "image_file_name": "full-face-threading.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/full-face-threading.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/full-face-threading.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/full-face-threading",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 64690,
+        "formatted": "63.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 92,
+      "service_id": "eyebrow-shaping",
+      "category": "Threading & Face Grooming",
+      "image_title": "Eyebrow Shaping",
+      "image_file_name": "eyebrow-shaping.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/eyebrow-shaping.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/eyebrow-shaping.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/eyebrow-shaping",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 50616,
+        "formatted": "49.4 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 93,
+      "service_id": "eyebrow-tinting",
+      "category": "Threading & Face Grooming",
+      "image_title": "Eyebrow Tinting",
+      "image_file_name": "eyebrow-tinting.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/eyebrow-tinting.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/eyebrow-tinting.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/eyebrow-tinting",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 51826,
+        "formatted": "50.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 94,
+      "service_id": "eyebrow-lamination",
+      "category": "Threading & Face Grooming",
+      "image_title": "Eyebrow Lamination",
+      "image_file_name": "eyebrow-lamination.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/eyebrow-lamination.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/eyebrow-lamination.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/eyebrow-lamination",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 53248,
+        "formatted": "52.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 95,
+      "service_id": "eyelash-tinting",
+      "category": "Threading & Face Grooming",
+      "image_title": "Eyelash Tinting",
+      "image_file_name": "eyelash-tinting.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/eyelash-tinting.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/eyelash-tinting.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/eyelash-tinting",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 53248,
+        "formatted": "52.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 96,
+      "service_id": "eyelash-extensions",
+      "category": "Threading & Face Grooming",
+      "image_title": "Eyelash Extensions",
+      "image_file_name": "eyelash-extensions.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/eyelash-extensions.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/eyelash-extensions.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/eyelash-extensions",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 50616,
+        "formatted": "49.4 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 97,
+      "service_id": "lash-lift",
+      "category": "Threading & Face Grooming",
+      "image_title": "Lash Lift",
+      "image_file_name": "lash-lift.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/lash-lift.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/lash-lift.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/lash-lift",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 53248,
+        "formatted": "52.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 98,
+      "service_id": "false-eyelash-application",
+      "category": "Threading & Face Grooming",
+      "image_title": "False Eyelash Application",
+      "image_file_name": "false-eyelash-application.webp",
+      "folder_name": "06-threading-and-face-grooming",
+      "relative_path": "/images/services/06-threading-and-face-grooming/false-eyelash-application.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/06-threading-and-face-grooming/false-eyelash-application.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/false-eyelash-application",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 53248,
+        "formatted": "52.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 99,
+      "service_id": "upper-lip-waxing",
+      "category": "Waxing",
+      "image_title": "Upper Lip Waxing",
+      "image_file_name": "upper-lip-waxing.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/upper-lip-waxing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/upper-lip-waxing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/upper-lip-waxing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 108210,
+        "formatted": "105.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 100,
+      "service_id": "full-face-waxing",
+      "category": "Waxing",
+      "image_title": "Full Face Waxing",
+      "image_file_name": "full-face-waxing.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/full-face-waxing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/full-face-waxing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/full-face-waxing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 116686,
+        "formatted": "114.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 101,
+      "service_id": "underarm-waxing",
+      "category": "Waxing",
+      "image_title": "Underarm Waxing",
+      "image_file_name": "underarm-waxing.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/underarm-waxing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/underarm-waxing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/underarm-waxing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 114862,
+        "formatted": "112.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 102,
+      "service_id": "half-arms-waxing",
+      "category": "Waxing",
+      "image_title": "Half Arms Waxing",
+      "image_file_name": "half-arms-waxing.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/half-arms-waxing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/half-arms-waxing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/half-arms-waxing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 108210,
+        "formatted": "105.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 103,
+      "service_id": "full-arms-waxing",
+      "category": "Waxing",
+      "image_title": "Full Arms Waxing",
+      "image_file_name": "full-arms-waxing.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/full-arms-waxing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/full-arms-waxing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/full-arms-waxing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 113310,
+        "formatted": "110.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 104,
+      "service_id": "half-legs-waxing",
+      "category": "Waxing",
+      "image_title": "Half Legs Waxing",
+      "image_file_name": "half-legs-waxing.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/half-legs-waxing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/half-legs-waxing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/half-legs-waxing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 115344,
+        "formatted": "112.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 105,
+      "service_id": "full-legs-waxing",
+      "category": "Waxing",
+      "image_title": "Full Legs Waxing",
+      "image_file_name": "full-legs-waxing.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/full-legs-waxing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/full-legs-waxing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/full-legs-waxing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 114862,
+        "formatted": "112.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 106,
+      "service_id": "full-body-waxing",
+      "category": "Waxing",
+      "image_title": "Full Body Waxing",
+      "image_file_name": "full-body-waxing.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/full-body-waxing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/full-body-waxing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/full-body-waxing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 112096,
+        "formatted": "109.5 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 107,
+      "service_id": "back-waxing",
+      "category": "Waxing",
+      "image_title": "Back Waxing",
+      "image_file_name": "back-waxing.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/back-waxing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/back-waxing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/back-waxing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 109752,
+        "formatted": "107.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 108,
+      "service_id": "stomach-waxing",
+      "category": "Waxing",
+      "image_title": "Stomach Waxing",
+      "image_file_name": "stomach-waxing.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/stomach-waxing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/stomach-waxing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/stomach-waxing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 116686,
+        "formatted": "114.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 109,
+      "service_id": "bikini-line-waxing",
+      "category": "Waxing",
+      "image_title": "Bikini Line Waxing",
+      "image_file_name": "bikini-line-waxing.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/bikini-line-waxing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/bikini-line-waxing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/bikini-line-waxing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 108210,
+        "formatted": "105.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 110,
+      "service_id": "honey-wax",
+      "category": "Waxing",
+      "image_title": "Honey Wax",
+      "image_file_name": "honey-wax.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/honey-wax.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/honey-wax.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/honey-wax",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 113310,
+        "formatted": "110.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 111,
+      "service_id": "chocolate-wax",
+      "category": "Waxing",
+      "image_title": "Chocolate Wax",
+      "image_file_name": "chocolate-wax.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/chocolate-wax.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/chocolate-wax.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/chocolate-wax",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 108210,
+        "formatted": "105.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 112,
+      "service_id": "rica-wax",
+      "category": "Waxing",
+      "image_title": "Rica Wax",
+      "image_file_name": "rica-wax.webp",
+      "folder_name": "07-waxing",
+      "relative_path": "/images/services/07-waxing/rica-wax.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/07-waxing/rica-wax.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/rica-wax",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 109752,
+        "formatted": "107.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 113,
+      "service_id": "kerala-bridal-makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Kerala Bridal Makeup",
+      "image_file_name": "kerala-bridal-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/kerala-bridal-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/kerala-bridal-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/kerala-bridal-makeup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 103470,
+        "formatted": "101.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 114,
+      "service_id": "traditional-bridal-makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Traditional Bridal Makeup",
+      "image_file_name": "traditional-bridal-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/traditional-bridal-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/traditional-bridal-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/traditional-bridal-makeup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 106030,
+        "formatted": "103.5 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 115,
+      "service_id": "bridal-makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "HD Bridal Makeup",
+      "image_file_name": "hd-bridal-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/hd-bridal-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/hd-bridal-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/bridal-makeup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 70946,
+        "formatted": "69.3 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 116,
+      "service_id": "airbrush-bridal",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Airbrush Bridal Makeup",
+      "image_file_name": "airbrush-bridal-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/airbrush-bridal-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/airbrush-bridal-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/airbrush-bridal",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 105584,
+        "formatted": "103.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 117,
+      "service_id": "engagement-makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Engagement Makeup",
+      "image_file_name": "engagement-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/engagement-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/engagement-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/engagement-makeup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 70946,
+        "formatted": "69.3 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 118,
+      "service_id": "reception-makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Reception Makeup",
+      "image_file_name": "reception-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/reception-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/reception-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/reception-makeup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 90164,
+        "formatted": "88.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 119,
+      "service_id": "party-makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Party Makeup",
+      "image_file_name": "party-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/party-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/party-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/party-makeup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 82746,
+        "formatted": "80.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 120,
+      "service_id": "natural-makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Natural Makeup",
+      "image_file_name": "natural-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/natural-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/natural-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/natural-makeup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 106030,
+        "formatted": "103.5 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 121,
+      "service_id": "soft-glam-makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Soft Glam Makeup",
+      "image_file_name": "soft-glam-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/soft-glam-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/soft-glam-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/soft-glam-makeup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 72854,
+        "formatted": "71.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 122,
+      "service_id": "evening-makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Evening Makeup",
+      "image_file_name": "evening-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/evening-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/evening-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/evening-makeup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 101392,
+        "formatted": "99.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 123,
+      "service_id": "wedding-guest-makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Wedding Guest Makeup",
+      "image_file_name": "wedding-guest-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/wedding-guest-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/wedding-guest-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/wedding-guest-makeup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 69472,
+        "formatted": "67.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 124,
+      "service_id": "bridesmaid-makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Bridesmaid Makeup",
+      "image_file_name": "bridesmaid-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/bridesmaid-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/bridesmaid-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/bridesmaid-makeup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 102574,
+        "formatted": "100.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 125,
+      "service_id": "photoshoot-makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Photoshoot Makeup",
+      "image_file_name": "photoshoot-makeup.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/photoshoot-makeup.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/photoshoot-makeup.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/photoshoot-makeup",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 69472,
+        "formatted": "67.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 126,
+      "service_id": "bridal-makeup-trial",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Bridal Makeup Trial",
+      "image_file_name": "bridal-makeup-trial.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/bridal-makeup-trial.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/bridal-makeup-trial.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/bridal-makeup-trial",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 102574,
+        "formatted": "100.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 127,
+      "service_id": "bridal-hairstyling",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Bridal Hairstyling",
+      "image_file_name": "bridal-hairstyling.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/bridal-hairstyling.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/bridal-hairstyling.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/bridal-hairstyling",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 67432,
+        "formatted": "65.9 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 128,
+      "service_id": "bridal-saree-draping",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Bridal Saree Draping",
+      "image_file_name": "bridal-saree-draping.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/bridal-saree-draping.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/bridal-saree-draping.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/bridal-saree-draping",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 70292,
+        "formatted": "68.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 129,
+      "service_id": "traditional-saree-draping",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Traditional Saree Draping",
+      "image_file_name": "traditional-saree-draping.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/traditional-saree-draping.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/traditional-saree-draping.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/traditional-saree-draping",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 68258,
+        "formatted": "66.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 130,
+      "service_id": "false-eyelash-application",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "False Eyelash Application",
+      "image_file_name": "false-eyelash-application.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/false-eyelash-application.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/false-eyelash-application.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/false-eyelash-application",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 104104,
+        "formatted": "101.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 131,
+      "service_id": "complete-bridal-makeup-package",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Complete Bridal Makeup Package",
+      "image_file_name": "complete-bridal-makeup-package.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/complete-bridal-makeup-package.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/complete-bridal-makeup-package.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/complete-bridal-makeup-package",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 68578,
+        "formatted": "67.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 132,
+      "service_id": "pre-bridal-package",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "image_title": "Pre-Bridal Package",
+      "image_file_name": "pre-bridal-package.webp",
+      "folder_name": "08-bridal-and-special-occasion-makeup",
+      "relative_path": "/images/services/08-bridal-and-special-occasion-makeup/pre-bridal-package.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/08-bridal-and-special-occasion-makeup/pre-bridal-package.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/pre-bridal-package",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 105584,
+        "formatted": "103.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 133,
+      "service_id": "basic-manicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Basic Manicure",
+      "image_file_name": "basic-manicure.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/basic-manicure.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/basic-manicure.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/basic-manicure",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 47120,
+        "formatted": "46.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 134,
+      "service_id": "manicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Spa Manicure",
+      "image_file_name": "spa-manicure.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/spa-manicure.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/spa-manicure.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/manicure",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 112528,
+        "formatted": "109.9 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 135,
+      "service_id": "premium-manicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Premium Manicure",
+      "image_file_name": "premium-manicure.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/premium-manicure.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/premium-manicure.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/premium-manicure",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 47120,
+        "formatted": "46.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 136,
+      "service_id": "gel-manicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Gel Manicure",
+      "image_file_name": "gel-manicure.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/gel-manicure.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/gel-manicure.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/gel-manicure",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 103706,
+        "formatted": "101.3 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 137,
+      "service_id": "basic-pedicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Basic Pedicure",
+      "image_file_name": "basic-pedicure.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/basic-pedicure.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/basic-pedicure.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/basic-pedicure",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 90160,
+        "formatted": "88.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 138,
+      "service_id": "pedicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Spa Pedicure",
+      "image_file_name": "spa-pedicure.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/spa-pedicure.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/spa-pedicure.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/pedicure",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 55446,
+        "formatted": "54.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 139,
+      "service_id": "premium-pedicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Premium Pedicure",
+      "image_file_name": "premium-pedicure.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/premium-pedicure.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/premium-pedicure.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/premium-pedicure",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 86266,
+        "formatted": "84.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 140,
+      "service_id": "heel-care",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Heel Care",
+      "image_file_name": "heel-care.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/heel-care.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/heel-care.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/heel-care",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 54352,
+        "formatted": "53.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 141,
+      "service_id": "foot-scrub",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Foot Scrub",
+      "image_file_name": "foot-scrub.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/foot-scrub.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/foot-scrub.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/foot-scrub",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 81324,
+        "formatted": "79.4 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 142,
+      "service_id": "foot-massage",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Foot Massage",
+      "image_file_name": "foot-massage.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/foot-massage.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/foot-massage.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/foot-massage",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 50636,
+        "formatted": "49.4 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 143,
+      "service_id": "nail-shaping",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Nail Shaping",
+      "image_file_name": "nail-shaping.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/nail-shaping.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/nail-shaping.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/nail-shaping",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 44962,
+        "formatted": "43.9 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 144,
+      "service_id": "nail-polish-application",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Nail Polish Application",
+      "image_file_name": "nail-polish-application.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/nail-polish-application.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/nail-polish-application.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/nail-polish-application",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 114958,
+        "formatted": "112.3 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 145,
+      "service_id": "gel-nail-polish",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Gel Nail Polish",
+      "image_file_name": "gel-nail-polish.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/gel-nail-polish.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/gel-nail-polish.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/gel-nail-polish",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 47782,
+        "formatted": "46.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 146,
+      "service_id": "nail-art",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Nail Art",
+      "image_file_name": "nail-art.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/nail-art.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/nail-art.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/nail-art",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 114958,
+        "formatted": "112.3 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 147,
+      "service_id": "nail-extensions",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Nail Extensions",
+      "image_file_name": "nail-extensions.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/nail-extensions.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/nail-extensions.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/nail-extensions",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 43056,
+        "formatted": "42.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 148,
+      "service_id": "nail-extension-removal",
+      "category": "Manicure, Pedicure & Nail Care",
+      "image_title": "Nail Extension Removal",
+      "image_file_name": "nail-extension-removal.webp",
+      "folder_name": "09-manicure-pedicure-and-nail-care",
+      "relative_path": "/images/services/09-manicure-pedicure-and-nail-care/nail-extension-removal.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/09-manicure-pedicure-and-nail-care/nail-extension-removal.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/nail-extension-removal",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 114958,
+        "formatted": "112.3 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 149,
+      "service_id": "head-neck-and-shoulder-massage",
+      "category": "Body Care & Relaxation",
+      "image_title": "Head, Neck & Shoulder Massage",
+      "image_file_name": "head-neck-and-shoulder-massage.webp",
+      "folder_name": "10-body-care-and-relaxation",
+      "relative_path": "/images/services/10-body-care-and-relaxation/head-neck-and-shoulder-massage.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/10-body-care-and-relaxation/head-neck-and-shoulder-massage.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/head-neck-and-shoulder-massage",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 108210,
+        "formatted": "105.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 150,
+      "service_id": "hand-spa",
+      "category": "Body Care & Relaxation",
+      "image_title": "Hand Spa",
+      "image_file_name": "hand-spa.webp",
+      "folder_name": "10-body-care-and-relaxation",
+      "relative_path": "/images/services/10-body-care-and-relaxation/hand-spa.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/10-body-care-and-relaxation/hand-spa.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hand-spa",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 115344,
+        "formatted": "112.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 151,
+      "service_id": "foot-spa",
+      "category": "Body Care & Relaxation",
+      "image_title": "Foot Spa",
+      "image_file_name": "foot-spa.webp",
+      "folder_name": "10-body-care-and-relaxation",
+      "relative_path": "/images/services/10-body-care-and-relaxation/foot-spa.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/10-body-care-and-relaxation/foot-spa.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/foot-spa",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 82374,
+        "formatted": "80.4 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 152,
+      "service_id": "body-scrub",
+      "category": "Body Care & Relaxation",
+      "image_title": "Body Scrub",
+      "image_file_name": "body-scrub.webp",
+      "folder_name": "10-body-care-and-relaxation",
+      "relative_path": "/images/services/10-body-care-and-relaxation/body-scrub.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/10-body-care-and-relaxation/body-scrub.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/body-scrub",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 113310,
+        "formatted": "110.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 153,
+      "service_id": "body-polishing",
+      "category": "Body Care & Relaxation",
+      "image_title": "Body Polishing",
+      "image_file_name": "body-polishing.webp",
+      "folder_name": "10-body-care-and-relaxation",
+      "relative_path": "/images/services/10-body-care-and-relaxation/body-polishing.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/10-body-care-and-relaxation/body-polishing.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/body-polishing",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 112096,
+        "formatted": "109.5 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 154,
+      "service_id": "body-de-tan",
+      "category": "Body Care & Relaxation",
+      "image_title": "Body De-Tan",
+      "image_file_name": "body-de-tan.webp",
+      "folder_name": "10-body-care-and-relaxation",
+      "relative_path": "/images/services/10-body-care-and-relaxation/body-de-tan.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/10-body-care-and-relaxation/body-de-tan.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/body-de-tan",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 115344,
+        "formatted": "112.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 155,
+      "service_id": "back-care",
+      "category": "Body Care & Relaxation",
+      "image_title": "Back Care",
+      "image_file_name": "back-care.webp",
+      "folder_name": "10-body-care-and-relaxation",
+      "relative_path": "/images/services/10-body-care-and-relaxation/back-care.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/10-body-care-and-relaxation/back-care.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/back-care",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 115344,
+        "formatted": "112.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 156,
+      "service_id": "relaxing-foot-massage",
+      "category": "Body Care & Relaxation",
+      "image_title": "Relaxing Foot Massage",
+      "image_file_name": "relaxing-foot-massage.webp",
+      "folder_name": "10-body-care-and-relaxation",
+      "relative_path": "/images/services/10-body-care-and-relaxation/relaxing-foot-massage.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/10-body-care-and-relaxation/relaxing-foot-massage.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/relaxing-foot-massage",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 83428,
+        "formatted": "81.5 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 157,
+      "service_id": "bridal-mehndi",
+      "category": "Mehndi & Traditional Beauty",
+      "image_title": "Bridal Mehndi",
+      "image_file_name": "bridal-mehndi.webp",
+      "folder_name": "11-mehndi-and-traditional-beauty",
+      "relative_path": "/images/services/11-mehndi-and-traditional-beauty/bridal-mehndi.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/11-mehndi-and-traditional-beauty/bridal-mehndi.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/bridal-mehndi",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 188302,
+        "formatted": "183.9 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 158,
+      "service_id": "traditional-mehndi",
+      "category": "Mehndi & Traditional Beauty",
+      "image_title": "Traditional Mehndi",
+      "image_file_name": "traditional-mehndi.webp",
+      "folder_name": "11-mehndi-and-traditional-beauty",
+      "relative_path": "/images/services/11-mehndi-and-traditional-beauty/traditional-mehndi.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/11-mehndi-and-traditional-beauty/traditional-mehndi.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/traditional-mehndi",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 39932,
+        "formatted": "39.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 159,
+      "service_id": "party-mehndi",
+      "category": "Mehndi & Traditional Beauty",
+      "image_title": "Party Mehndi",
+      "image_file_name": "party-mehndi.webp",
+      "folder_name": "11-mehndi-and-traditional-beauty",
+      "relative_path": "/images/services/11-mehndi-and-traditional-beauty/party-mehndi.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/11-mehndi-and-traditional-beauty/party-mehndi.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/party-mehndi",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 188302,
+        "formatted": "183.9 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 160,
+      "service_id": "simple-hand-mehndi",
+      "category": "Mehndi & Traditional Beauty",
+      "image_title": "Simple Hand Mehndi",
+      "image_file_name": "simple-hand-mehndi.webp",
+      "folder_name": "11-mehndi-and-traditional-beauty",
+      "relative_path": "/images/services/11-mehndi-and-traditional-beauty/simple-hand-mehndi.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/11-mehndi-and-traditional-beauty/simple-hand-mehndi.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/simple-hand-mehndi",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 38176,
+        "formatted": "37.3 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 161,
+      "service_id": "arabic-mehndi",
+      "category": "Mehndi & Traditional Beauty",
+      "image_title": "Arabic Mehndi",
+      "image_file_name": "arabic-mehndi.webp",
+      "folder_name": "11-mehndi-and-traditional-beauty",
+      "relative_path": "/images/services/11-mehndi-and-traditional-beauty/arabic-mehndi.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/11-mehndi-and-traditional-beauty/arabic-mehndi.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/arabic-mehndi",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 195398,
+        "formatted": "190.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 162,
+      "service_id": "hair-henna-application",
+      "category": "Mehndi & Traditional Beauty",
+      "image_title": "Hair Henna Application",
+      "image_file_name": "hair-henna-application.webp",
+      "folder_name": "11-mehndi-and-traditional-beauty",
+      "relative_path": "/images/services/11-mehndi-and-traditional-beauty/hair-henna-application.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/11-mehndi-and-traditional-beauty/hair-henna-application.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-henna-application",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 40614,
+        "formatted": "39.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 163,
+      "service_id": "haircut-plus-hair-spa-combo",
+      "category": "Salon Packages & Combos",
+      "image_title": "Haircut + Hair Spa Combo",
+      "image_file_name": "haircut-plus-hair-spa-combo.webp",
+      "folder_name": "12-salon-packages-and-combos",
+      "relative_path": "/images/services/12-salon-packages-and-combos/haircut-plus-hair-spa-combo.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/12-salon-packages-and-combos/haircut-plus-hair-spa-combo.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/haircut-plus-hair-spa-combo",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 62170,
+        "formatted": "60.7 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 164,
+      "service_id": "hair-colour-plus-haircut-combo",
+      "category": "Salon Packages & Combos",
+      "image_title": "Hair Colour + Haircut Combo",
+      "image_file_name": "hair-colour-plus-haircut-combo.webp",
+      "folder_name": "12-salon-packages-and-combos",
+      "relative_path": "/images/services/12-salon-packages-and-combos/hair-colour-plus-haircut-combo.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/12-salon-packages-and-combos/hair-colour-plus-haircut-combo.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/hair-colour-plus-haircut-combo",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 66774,
+        "formatted": "65.2 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 165,
+      "service_id": "facial-plus-cleanup-combo",
+      "category": "Salon Packages & Combos",
+      "image_title": "Facial + Cleanup Combo",
+      "image_file_name": "facial-plus-cleanup-combo.webp",
+      "folder_name": "12-salon-packages-and-combos",
+      "relative_path": "/images/services/12-salon-packages-and-combos/facial-plus-cleanup-combo.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/12-salon-packages-and-combos/facial-plus-cleanup-combo.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/facial-plus-cleanup-combo",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 97368,
+        "formatted": "95.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 166,
+      "service_id": "manicure-plus-pedicure-combo",
+      "category": "Salon Packages & Combos",
+      "image_title": "Manicure + Pedicure Combo",
+      "image_file_name": "manicure-plus-pedicure-combo.webp",
+      "folder_name": "12-salon-packages-and-combos",
+      "relative_path": "/images/services/12-salon-packages-and-combos/manicure-plus-pedicure-combo.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/12-salon-packages-and-combos/manicure-plus-pedicure-combo.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/manicure-plus-pedicure-combo",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 101392,
+        "formatted": "99.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 167,
+      "service_id": "haircare-maintenance-package",
+      "category": "Salon Packages & Combos",
+      "image_title": "Haircare Maintenance Package",
+      "image_file_name": "haircare-maintenance-package.webp",
+      "folder_name": "12-salon-packages-and-combos",
+      "relative_path": "/images/services/12-salon-packages-and-combos/haircare-maintenance-package.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/12-salon-packages-and-combos/haircare-maintenance-package.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/haircare-maintenance-package",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 71240,
+        "formatted": "69.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 168,
+      "service_id": "monthly-beauty-maintenance",
+      "category": "Salon Packages & Combos",
+      "image_title": "Monthly Beauty Maintenance",
+      "image_file_name": "monthly-beauty-maintenance.webp",
+      "folder_name": "12-salon-packages-and-combos",
+      "relative_path": "/images/services/12-salon-packages-and-combos/monthly-beauty-maintenance.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/12-salon-packages-and-combos/monthly-beauty-maintenance.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/monthly-beauty-maintenance",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 59234,
+        "formatted": "57.8 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 169,
+      "service_id": "pre-bridal-beauty-package",
+      "category": "Salon Packages & Combos",
+      "image_title": "Pre-Bridal Beauty Package",
+      "image_file_name": "pre-bridal-beauty-package.webp",
+      "folder_name": "12-salon-packages-and-combos",
+      "relative_path": "/images/services/12-salon-packages-and-combos/pre-bridal-beauty-package.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/12-salon-packages-and-combos/pre-bridal-beauty-package.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/pre-bridal-beauty-package",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 64130,
+        "formatted": "62.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 170,
+      "service_id": "engagement-beauty-package",
+      "category": "Salon Packages & Combos",
+      "image_title": "Engagement Beauty Package",
+      "image_file_name": "engagement-beauty-package.webp",
+      "folder_name": "12-salon-packages-and-combos",
+      "relative_path": "/images/services/12-salon-packages-and-combos/engagement-beauty-package.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/12-salon-packages-and-combos/engagement-beauty-package.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/engagement-beauty-package",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 97368,
+        "formatted": "95.1 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 171,
+      "service_id": "complete-bridal-package",
+      "category": "Salon Packages & Combos",
+      "image_title": "Complete Bridal Package",
+      "image_file_name": "complete-bridal-package.webp",
+      "folder_name": "12-salon-packages-and-combos",
+      "relative_path": "/images/services/12-salon-packages-and-combos/complete-bridal-package.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/12-salon-packages-and-combos/complete-bridal-package.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/complete-bridal-package",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 98872,
+        "formatted": "96.6 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    },
+    {
+      "id": 172,
+      "service_id": "party-makeup-package",
+      "category": "Salon Packages & Combos",
+      "image_title": "Party Makeup Package",
+      "image_file_name": "party-makeup-package.webp",
+      "folder_name": "12-salon-packages-and-combos",
+      "relative_path": "/images/services/12-salon-packages-and-combos/party-makeup-package.webp",
+      "public_url": "https://shobithasalon.pages.dev/images/services/12-salon-packages-and-combos/party-makeup-package.webp",
+      "detail_page_url": "https://shobithasalon.pages.dev/#/services/party-makeup-package",
+      "format": "WEBP",
+      "mime_type": "image/webp",
+      "dimensions": {
+        "width_px": 800,
+        "height_px": 1000,
+        "aspect_ratio": "4:5 (Portrait)"
+      },
+      "file_size": {
+        "bytes": 78832,
+        "formatted": "77.0 KB"
+      },
+      "watermark": {
+        "applied": true,
+        "primary_text": "Shobitha Haircare",
+        "subtitle": "& BRIDAL MAKEUP STUDIO",
+        "color": "Luxury Champagne Gold (#D4AF37)",
+        "position": "Top-Right Corner"
+      },
+      "status": "Verified on Disk (200 OK)"
+    }
+  ]
+}

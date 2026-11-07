@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaCalculator, FaWhatsapp } from 'react-icons/fa';
+import { FaCalculator, FaWhatsapp, FaCalendarCheck } from 'react-icons/fa';
 
 const PriceCalculator = ({ openBooking }) => {
     const [service, setService] = useState('smoothening');
@@ -15,28 +15,46 @@ const PriceCalculator = ({ openBooking }) => {
 
     const currentPrice = prices[service][length];
 
+    const serviceLabels = {
+        smoothening: 'Smoothening',
+        keratin: 'Keratin Protein',
+        botox: 'Hair Botox',
+        spa: 'Deep Hair Spa'
+    };
+
     return (
-        <div className="bg-white rounded-[40px] shadow-2xl overflow-hidden border border-gray-100 max-w-4xl mx-auto flex flex-col md:flex-row">
-            <div className="flex-1 p-8 md:p-12">
+        <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 max-w-4xl mx-auto flex flex-col md:flex-row">
+            <div className="flex-1 p-6 sm:p-10">
                 <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                        <FaCalculator />
+                    <div className="w-10 h-10 rounded-2xl bg-primary-50 text-primary-dark border border-primary-200 flex items-center justify-center">
+                        <FaCalculator size={18} />
                     </div>
-                    <h3 className="text-2xl font-serif font-bold text-gray-900">Price Estimator</h3>
+                    <div>
+                        <h3 className="text-xl sm:text-2xl font-serif font-bold text-gray-900">Price Estimator</h3>
+                        <p className="text-xs text-gray-500">Calculate personalized chemical & spa treatment costs</p>
+                    </div>
                 </div>
 
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                     {/* Service Selection */}
                     <div>
-                        <label className="block text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Select Treatment</label>
-                        <div className="grid grid-cols-2 gap-3">
+                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
+                            1. Select Treatment
+                        </label>
+                        <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
                             {Object.keys(prices).map((s) => (
                                 <button
                                     key={s}
+                                    type="button"
                                     onClick={() => setService(s)}
-                                    className={`py-3 px-4 rounded-xl border-2 transition-all font-medium capitalize ${service === s ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 hover:border-gray-200 text-gray-600'}`}
+                                    className={`py-3 px-3.5 rounded-2xl border transition-all text-xs sm:text-sm font-semibold capitalize text-left flex items-center justify-between ${
+                                        service === s
+                                            ? 'border-primary bg-primary-50 text-primary-dark shadow-sm ring-1 ring-primary'
+                                            : 'border-gray-200 hover:border-gray-300 text-gray-700 bg-white'
+                                    }`}
                                 >
-                                    {s}
+                                    <span>{serviceLabels[s] || s}</span>
+                                    {service === s && <span className="text-primary-dark text-xs">●</span>}
                                 </button>
                             ))}
                         </div>
@@ -44,15 +62,26 @@ const PriceCalculator = ({ openBooking }) => {
 
                     {/* Length Selection */}
                     <div>
-                        <label className="block text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Hair Length</label>
-                        <div className="flex gap-3">
-                            {['short', 'medium', 'long'].map((l) => (
+                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
+                            2. Select Hair Length
+                        </label>
+                        <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+                            {[
+                                { key: 'short', label: 'Short (Neck)' },
+                                { key: 'medium', label: 'Medium (Shoulder)' },
+                                { key: 'long', label: 'Long (Waist)' }
+                            ].map((l) => (
                                 <button
-                                    key={l}
-                                    onClick={() => setLength(l)}
-                                    className={`flex-1 py-3 rounded-xl border-2 transition-all font-medium capitalize ${length === l ? 'border-dark bg-dark text-white' : 'border-gray-100 hover:border-gray-200 text-gray-600'}`}
+                                    key={l.key}
+                                    type="button"
+                                    onClick={() => setLength(l.key)}
+                                    className={`py-3 px-2 rounded-2xl border transition-all text-xs sm:text-sm font-semibold text-center ${
+                                        length === l.key
+                                            ? 'border-dark bg-dark text-white shadow-sm'
+                                            : 'border-gray-200 hover:border-gray-300 text-gray-700 bg-white'
+                                    }`}
                                 >
-                                    {l}
+                                    {l.label}
                                 </button>
                             ))}
                         </div>
@@ -60,25 +89,34 @@ const PriceCalculator = ({ openBooking }) => {
                 </div>
             </div>
 
-            <div className="md:w-72 bg-gray-50 p-8 md:p-12 flex flex-col items-center justify-center text-center border-l border-gray-100">
-                <span className="text-gray-500 text-sm font-medium mb-2 uppercase tracking-widest">Estimated Price</span>
+            {/* Price Result Column */}
+            <div className="md:w-80 bg-[#FAF6EC] p-6 sm:p-10 flex flex-col items-center justify-center text-center border-t md:border-t-0 md:border-l border-primary-100">
+                <span className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">
+                    Estimated Cost
+                </span>
+
                 <motion.div
                     key={currentPrice}
-                    initial={{ scale: 0.8, opacity: 0 }}
+                    initial={{ scale: 0.85, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="text-5xl font-bold text-gray-900 mb-2"
+                    className="text-4xl sm:text-5xl font-bold text-primary-dark mb-1"
                 >
-                    ₹{currentPrice}*
+                    ₹{currentPrice.toLocaleString('en-IN')}*
                 </motion.div>
-                <p className="text-gray-400 text-[10px] mb-8 italic">
-                    *Prices are subject to hair density and specific requirements.
+
+                <p className="text-[11px] text-gray-500 mb-6 italic max-w-[200px] leading-tight">
+                    *Final quote may vary based on exact hair volume and product usage.
                 </p>
+
                 <button
-                    onClick={() => openBooking(`Hi! I used the price calculator and got an estimate of ₹${currentPrice} for ${service} (${length} hair). I'd like to book an appointment!`)}
-                    className="w-full bg-green-500 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-green-600 transition shadow-lg shadow-green-200 hover:scale-105 active:scale-95"
+                    onClick={() => openBooking({
+                        name: `${serviceLabels[service]} (${length} length)`,
+                        category: 'Hair Services'
+                    })}
+                    className="w-full btn-primary py-3.5 px-6 rounded-2xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-md"
                 >
-                    <FaWhatsapp size={20} />
-                    Book Now
+                    <FaCalendarCheck size={14} />
+                    Book This Service
                 </button>
             </div>
         </div>

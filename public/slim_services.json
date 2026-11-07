@@ -1,0 +1,1571 @@
+{
+  "categories": [
+    "Haircuts & Styling",
+    "Hair Spa & Hair Treatments",
+    "Hair Colour & Highlights",
+    "Smoothening & Chemical Hair Services",
+    "Facial & Skincare",
+    "Threading & Face Grooming",
+    "Waxing",
+    "Bridal Makeup & Special Occasion Makeup",
+    "Manicure, Pedicure & Nail Care",
+    "Body Care & Relaxation",
+    "Mehndi & Traditional Beauty",
+    "Salon Packages & Combos"
+  ],
+  "services": [
+    {
+      "id": "basic-haircut",
+      "name": "Basic Haircut",
+      "category": "Haircuts & Styling",
+      "price": "₹350",
+      "duration": "30-45 Mins",
+      "imageFileName": "basic-haircut.webp",
+      "index": 1,
+      "offerPrice": "50%"
+    },
+    {
+      "id": "u-cut",
+      "name": "U-Cut",
+      "category": "Haircuts & Styling",
+      "price": "₹300",
+      "duration": "45 Mins",
+      "imageFileName": "u-cut.webp",
+      "index": 2,
+      "offerPrice": "10%"
+    },
+    {
+      "id": "v-cut",
+      "name": "V-Cut",
+      "category": "Haircuts & Styling",
+      "price": "₹350",
+      "duration": "45 Mins",
+      "imageFileName": "v-cut.webp",
+      "index": 3,
+      "offerPrice": "50%"
+    },
+    {
+      "id": "layer-cut",
+      "name": "Layer Cut",
+      "category": "Haircuts & Styling",
+      "price": "₹700",
+      "duration": "45 Mins",
+      "imageFileName": "layer-cut.webp",
+      "index": 4,
+      "offerPrice": "10%"
+    },
+    {
+      "id": "step-cut",
+      "name": "Step Cut",
+      "category": "Haircuts & Styling",
+      "price": "₹700",
+      "duration": "45 Mins",
+      "imageFileName": "step-cut.webp",
+      "index": 5
+    },
+    {
+      "id": "feather-cut",
+      "name": "Feather Cut",
+      "category": "Haircuts & Styling",
+      "price": "₹700",
+      "duration": "45 Mins",
+      "imageFileName": "feather-cut.webp",
+      "index": 6
+    },
+    {
+      "id": "butterfly-cut",
+      "name": "Butterfly Cut",
+      "category": "Haircuts & Styling",
+      "price": "₹850",
+      "duration": "45 Mins",
+      "imageFileName": "butterfly-cut.webp",
+      "index": 7
+    },
+    {
+      "id": "wolf-cut",
+      "name": "Wolf Cut",
+      "category": "Haircuts & Styling",
+      "price": "₹850",
+      "duration": "45 Mins",
+      "imageFileName": "wolf-cut.webp",
+      "index": 8
+    },
+    {
+      "id": "bob-cut",
+      "name": "Bob Cut",
+      "category": "Haircuts & Styling",
+      "price": "₹600",
+      "duration": "45 Mins",
+      "imageFileName": "bob-cut.webp",
+      "index": 9
+    },
+    {
+      "id": "pixie-cut",
+      "name": "Pixie Cut",
+      "category": "Haircuts & Styling",
+      "price": "₹600",
+      "duration": "45 Mins",
+      "imageFileName": "pixie-cut.webp",
+      "index": 10
+    },
+    {
+      "id": "bangs-fringe-cut",
+      "name": "Bangs / Fringe Cut",
+      "category": "Haircuts & Styling",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "bangs-fringe-cut.webp",
+      "index": 11
+    },
+    {
+      "id": "hair-trimming",
+      "name": "Hair Trimming",
+      "category": "Haircuts & Styling",
+      "price": "₹300",
+      "duration": "15-20 Mins",
+      "imageFileName": "hair-trimming.webp",
+      "index": 12
+    },
+    {
+      "id": "split-end-trimming",
+      "name": "Split-End Trimming",
+      "category": "Haircuts & Styling",
+      "price": "₹300",
+      "duration": "15-20 Mins",
+      "imageFileName": "split-end-trimming.webp",
+      "index": 13
+    },
+    {
+      "id": "hair-wash",
+      "name": "Hair Wash",
+      "category": "Haircuts & Styling",
+      "price": "₹600",
+      "duration": "45 Mins",
+      "imageFileName": "hair-wash.webp",
+      "index": 14
+    },
+    {
+      "id": "blow-dry",
+      "name": "Blow Dry",
+      "category": "Haircuts & Styling",
+      "price": "₹600",
+      "duration": "30-45 Mins",
+      "imageFileName": "blow-dry.webp",
+      "index": 15
+    },
+    {
+      "id": "hair-ironing-straightening-temporary",
+      "name": "Hair Ironing / Straightening (Temporary)",
+      "category": "Haircuts & Styling",
+      "price": "₹4,500",
+      "duration": "45 Mins",
+      "imageFileName": "hair-ironing-straightening-temporary.webp",
+      "index": 16
+    },
+    {
+      "id": "hair-curling",
+      "name": "Hair Curling",
+      "category": "Haircuts & Styling",
+      "price": "₹600",
+      "duration": "45 Mins",
+      "imageFileName": "hair-curling.webp",
+      "index": 17
+    },
+    {
+      "id": "beach-waves",
+      "name": "Beach Waves",
+      "category": "Haircuts & Styling",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "beach-waves.webp",
+      "index": 18
+    },
+    {
+      "id": "hair-braiding",
+      "name": "Hair Braiding",
+      "category": "Haircuts & Styling",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "hair-braiding.webp",
+      "index": 19
+    },
+    {
+      "id": "party-hairstyle",
+      "name": "Party Hairstyle",
+      "category": "Haircuts & Styling",
+      "price": "₹1,500",
+      "duration": "45 Mins",
+      "imageFileName": "party-hairstyle.webp",
+      "index": 20
+    },
+    {
+      "id": "bridal-hairstyle",
+      "name": "Bridal Hairstyle",
+      "category": "Haircuts & Styling",
+      "price": "₹1,500",
+      "duration": "45 Mins",
+      "imageFileName": "bridal-hairstyle.webp",
+      "index": 21
+    },
+    {
+      "id": "updo-hairstyle",
+      "name": "Updo Hairstyle",
+      "category": "Haircuts & Styling",
+      "price": "₹1,500",
+      "duration": "45 Mins",
+      "imageFileName": "updo-hairstyle.webp",
+      "index": 22
+    },
+    {
+      "id": "saree-hairstyle",
+      "name": "Saree Hairstyle",
+      "category": "Haircuts & Styling",
+      "price": "₹1,500",
+      "duration": "45 Mins",
+      "imageFileName": "saree-hairstyle.webp",
+      "index": 23
+    },
+    {
+      "id": "kids-haircut",
+      "name": "Kids' Haircut",
+      "category": "Haircuts & Styling",
+      "price": "₹250",
+      "duration": "30-45 Mins",
+      "imageFileName": "kids-haircut.webp",
+      "index": 24
+    },
+    {
+      "id": "senior-ladies-haircut",
+      "name": "Senior Ladies' Haircut",
+      "category": "Haircuts & Styling",
+      "price": "₹250",
+      "duration": "30-45 Mins",
+      "imageFileName": "senior-ladies-haircut.webp",
+      "index": 25
+    },
+    {
+      "id": "hair-spa",
+      "name": "Basic Hair Spa",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹1,200",
+      "duration": "45-60 Mins",
+      "imageFileName": "basic-hair-spa.webp",
+      "index": 26
+    },
+    {
+      "id": "premium-hair-spa",
+      "name": "Premium Hair Spa",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹1,200",
+      "duration": "45-60 Mins",
+      "imageFileName": "premium-hair-spa.webp",
+      "index": 27
+    },
+    {
+      "id": "deep-conditioning",
+      "name": "Deep Conditioning",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹1,200",
+      "duration": "45 Mins",
+      "imageFileName": "deep-conditioning.webp",
+      "index": 28
+    },
+    {
+      "id": "hair-mask-treatment",
+      "name": "Hair Mask Treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹500",
+      "duration": "45 Mins",
+      "imageFileName": "hair-mask-treatment.webp",
+      "index": 29
+    },
+    {
+      "id": "hot-oil-treatment",
+      "name": "Hot Oil Treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "hot-oil-treatment.webp",
+      "index": 30
+    },
+    {
+      "id": "scalp-cleansing",
+      "name": "Scalp Cleansing",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "scalp-cleansing.webp",
+      "index": 31
+    },
+    {
+      "id": "scalp-massage",
+      "name": "Scalp Massage",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹1,200",
+      "duration": "45-60 Mins",
+      "imageFileName": "scalp-massage.webp",
+      "index": 32
+    },
+    {
+      "id": "anti-dandruff-scalp-care",
+      "name": "Anti-Dandruff Scalp Care",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "anti-dandruff-scalp-care.webp",
+      "index": 33
+    },
+    {
+      "id": "dry-hair-treatment",
+      "name": "Dry Hair Treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "dry-hair-treatment.webp",
+      "index": 34
+    },
+    {
+      "id": "frizz-control-treatment",
+      "name": "Frizz Control Treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "frizz-control-treatment.webp",
+      "index": 35
+    },
+    {
+      "id": "hair-damage-repair",
+      "name": "Hair Damage Repair",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "hair-damage-repair.webp",
+      "index": 36
+    },
+    {
+      "id": "protein-hair-treatment",
+      "name": "Protein Hair Treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "protein-hair-treatment.webp",
+      "index": 37
+    },
+    {
+      "id": "bond-repair-treatment",
+      "name": "Bond Repair Treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹2,500",
+      "duration": "45 Mins",
+      "imageFileName": "bond-repair-treatment.webp",
+      "index": 38
+    },
+    {
+      "id": "hair-botox-treatment",
+      "name": "Hair Botox Treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹6,000",
+      "duration": "2-3 Hours",
+      "imageFileName": "hair-botox-treatment.webp",
+      "index": 39
+    },
+    {
+      "id": "keratin-treatment",
+      "name": "Keratin Treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹5,000",
+      "duration": "2-3 Hours",
+      "imageFileName": "keratin-treatment.webp",
+      "index": 40
+    },
+    {
+      "id": "cysteine-treatment",
+      "name": "Cysteine Treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹5,000",
+      "duration": "45 Mins",
+      "imageFileName": "cysteine-treatment.webp",
+      "index": 41
+    },
+    {
+      "id": "herbal-hair-pack",
+      "name": "Herbal Hair Pack",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹1,000",
+      "duration": "45 Mins",
+      "imageFileName": "herbal-hair-pack.webp",
+      "index": 42
+    },
+    {
+      "id": "herbal-hair-oil-treatment",
+      "name": "Herbal Hair Oil Treatment",
+      "category": "Hair Spa & Hair Treatments",
+      "price": "₹1,000",
+      "duration": "45 Mins",
+      "imageFileName": "herbal-hair-oil-treatment.webp",
+      "index": 43
+    },
+    {
+      "id": "root-touch-up",
+      "name": "Root Touch-Up",
+      "category": "Hair Colour & Highlights",
+      "price": "₹1,000",
+      "duration": "45 Mins",
+      "imageFileName": "root-touch-up.webp",
+      "index": 44
+    },
+    {
+      "id": "hair-color",
+      "name": "Global Hair Colour",
+      "category": "Hair Colour & Highlights",
+      "price": "₹2,500",
+      "duration": "45 Mins",
+      "imageFileName": "global-hair-colour.webp",
+      "index": 45
+    },
+    {
+      "id": "grey-hair-coverage",
+      "name": "Grey Hair Coverage",
+      "category": "Hair Colour & Highlights",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "grey-hair-coverage.webp",
+      "index": 46
+    },
+    {
+      "id": "ammonia-free-hair-colour",
+      "name": "Ammonia-Free Hair Colour",
+      "category": "Hair Colour & Highlights",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "ammonia-free-hair-colour.webp",
+      "index": 47
+    },
+    {
+      "id": "fashion-hair-colour",
+      "name": "Fashion Hair Colour",
+      "category": "Hair Colour & Highlights",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "fashion-hair-colour.webp",
+      "index": 48
+    },
+    {
+      "id": "highlights",
+      "name": "Highlights",
+      "category": "Hair Colour & Highlights",
+      "price": "₹3,000",
+      "duration": "45 Mins",
+      "imageFileName": "highlights.webp",
+      "index": 49
+    },
+    {
+      "id": "lowlights",
+      "name": "Lowlights",
+      "category": "Hair Colour & Highlights",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "lowlights.webp",
+      "index": 50
+    },
+    {
+      "id": "balayage",
+      "name": "Balayage",
+      "category": "Hair Colour & Highlights",
+      "price": "₹4,500",
+      "duration": "3-4 Hours",
+      "imageFileName": "balayage.webp",
+      "index": 51
+    },
+    {
+      "id": "ombre-colour",
+      "name": "Ombre Colour",
+      "category": "Hair Colour & Highlights",
+      "price": "₹4,500",
+      "duration": "45 Mins",
+      "imageFileName": "ombre-colour.webp",
+      "index": 52
+    },
+    {
+      "id": "babylights",
+      "name": "Babylights",
+      "category": "Hair Colour & Highlights",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "babylights.webp",
+      "index": 53
+    },
+    {
+      "id": "money-piece-highlights",
+      "name": "Money Piece Highlights",
+      "category": "Hair Colour & Highlights",
+      "price": "₹3,000",
+      "duration": "45 Mins",
+      "imageFileName": "money-piece-highlights.webp",
+      "index": 54
+    },
+    {
+      "id": "colour-correction",
+      "name": "Colour Correction",
+      "category": "Hair Colour & Highlights",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "colour-correction.webp",
+      "index": 55
+    },
+    {
+      "id": "hair-bleaching",
+      "name": "Hair Bleaching",
+      "category": "Hair Colour & Highlights",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "hair-bleaching.webp",
+      "index": 56
+    },
+    {
+      "id": "henna-hair-colour",
+      "name": "Henna Hair Colour",
+      "category": "Hair Colour & Highlights",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "henna-hair-colour.webp",
+      "index": 57
+    },
+    {
+      "id": "hair-smoothening",
+      "name": "Hair Smoothening",
+      "category": "Smoothening & Chemical Hair Services",
+      "price": "₹4,500",
+      "duration": "3-4 Hours",
+      "imageFileName": "hair-smoothening.webp",
+      "index": 58
+    },
+    {
+      "id": "hair-rebonding",
+      "name": "Hair Rebonding",
+      "category": "Smoothening & Chemical Hair Services",
+      "price": "₹4,500",
+      "duration": "3-4 Hours",
+      "imageFileName": "hair-rebonding.webp",
+      "index": 59
+    },
+    {
+      "id": "permanent-hair-straightening",
+      "name": "Permanent Hair Straightening",
+      "category": "Smoothening & Chemical Hair Services",
+      "price": "₹4,500",
+      "duration": "45 Mins",
+      "imageFileName": "permanent-hair-straightening.webp",
+      "index": 60
+    },
+    {
+      "id": "hair-relaxing",
+      "name": "Hair Relaxing",
+      "category": "Smoothening & Chemical Hair Services",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "hair-relaxing.webp",
+      "index": 61
+    },
+    {
+      "id": "permanent-hair-perming",
+      "name": "Permanent Hair Perming",
+      "category": "Smoothening & Chemical Hair Services",
+      "price": "₹3,500",
+      "duration": "45 Mins",
+      "imageFileName": "permanent-hair-perming.webp",
+      "index": 62
+    },
+    {
+      "id": "root-lift-treatment",
+      "name": "Root Lift Treatment",
+      "category": "Smoothening & Chemical Hair Services",
+      "price": "₹3,500",
+      "duration": "45 Mins",
+      "imageFileName": "root-lift-treatment.webp",
+      "index": 63
+    },
+    {
+      "id": "basic-facial",
+      "name": "Basic Facial",
+      "category": "Facial & Skincare",
+      "price": "₹1,200",
+      "duration": "60-90 Mins",
+      "imageFileName": "basic-facial.webp",
+      "index": 64
+    },
+    {
+      "id": "fruit-facial",
+      "name": "Fruit Facial",
+      "category": "Facial & Skincare",
+      "price": "₹1,000",
+      "duration": "60-90 Mins",
+      "imageFileName": "fruit-facial.webp",
+      "index": 65
+    },
+    {
+      "id": "herbal-facial",
+      "name": "Herbal Facial",
+      "category": "Facial & Skincare",
+      "price": "₹1,000",
+      "duration": "60-90 Mins",
+      "imageFileName": "herbal-facial.webp",
+      "index": 66
+    },
+    {
+      "id": "hydrating-facial",
+      "name": "Hydrating Facial",
+      "category": "Facial & Skincare",
+      "price": "₹2,000",
+      "duration": "60-90 Mins",
+      "imageFileName": "hydrating-facial.webp",
+      "index": 67
+    },
+    {
+      "id": "o3-gold-facial",
+      "name": "Gold Facial",
+      "category": "Facial & Skincare",
+      "price": "₹2,500",
+      "duration": "60-90 Mins",
+      "imageFileName": "gold-facial.webp",
+      "index": 68
+    },
+    {
+      "id": "diamond-facial",
+      "name": "Diamond Facial",
+      "category": "Facial & Skincare",
+      "price": "₹2,500",
+      "duration": "60-90 Mins",
+      "imageFileName": "diamond-facial.webp",
+      "index": 69
+    },
+    {
+      "id": "pearl-facial",
+      "name": "Pearl Facial",
+      "category": "Facial & Skincare",
+      "price": "₹2,500",
+      "duration": "60-90 Mins",
+      "imageFileName": "pearl-facial.webp",
+      "index": 70
+    },
+    {
+      "id": "brightening-facial",
+      "name": "Brightening Facial",
+      "category": "Facial & Skincare",
+      "price": "₹800",
+      "duration": "60-90 Mins",
+      "imageFileName": "brightening-facial.webp",
+      "index": 71
+    },
+    {
+      "id": "anti-ageing-facial",
+      "name": "Anti-Ageing Facial",
+      "category": "Facial & Skincare",
+      "price": "₹800",
+      "duration": "60-90 Mins",
+      "imageFileName": "anti-ageing-facial.webp",
+      "index": 72
+    },
+    {
+      "id": "acne-prone-skin-facial",
+      "name": "Acne-Prone Skin Facial",
+      "category": "Facial & Skincare",
+      "price": "₹800",
+      "duration": "60-90 Mins",
+      "imageFileName": "acne-prone-skin-facial.webp",
+      "index": 73
+    },
+    {
+      "id": "sensitive-skin-facial",
+      "name": "Sensitive Skin Facial",
+      "category": "Facial & Skincare",
+      "price": "₹800",
+      "duration": "60-90 Mins",
+      "imageFileName": "sensitive-skin-facial.webp",
+      "index": 74
+    },
+    {
+      "id": "de-tan-facial",
+      "name": "De-Tan Facial",
+      "category": "Facial & Skincare",
+      "price": "₹1,000",
+      "duration": "60-90 Mins",
+      "imageFileName": "de-tan-facial.webp",
+      "index": 75
+    },
+    {
+      "id": "deep-cleansing-facial",
+      "name": "Deep Cleansing Facial",
+      "category": "Facial & Skincare",
+      "price": "₹2,000",
+      "duration": "60-90 Mins",
+      "imageFileName": "deep-cleansing-facial.webp",
+      "index": 76
+    },
+    {
+      "id": "basic-cleanup",
+      "name": "Basic Cleanup",
+      "category": "Facial & Skincare",
+      "price": "₹600",
+      "duration": "30-45 Mins",
+      "imageFileName": "basic-cleanup.webp",
+      "index": 77
+    },
+    {
+      "id": "premium-cleanup",
+      "name": "Premium Cleanup",
+      "category": "Facial & Skincare",
+      "price": "₹600",
+      "duration": "30-45 Mins",
+      "imageFileName": "premium-cleanup.webp",
+      "index": 78
+    },
+    {
+      "id": "blackhead-removal",
+      "name": "Blackhead Removal",
+      "category": "Facial & Skincare",
+      "price": "₹500",
+      "duration": "45 Mins",
+      "imageFileName": "blackhead-removal.webp",
+      "index": 79
+    },
+    {
+      "id": "whitehead-removal",
+      "name": "Whitehead Removal",
+      "category": "Facial & Skincare",
+      "price": "₹500",
+      "duration": "45 Mins",
+      "imageFileName": "whitehead-removal.webp",
+      "index": 80
+    },
+    {
+      "id": "face-mask-treatment",
+      "name": "Face Mask Treatment",
+      "category": "Facial & Skincare",
+      "price": "₹500",
+      "duration": "45 Mins",
+      "imageFileName": "face-mask-treatment.webp",
+      "index": 81
+    },
+    {
+      "id": "face-bleaching",
+      "name": "Face Bleaching",
+      "category": "Facial & Skincare",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "face-bleaching.webp",
+      "index": 82
+    },
+    {
+      "id": "skin-polishing",
+      "name": "Skin Polishing",
+      "category": "Facial & Skincare",
+      "price": "₹800",
+      "duration": "15-20 Mins",
+      "imageFileName": "skin-polishing.webp",
+      "index": 83
+    },
+    {
+      "id": "under-eye-care",
+      "name": "Under-Eye Care",
+      "category": "Facial & Skincare",
+      "price": "₹500",
+      "duration": "45 Mins",
+      "imageFileName": "under-eye-care.webp",
+      "index": 84
+    },
+    {
+      "id": "bridal-skin-preparation",
+      "name": "Bridal Skin Preparation",
+      "category": "Facial & Skincare",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "bridal-skin-preparation.webp",
+      "index": 85
+    },
+    {
+      "id": "eyebrow-threading",
+      "name": "Eyebrow Threading",
+      "category": "Threading & Face Grooming",
+      "price": "₹50",
+      "duration": "15-20 Mins",
+      "imageFileName": "eyebrow-threading.webp",
+      "index": 86
+    },
+    {
+      "id": "upper-lip-threading",
+      "name": "Upper Lip Threading",
+      "category": "Threading & Face Grooming",
+      "price": "₹50",
+      "duration": "15-20 Mins",
+      "imageFileName": "upper-lip-threading.webp",
+      "index": 87
+    },
+    {
+      "id": "forehead-threading",
+      "name": "Forehead Threading",
+      "category": "Threading & Face Grooming",
+      "price": "₹50",
+      "duration": "15-20 Mins",
+      "imageFileName": "forehead-threading.webp",
+      "index": 88
+    },
+    {
+      "id": "chin-threading",
+      "name": "Chin Threading",
+      "category": "Threading & Face Grooming",
+      "price": "₹50",
+      "duration": "15-20 Mins",
+      "imageFileName": "chin-threading.webp",
+      "index": 89
+    },
+    {
+      "id": "side-locks-threading",
+      "name": "Side Locks Threading",
+      "category": "Threading & Face Grooming",
+      "price": "₹50",
+      "duration": "15-20 Mins",
+      "imageFileName": "side-locks-threading.webp",
+      "index": 90
+    },
+    {
+      "id": "full-face-threading",
+      "name": "Full Face Threading",
+      "category": "Threading & Face Grooming",
+      "price": "₹250",
+      "duration": "15-20 Mins",
+      "imageFileName": "full-face-threading.webp",
+      "index": 91
+    },
+    {
+      "id": "eyebrow-shaping",
+      "name": "Eyebrow Shaping",
+      "category": "Threading & Face Grooming",
+      "price": "₹50",
+      "duration": "45 Mins",
+      "imageFileName": "eyebrow-shaping.webp",
+      "index": 92
+    },
+    {
+      "id": "eyebrow-tinting",
+      "name": "Eyebrow Tinting",
+      "category": "Threading & Face Grooming",
+      "price": "₹300",
+      "duration": "45 Mins",
+      "imageFileName": "eyebrow-tinting.webp",
+      "index": 93
+    },
+    {
+      "id": "eyebrow-lamination",
+      "name": "Eyebrow Lamination",
+      "category": "Threading & Face Grooming",
+      "price": "₹1,500",
+      "duration": "45 Mins",
+      "imageFileName": "eyebrow-lamination.webp",
+      "index": 94
+    },
+    {
+      "id": "eyelash-tinting",
+      "name": "Eyelash Tinting",
+      "category": "Threading & Face Grooming",
+      "price": "₹300",
+      "duration": "45 Mins",
+      "imageFileName": "eyelash-tinting.webp",
+      "index": 95
+    },
+    {
+      "id": "eyelash-extensions",
+      "name": "Eyelash Extensions",
+      "category": "Threading & Face Grooming",
+      "price": "₹1,500",
+      "duration": "60-90 Mins",
+      "imageFileName": "eyelash-extensions.webp",
+      "index": 96
+    },
+    {
+      "id": "lash-lift",
+      "name": "Lash Lift",
+      "category": "Threading & Face Grooming",
+      "price": "₹1,500",
+      "duration": "45 Mins",
+      "imageFileName": "lash-lift.webp",
+      "index": 97
+    },
+    {
+      "id": "false-eyelash-application",
+      "name": "False Eyelash Application",
+      "category": "Threading & Face Grooming",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "false-eyelash-application.webp",
+      "index": 98
+    },
+    {
+      "id": "upper-lip-waxing",
+      "name": "Upper Lip Waxing",
+      "category": "Waxing",
+      "price": "₹150",
+      "duration": "30-45 Mins",
+      "imageFileName": "upper-lip-waxing.webp",
+      "index": 99
+    },
+    {
+      "id": "full-face-waxing",
+      "name": "Full Face Waxing",
+      "category": "Waxing",
+      "price": "₹350",
+      "duration": "30-45 Mins",
+      "imageFileName": "full-face-waxing.webp",
+      "index": 100
+    },
+    {
+      "id": "underarm-waxing",
+      "name": "Underarm Waxing",
+      "category": "Waxing",
+      "price": "₹150",
+      "duration": "30-45 Mins",
+      "imageFileName": "underarm-waxing.webp",
+      "index": 101
+    },
+    {
+      "id": "half-arms-waxing",
+      "name": "Half Arms Waxing",
+      "category": "Waxing",
+      "price": "₹150",
+      "duration": "30-45 Mins",
+      "imageFileName": "half-arms-waxing.webp",
+      "index": 102
+    },
+    {
+      "id": "full-arms-waxing",
+      "name": "Full Arms Waxing",
+      "category": "Waxing",
+      "price": "₹450",
+      "duration": "30-45 Mins",
+      "imageFileName": "full-arms-waxing.webp",
+      "index": 103
+    },
+    {
+      "id": "half-legs-waxing",
+      "name": "Half Legs Waxing",
+      "category": "Waxing",
+      "price": "₹150",
+      "duration": "30-45 Mins",
+      "imageFileName": "half-legs-waxing.webp",
+      "index": 104
+    },
+    {
+      "id": "full-legs-waxing",
+      "name": "Full Legs Waxing",
+      "category": "Waxing",
+      "price": "₹650",
+      "duration": "30-45 Mins",
+      "imageFileName": "full-legs-waxing.webp",
+      "index": 105
+    },
+    {
+      "id": "full-body-waxing",
+      "name": "Full Body Waxing",
+      "category": "Waxing",
+      "price": "₹1,800",
+      "duration": "30-45 Mins",
+      "imageFileName": "full-body-waxing.webp",
+      "index": 106
+    },
+    {
+      "id": "back-waxing",
+      "name": "Back Waxing",
+      "category": "Waxing",
+      "price": "₹150",
+      "duration": "30-45 Mins",
+      "imageFileName": "back-waxing.webp",
+      "index": 107
+    },
+    {
+      "id": "stomach-waxing",
+      "name": "Stomach Waxing",
+      "category": "Waxing",
+      "price": "₹150",
+      "duration": "30-45 Mins",
+      "imageFileName": "stomach-waxing.webp",
+      "index": 108
+    },
+    {
+      "id": "bikini-line-waxing",
+      "name": "Bikini Line Waxing",
+      "category": "Waxing",
+      "price": "₹150",
+      "duration": "30-45 Mins",
+      "imageFileName": "bikini-line-waxing.webp",
+      "index": 109
+    },
+    {
+      "id": "honey-wax",
+      "name": "Honey Wax",
+      "category": "Waxing",
+      "price": "₹150",
+      "duration": "45 Mins",
+      "imageFileName": "honey-wax.webp",
+      "index": 110
+    },
+    {
+      "id": "chocolate-wax",
+      "name": "Chocolate Wax",
+      "category": "Waxing",
+      "price": "₹900",
+      "duration": "45 Mins",
+      "imageFileName": "chocolate-wax.webp",
+      "index": 111
+    },
+    {
+      "id": "rica-wax",
+      "name": "Rica Wax",
+      "category": "Waxing",
+      "price": "₹900",
+      "duration": "45 Mins",
+      "imageFileName": "rica-wax.webp",
+      "index": 112
+    },
+    {
+      "id": "kerala-bridal-makeup",
+      "name": "Kerala Bridal Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹15,000",
+      "duration": "3-4 Hours",
+      "imageFileName": "kerala-bridal-makeup.webp",
+      "index": 113
+    },
+    {
+      "id": "traditional-bridal-makeup",
+      "name": "Traditional Bridal Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹15,000",
+      "duration": "3-4 Hours",
+      "imageFileName": "traditional-bridal-makeup.webp",
+      "index": 114
+    },
+    {
+      "id": "bridal-makeup",
+      "name": "HD Bridal Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹15,000",
+      "duration": "3-4 Hours",
+      "imageFileName": "hd-bridal-makeup.webp",
+      "index": 115
+    },
+    {
+      "id": "airbrush-bridal",
+      "name": "Airbrush Bridal Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹22,000",
+      "duration": "3-4 Hours",
+      "imageFileName": "airbrush-bridal-makeup.webp",
+      "index": 116
+    },
+    {
+      "id": "engagement-makeup",
+      "name": "Engagement Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹8,000",
+      "duration": "45 Mins",
+      "imageFileName": "engagement-makeup.webp",
+      "index": 117
+    },
+    {
+      "id": "reception-makeup",
+      "name": "Reception Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹8,000",
+      "duration": "45 Mins",
+      "imageFileName": "reception-makeup.webp",
+      "index": 118
+    },
+    {
+      "id": "party-makeup",
+      "name": "Party Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹3,500",
+      "duration": "45 Mins",
+      "imageFileName": "party-makeup.webp",
+      "index": 119
+    },
+    {
+      "id": "natural-makeup",
+      "name": "Natural Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹2,500",
+      "duration": "45 Mins",
+      "imageFileName": "natural-makeup.webp",
+      "index": 120
+    },
+    {
+      "id": "soft-glam-makeup",
+      "name": "Soft Glam Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹2,500",
+      "duration": "45 Mins",
+      "imageFileName": "soft-glam-makeup.webp",
+      "index": 121
+    },
+    {
+      "id": "evening-makeup",
+      "name": "Evening Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹3,500",
+      "duration": "45 Mins",
+      "imageFileName": "evening-makeup.webp",
+      "index": 122
+    },
+    {
+      "id": "wedding-guest-makeup",
+      "name": "Wedding Guest Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹2,500",
+      "duration": "45 Mins",
+      "imageFileName": "wedding-guest-makeup.webp",
+      "index": 123
+    },
+    {
+      "id": "bridesmaid-makeup",
+      "name": "Bridesmaid Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "bridesmaid-makeup.webp",
+      "index": 124
+    },
+    {
+      "id": "photoshoot-makeup",
+      "name": "Photoshoot Makeup",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "photoshoot-makeup.webp",
+      "index": 125
+    },
+    {
+      "id": "bridal-makeup-trial",
+      "name": "Bridal Makeup Trial",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹3,500",
+      "duration": "3-4 Hours",
+      "imageFileName": "bridal-makeup-trial.webp",
+      "index": 126
+    },
+    {
+      "id": "bridal-hairstyling",
+      "name": "Bridal Hairstyling",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "bridal-hairstyling.webp",
+      "index": 127
+    },
+    {
+      "id": "bridal-saree-draping",
+      "name": "Bridal Saree Draping",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "bridal-saree-draping.webp",
+      "index": 128
+    },
+    {
+      "id": "traditional-saree-draping",
+      "name": "Traditional Saree Draping",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "traditional-saree-draping.webp",
+      "index": 129
+    },
+    {
+      "id": "false-eyelash-application",
+      "name": "False Eyelash Application",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "false-eyelash-application.webp",
+      "index": 130
+    },
+    {
+      "id": "complete-bridal-makeup-package",
+      "name": "Complete Bridal Makeup Package",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹25,000",
+      "duration": "3-4 Hours",
+      "imageFileName": "complete-bridal-makeup-package.webp",
+      "index": 131
+    },
+    {
+      "id": "pre-bridal-package",
+      "name": "Pre-Bridal Package",
+      "category": "Bridal Makeup & Special Occasion Makeup",
+      "price": "₹6,500",
+      "duration": "2-3 Hours",
+      "imageFileName": "pre-bridal-package.webp",
+      "index": 132
+    },
+    {
+      "id": "basic-manicure",
+      "name": "Basic Manicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹600",
+      "duration": "45-60 Mins",
+      "imageFileName": "basic-manicure.webp",
+      "index": 133
+    },
+    {
+      "id": "manicure",
+      "name": "Spa Manicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹600",
+      "duration": "45-60 Mins",
+      "imageFileName": "spa-manicure.webp",
+      "index": 134
+    },
+    {
+      "id": "premium-manicure",
+      "name": "Premium Manicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹600",
+      "duration": "45-60 Mins",
+      "imageFileName": "premium-manicure.webp",
+      "index": 135
+    },
+    {
+      "id": "gel-manicure",
+      "name": "Gel Manicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹600",
+      "duration": "45-60 Mins",
+      "imageFileName": "gel-manicure.webp",
+      "index": 136
+    },
+    {
+      "id": "basic-pedicure",
+      "name": "Basic Pedicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹750",
+      "duration": "45-60 Mins",
+      "imageFileName": "basic-pedicure.webp",
+      "index": 137
+    },
+    {
+      "id": "pedicure",
+      "name": "Spa Pedicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹750",
+      "duration": "45-60 Mins",
+      "imageFileName": "spa-pedicure.webp",
+      "index": 138
+    },
+    {
+      "id": "premium-pedicure",
+      "name": "Premium Pedicure",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹750",
+      "duration": "45-60 Mins",
+      "imageFileName": "premium-pedicure.webp",
+      "index": 139
+    },
+    {
+      "id": "heel-care",
+      "name": "Heel Care",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "heel-care.webp",
+      "index": 140
+    },
+    {
+      "id": "foot-scrub",
+      "name": "Foot Scrub",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "foot-scrub.webp",
+      "index": 141
+    },
+    {
+      "id": "foot-massage",
+      "name": "Foot Massage",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹1,200",
+      "duration": "45-60 Mins",
+      "imageFileName": "foot-massage.webp",
+      "index": 142
+    },
+    {
+      "id": "nail-shaping",
+      "name": "Nail Shaping",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "nail-shaping.webp",
+      "index": 143
+    },
+    {
+      "id": "nail-polish-application",
+      "name": "Nail Polish Application",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹800",
+      "duration": "15-20 Mins",
+      "imageFileName": "nail-polish-application.webp",
+      "index": 144
+    },
+    {
+      "id": "gel-nail-polish",
+      "name": "Gel Nail Polish",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹500",
+      "duration": "15-20 Mins",
+      "imageFileName": "gel-nail-polish.webp",
+      "index": 145
+    },
+    {
+      "id": "nail-art",
+      "name": "Nail Art",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "nail-art.webp",
+      "index": 146
+    },
+    {
+      "id": "nail-extensions",
+      "name": "Nail Extensions",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹2,000",
+      "duration": "60-90 Mins",
+      "imageFileName": "nail-extensions.webp",
+      "index": 147
+    },
+    {
+      "id": "nail-extension-removal",
+      "name": "Nail Extension Removal",
+      "category": "Manicure, Pedicure & Nail Care",
+      "price": "₹500",
+      "duration": "45 Mins",
+      "imageFileName": "nail-extension-removal.webp",
+      "index": 148
+    },
+    {
+      "id": "head-neck-and-shoulder-massage",
+      "name": "Head, Neck & Shoulder Massage",
+      "category": "Body Care & Relaxation",
+      "price": "₹1,200",
+      "duration": "45-60 Mins",
+      "imageFileName": "head-neck-and-shoulder-massage.webp",
+      "index": 149
+    },
+    {
+      "id": "hand-spa",
+      "name": "Hand Spa",
+      "category": "Body Care & Relaxation",
+      "price": "₹1,200",
+      "duration": "45 Mins",
+      "imageFileName": "hand-spa.webp",
+      "index": 150
+    },
+    {
+      "id": "foot-spa",
+      "name": "Foot Spa",
+      "category": "Body Care & Relaxation",
+      "price": "₹1,200",
+      "duration": "45 Mins",
+      "imageFileName": "foot-spa.webp",
+      "index": 151
+    },
+    {
+      "id": "body-scrub",
+      "name": "Body Scrub",
+      "category": "Body Care & Relaxation",
+      "price": "₹2,500",
+      "duration": "45 Mins",
+      "imageFileName": "body-scrub.webp",
+      "index": 152
+    },
+    {
+      "id": "body-polishing",
+      "name": "Body Polishing",
+      "category": "Body Care & Relaxation",
+      "price": "₹2,500",
+      "duration": "60-90 Mins",
+      "imageFileName": "body-polishing.webp",
+      "index": 153
+    },
+    {
+      "id": "body-de-tan",
+      "name": "Body De-Tan",
+      "category": "Body Care & Relaxation",
+      "price": "₹1,000",
+      "duration": "45 Mins",
+      "imageFileName": "body-de-tan.webp",
+      "index": 154
+    },
+    {
+      "id": "back-care",
+      "name": "Back Care",
+      "category": "Body Care & Relaxation",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "back-care.webp",
+      "index": 155
+    },
+    {
+      "id": "relaxing-foot-massage",
+      "name": "Relaxing Foot Massage",
+      "category": "Body Care & Relaxation",
+      "price": "₹1,200",
+      "duration": "45-60 Mins",
+      "imageFileName": "relaxing-foot-massage.webp",
+      "index": 156
+    },
+    {
+      "id": "bridal-mehndi",
+      "name": "Bridal Mehndi",
+      "category": "Mehndi & Traditional Beauty",
+      "price": "₹3,500",
+      "duration": "3-4 Hours",
+      "imageFileName": "bridal-mehndi.webp",
+      "index": 157
+    },
+    {
+      "id": "traditional-mehndi",
+      "name": "Traditional Mehndi",
+      "category": "Mehndi & Traditional Beauty",
+      "price": "₹1,000",
+      "duration": "3-4 Hours",
+      "imageFileName": "traditional-mehndi.webp",
+      "index": 158
+    },
+    {
+      "id": "party-mehndi",
+      "name": "Party Mehndi",
+      "category": "Mehndi & Traditional Beauty",
+      "price": "₹1,000",
+      "duration": "3-4 Hours",
+      "imageFileName": "party-mehndi.webp",
+      "index": 159
+    },
+    {
+      "id": "simple-hand-mehndi",
+      "name": "Simple Hand Mehndi",
+      "category": "Mehndi & Traditional Beauty",
+      "price": "₹1,000",
+      "duration": "3-4 Hours",
+      "imageFileName": "simple-hand-mehndi.webp",
+      "index": 160,
+      "offerPrice": "300"
+    },
+    {
+      "id": "arabic-mehndi",
+      "name": "Arabic Mehndi",
+      "category": "Mehndi & Traditional Beauty",
+      "price": "₹1,000",
+      "duration": "3-4 Hours",
+      "imageFileName": "arabic-mehndi.webp",
+      "index": 161
+    },
+    {
+      "id": "hair-henna-application",
+      "name": "Hair Henna Application",
+      "category": "Mehndi & Traditional Beauty",
+      "price": "₹800",
+      "duration": "45 Mins",
+      "imageFileName": "hair-henna-application.webp",
+      "index": 162
+    },
+    {
+      "id": "haircut-plus-hair-spa-combo",
+      "name": "Haircut + Hair Spa Combo",
+      "category": "Salon Packages & Combos",
+      "price": "₹1,200",
+      "duration": "45-60 Mins",
+      "imageFileName": "haircut-plus-hair-spa-combo.webp",
+      "index": 163
+    },
+    {
+      "id": "hair-colour-plus-haircut-combo",
+      "name": "Hair Colour + Haircut Combo",
+      "category": "Salon Packages & Combos",
+      "price": "₹1,800",
+      "duration": "30-45 Mins",
+      "imageFileName": "hair-colour-plus-haircut-combo.webp",
+      "index": 164
+    },
+    {
+      "id": "facial-plus-cleanup-combo",
+      "name": "Facial + Cleanup Combo",
+      "category": "Salon Packages & Combos",
+      "price": "₹600",
+      "duration": "60-90 Mins",
+      "imageFileName": "facial-plus-cleanup-combo.webp",
+      "index": 165
+    },
+    {
+      "id": "manicure-plus-pedicure-combo",
+      "name": "Manicure + Pedicure Combo",
+      "category": "Salon Packages & Combos",
+      "price": "₹750",
+      "duration": "45-60 Mins",
+      "imageFileName": "manicure-plus-pedicure-combo.webp",
+      "index": 166
+    },
+    {
+      "id": "haircare-maintenance-package",
+      "name": "Haircare Maintenance Package",
+      "category": "Salon Packages & Combos",
+      "price": "₹3,500",
+      "duration": "2-3 Hours",
+      "imageFileName": "haircare-maintenance-package.webp",
+      "index": 167
+    },
+    {
+      "id": "monthly-beauty-maintenance",
+      "name": "Monthly Beauty Maintenance",
+      "category": "Salon Packages & Combos",
+      "price": "₹3,500",
+      "duration": "45 Mins",
+      "imageFileName": "monthly-beauty-maintenance.webp",
+      "index": 168
+    },
+    {
+      "id": "pre-bridal-beauty-package",
+      "name": "Pre-Bridal Beauty Package",
+      "category": "Salon Packages & Combos",
+      "price": "₹6,500",
+      "duration": "2-3 Hours",
+      "imageFileName": "pre-bridal-beauty-package.webp",
+      "index": 169
+    },
+    {
+      "id": "engagement-beauty-package",
+      "name": "Engagement Beauty Package",
+      "category": "Salon Packages & Combos",
+      "price": "₹8,000",
+      "duration": "2-3 Hours",
+      "imageFileName": "engagement-beauty-package.webp",
+      "index": 170
+    },
+    {
+      "id": "complete-bridal-package",
+      "name": "Complete Bridal Package",
+      "category": "Salon Packages & Combos",
+      "price": "₹25,000",
+      "duration": "2-3 Hours",
+      "imageFileName": "complete-bridal-package.webp",
+      "index": 171
+    },
+    {
+      "id": "party-makeup-package",
+      "name": "Party Makeup Package",
+      "category": "Salon Packages & Combos",
+      "price": "₹3,500",
+      "duration": "2-3 Hours",
+      "imageFileName": "party-makeup-package.webp",
+      "index": 172
+    }
+  ]
+}

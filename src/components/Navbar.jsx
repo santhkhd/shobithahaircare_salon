@@ -1,17 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes, FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from 'react';
+import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
+import { FaPhoneAlt, FaWhatsapp, FaCalendarCheck } from 'react-icons/fa';
 import { useBooking } from '../context/BookingContext';
+import OfferBanner from './OfferBanner';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const { openBooking } = useBooking();
     const location = useLocation();
+    const navigate = useNavigate();
+
+    // Secret Admin Shortcut: Triple-tap the logo to open Admin panel
+    const tapTimeoutRef = useRef(null);
+    const [tapCount, setTapCount] = useState(0);
+
+    const handleLogoClick = (e) => {
+        setTapCount(prev => {
+            const next = prev + 1;
+            if (next >= 3) {
+                e.preventDefault();
+                navigate('/admin');
+                return 0;
+            }
+            return next;
+        });
+        clearTimeout(tapTimeoutRef.current);
+        tapTimeoutRef.current = setTimeout(() => setTapCount(0), 1200);
+    };
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
+            setScrolled(window.scrollY > 15);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
@@ -22,6 +42,18 @@ const Navbar = () => {
         setIsOpen(false);
     }, [location]);
 
+    // Prevent body scroll when mobile menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
     const navLinks = [
         { name: 'Home', path: '/' },
         { name: 'Services', path: '/services' },
@@ -29,28 +61,51 @@ const Navbar = () => {
         { name: 'Gallery', path: '/gallery' },
         { name: 'Pricing', path: '/pricing' },
         { name: 'Reviews', path: '/reviews' },
+        { name: 'Blog', path: '/blog' },
         { name: 'Contact', path: '/contact' },
     ];
 
     return (
         <header
-            className={`fixed w-full z-40 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
-                }`}
+            className={`fixed top-0 left-0 right-0 w-full z-40 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-gray-200/80 ${
+                scrolled ? 'shadow-md' : 'shadow-xs'
+            }`}
         >
-            <div className="container-custom flex justify-between items-center">
-                {/* Logo */}
-                <Link to="/" className="text-2xl md:text-3xl font-serif font-bold text-primary-dark">
-                    Shobitha <span className="text-secondary">Haircare</span>
+            <OfferBanner />
+            <div className={`container-custom flex justify-between items-center transition-all duration-300 px-3.5 sm:px-6 ${
+                scrolled ? 'py-2' : 'py-2.5 sm:py-3'
+            }`}>
+                {/* Logo matching Image 2 (Triple-tap secretly opens Admin) */}
+                <Link to="/" onClick={handleLogoClick} className="flex items-center gap-2 group select-none">
+                    {/* Golden Lotus Silhouette Icon */}
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 shrink-0 flex items-center justify-center">
+                        <svg viewBox="0 0 100 100" className="w-full h-full text-amber-600 fill-current drop-shadow-xs">
+                            <path d="M50 15 C52 28, 65 35, 68 50 C70 60, 62 70, 50 78 C38 70, 30 60, 32 50 C35 35, 48 28, 50 15 Z" fill="#C59B27"/>
+                            <path d="M50 30 C58 40, 72 45, 78 58 C82 66, 75 75, 62 80 C55 76, 51 72, 50 70 C49 72, 45 76, 38 80 C25 75, 18 66, 22 58 C28 45, 42 40, 50 30 Z" fill="#D4AF37" opacity="0.95"/>
+                            <path d="M50 45 C55 52, 65 58, 68 68 C70 74, 62 82, 50 85 C38 82, 30 74, 32 68 C35 58, 45 52, 50 45 Z" fill="#B8860B"/>
+                        </svg>
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-base sm:text-xl md:text-2xl font-serif font-black tracking-tight text-gray-950 leading-tight">
+                            Shobitha <span className="font-serif text-gray-900 font-bold">Haircare</span>
+                        </span>
+                        <span className="text-[7.5px] sm:text-[9px] tracking-[0.22em] uppercase text-gray-800 font-extrabold leading-none mt-0.5">
+                            & BRIDAL MAKEUP STUDIO
+                        </span>
+                    </div>
                 </Link>
 
                 {/* Desktop Nav */}
-                <nav className="hidden lg:flex items-center gap-6">
+                <nav className="hidden lg:flex items-center gap-7">
                     {navLinks.map((link) => (
                         <NavLink
                             key={link.name}
                             to={link.path}
                             className={({ isActive }) =>
-                                `font-medium text-sm tracking-wide transition-colors ${isActive ? 'text-secondary-dark' : scrolled ? 'text-gray-700 hover:text-primary' : 'text-gray-800 hover:text-primary' // simplified for visibility on hero
+                                `relative text-sm font-bold tracking-wide transition-colors py-1 ${
+                                    isActive
+                                        ? 'text-primary-dark font-extrabold after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary-dark after:rounded-full'
+                                        : 'text-gray-800 hover:text-primary-dark'
                                 }`
                             }
                         >
@@ -59,63 +114,105 @@ const Navbar = () => {
                     ))}
                 </nav>
 
-                {/* Right Side Buttons */}
+                {/* Desktop Action Buttons */}
                 <div className="hidden lg:flex items-center gap-3">
                     <a
-                        href="https://wa.me/918075340778"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 rounded-full bg-green-50 text-green-600 hover:bg-green-100 transition"
-                        title="WhatsApp"
-                    >
-                        <FaWhatsapp size={20} />
-                    </a>
-                    <a
                         href="tel:+918075340778"
-                        className="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
-                        title="Call"
+                        className="p-2 text-gray-700 hover:text-primary-dark transition-colors"
+                        title="Call Salon"
                     >
-                        <FaPhoneAlt size={18} />
+                        <FaPhoneAlt size={16} />
                     </a>
                     <button
                         onClick={() => openBooking()}
-                        className="bg-primary hover:bg-primary-dark text-white px-5 py-2 rounded-full text-sm font-medium transition shadow-md"
+                        className="btn-primary py-2.5 px-5 text-sm font-bold flex items-center gap-2 shadow-sm"
                     >
-                        Book Appointment
+                        <FaCalendarCheck /> Book Now
                     </button>
                 </div>
 
-                {/* Mobile Toggle */}
-                <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden text-gray-800 p-2">
-                    {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-                </button>
+                {/* Mobile Right Icons matching Image 2: Circular Phone + Hamburger */}
+                <div className="flex items-center gap-2 lg:hidden">
+                    {/* Circular Gold Phone Button */}
+                    <a
+                        href="tel:+918075340778"
+                        className="w-9 h-9 rounded-full border border-amber-500/70 text-amber-700 flex items-center justify-center hover:bg-amber-50 active:scale-95 transition-all shadow-xs"
+                        aria-label="Call Studio"
+                        title="Call Salon"
+                    >
+                        <FaPhoneAlt size={13} />
+                    </a>
+
+                    {/* Hamburger Button with 3 horizontal lines */}
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="w-9 h-9 flex flex-col justify-center items-center gap-1.5 p-1 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none"
+                        aria-label="Toggle Navigation Menu"
+                    >
+                        <span className={`w-5 h-0.5 bg-gray-900 rounded-full transition-transform duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                        <span className={`w-5 h-0.5 bg-gray-900 rounded-full transition-opacity duration-300 ${isOpen ? 'opacity-0' : ''}`} />
+                        <span className={`w-5 h-0.5 bg-gray-900 rounded-full transition-transform duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+                    </button>
+                </div>
             </div>
 
-            {/* Mobile Menu */}
+            {/* Mobile Drawer Overlay */}
             {isOpen && (
-                <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-xl py-6 px-4 flex flex-col gap-4 border-t">
-                    {navLinks.map((link) => (
-                        <NavLink
-                            key={link.name}
-                            to={link.path}
-                            className={({ isActive }) =>
-                                `block text-lg font-medium ${isActive ? 'text-primary' : 'text-gray-700'}`
-                            }
-                        >
-                            {link.name}
-                        </NavLink>
-                    ))}
-                    <div className="flex flex-col gap-3 mt-4 border-t pt-4">
-                        <button onClick={() => openBooking()} className="bg-primary text-white py-3 rounded-lg font-medium w-full">
-                            Book Appointment
-                        </button>
-                        <div className="flex gap-4 justify-center">
-                            <a href="https://wa.me/918075340778" className="flex items-center gap-2 text-green-600 font-medium bg-green-50 px-4 py-2 rounded-lg w-full justify-center">
-                                <FaWhatsapp /> WhatsApp
-                            </a>
-                            <a href="tel:+918075340778" className="flex items-center gap-2 text-blue-600 font-medium bg-blue-50 px-4 py-2 rounded-lg w-full justify-center">
-                                <FaPhoneAlt /> Call
-                            </a>
+                <div
+                    className="fixed inset-x-0 top-full bg-black/60 backdrop-blur-sm z-50 lg:hidden shadow-2xl"
+                    style={{ height: 'calc(100vh - 100%)' }}
+                    onClick={() => setIsOpen(false)}
+                >
+                    <div
+                        className="bg-white border-b border-amber-200/80 shadow-2xl p-5 flex flex-col gap-3 max-h-[80vh] overflow-y-auto"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <nav className="flex flex-col divide-y divide-gray-100">
+                            {navLinks.map((link) => (
+                                <NavLink
+                                    key={link.name}
+                                    to={link.path}
+                                    className={({ isActive }) =>
+                                        `py-3 text-sm font-bold flex items-center justify-between transition-colors ${
+                                            isActive
+                                                ? 'text-primary-dark font-extrabold bg-primary-50/60 px-3 rounded-xl'
+                                                : 'text-gray-900 hover:text-primary-dark px-1'
+                                        }`
+                                    }
+                                >
+                                    <span>{link.name}</span>
+                                    <span className="text-xs text-gray-400">&rarr;</span>
+                                </NavLink>
+                            ))}
+                        </nav>
+
+                        <div className="pt-3 border-t border-gray-100 flex flex-col gap-2.5">
+                            <button
+                                onClick={() => {
+                                    setIsOpen(false);
+                                    openBooking();
+                                }}
+                                className="w-full btn-primary py-3 flex items-center justify-center gap-2 shadow-md text-xs font-bold"
+                            >
+                                <FaCalendarCheck /> Book Appointment
+                            </button>
+
+                            <div className="grid grid-cols-2 gap-2">
+                                <a
+                                    href="https://wa.me/918075340778"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-2 text-emerald-800 font-bold bg-emerald-50 border border-emerald-300 py-2.5 rounded-xl text-xs"
+                                >
+                                    <FaWhatsapp size={15} /> WhatsApp
+                                </a>
+                                <a
+                                    href="tel:+918075340778"
+                                    className="flex items-center justify-center gap-2 text-primary-dark font-bold bg-primary-50 border border-primary-300 py-2.5 rounded-xl text-xs"
+                                >
+                                    <FaPhoneAlt size={12} /> Call Now
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

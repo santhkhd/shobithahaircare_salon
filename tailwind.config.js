@@ -8,16 +8,32 @@ export default {
         extend: {
             colors: {
                 primary: {
-                    light: '#F9F1D8', // Light Gold/Cream
-                    DEFAULT: '#D4A52A', // Gold
-                    dark: '#AA8421', // Dark Gold
+                    50: '#FAF6EC',
+                    100: '#F4EBD4',
+                    200: '#E8D5A3',
+                    300: '#DABF73',
+                    light: '#F4EBD4',
+                    DEFAULT: '#C59A27', // Rich warm metallic gold
+                    dark: '#9E7815',
                 },
                 secondary: {
-                    light: '#ffe4e6', // Soft Pink
-                    DEFAULT: '#db2777', // Pink 600
-                    dark: '#9d174d', // Pink 800
+                    50: '#FDF7F6',
+                    100: '#FAEDE9',
+                    light: '#F5DDD7',
+                    DEFAULT: '#C4776C', // Warm Rose-Gold / Soft Terracotta Blush
+                    dark: '#9F554A',
                 },
-                dark: '#1a1a1a',
+                gold: {
+                    light: '#F4EBD4',
+                    DEFAULT: '#C59A27',
+                    dark: '#9E7815',
+                },
+                dark: {
+                    light: '#282522',
+                    DEFAULT: '#181715', // Warm luxury espresso charcoal
+                    darker: '#100F0E',
+                },
+                cream: '#FAF8F5',
             },
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],

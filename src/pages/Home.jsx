@@ -7,7 +7,7 @@ import { services } from '../data/services';
 import { specialOffers } from '../data/offers';
 import { 
     FaSearch, FaTimes, FaHeart, FaRegHeart, FaArrowRight, 
-    FaCalendarCheck, FaRegClock, FaChevronRight, FaMedal, 
+    FaCalendarCheck, FaRegClock, FaChevronRight, FaChevronLeft, FaMedal, 
     FaUsers, FaShieldAlt, FaThLarge, FaCut, FaSpa, 
     FaPaintBrush, FaMapMarkerAlt, FaLeaf, FaStar, FaCheckCircle, 
     FaPhoneAlt, FaWhatsapp, FaQuoteLeft, FaCrown, FaMagic
@@ -21,6 +21,7 @@ import LaurelBranch from '../components/LaurelBranch';
 
 // Bundled high-resolution images
 import bridalBannerBride from '../assets/images/bridal-banner-bride.jpg';
+import bridalMuhurtham from '../assets/images/bridal-muhurtham.jpg';
 import hairCut from '../assets/images/hair-cut.jpg';
 import hairSpaWash from '../assets/images/hair-spa-wash.jpg';
 import luxuryGoldFacial from '../assets/images/luxury-gold-facial.jpg';
@@ -71,6 +72,82 @@ const Home = () => {
         }
     };
 
+    // Auto-running Top Hero Carousel Slides
+    const heroSlides = [
+        {
+            eyebrow: "KANHANGAD'S SIGNATURE",
+            titleLine1: "Bridal",
+            titleLine2: "Makeover",
+            highlight: "Studio",
+            subtitle: "Traditional Kerala Bridal Artistry with Modern Salon Expertise across 172+ certified services.",
+            buttonText: "Book Appointment",
+            buttonAction: () => openBooking({ name: 'Bridal Makeover', category: 'Bridal' }),
+            secondaryLink: "/bridal",
+            secondaryLabel: "Bridal Gallery",
+            image: bridalBannerBride,
+            alt: "Kanhangad's Signature Bridal Makeover Studio"
+        },
+        {
+            eyebrow: "ORGANIC SKIN & GLOW",
+            titleLine1: "O3+ & Gold",
+            titleLine2: "Radiance",
+            highlight: "Facials",
+            subtitle: "De-Tan • Skin Polish • Glass Glow. Deep pore cleansing and organic Ayurvedic glow therapies.",
+            buttonText: "Book Facial",
+            buttonAction: () => openBooking({ name: 'O3+ Gold Facial', category: 'Facial & Skincare' }),
+            secondaryLink: "/services",
+            secondaryLabel: "View All Facials",
+            image: luxuryGoldFacial,
+            alt: "Luxury Gold Radiance Facials"
+        },
+        {
+            eyebrow: "ADVANCED HAIR CARE",
+            titleLine1: "Keratin & Hair",
+            titleLine2: "Smoothening",
+            highlight: "Treatments",
+            subtitle: "Frizz-free mirror shine, deep keratin reconstruction, and intense damage moisture therapies.",
+            buttonText: "Book Hair Care",
+            buttonAction: () => openBooking({ name: 'Keratin Smoothening', category: 'Smoothening & Chemical Hair Services' }),
+            secondaryLink: "/services",
+            secondaryLabel: "Hair Treatments",
+            image: hairSmootheningAfter,
+            alt: "Signature Keratin Hair Smoothening"
+        },
+        {
+            eyebrow: "WEDDING SPECIAL",
+            titleLine1: "Muhurtham",
+            titleLine2: "Bridal",
+            highlight: "Packages",
+            subtitle: "Complete head-to-toe wedding packages: Saree draping, bridal mehndi, hair styling & HD makeup.",
+            buttonText: "Book Bridal Package",
+            buttonAction: () => openBooking({ name: 'Muhurtham Package', category: 'Bridal' }),
+            secondaryLink: "/pricing",
+            secondaryLabel: "See All Prices",
+            image: bridalMuhurtham,
+            alt: "Muhurtham Bridal Packages"
+        }
+    ];
+
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [isHovered, setIsHovered] = useState(false);
+
+    // Auto-advance top carousel every 4.5 seconds
+    useEffect(() => {
+        if (isHovered) return;
+        const timer = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+        }, 4500);
+        return () => clearInterval(timer);
+    }, [isHovered, heroSlides.length]);
+
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+    };
+
     // Category pills matching Gallery / Reviews / Blog aesthetic
     const categoryTabs = [
         { name: 'All', label: 'All Services', count: 172, icon: FaThLarge },
@@ -114,77 +191,111 @@ const Home = () => {
         }
     ];
 
+    const slide = heroSlides[currentSlide];
+
     return (
         <div className="bg-[#FAF9F5] min-h-screen pb-20">
 
             {/* ============================================================ */}
-            {/* 1. HERO SECTION - REGAL WARM CHAMPAGNE & GOLD BRIDAL STUDIO */}
+            {/* 1. HERO CAROUSEL - AUTO-RUNNING LUXURY CHAMPAGNE SHOWCASE   */}
             {/* ============================================================ */}
-            <section className="bg-gradient-to-r from-[#FAF3E8] via-[#FAF3E8] to-[#F5ECE0] rounded-b-3xl sm:rounded-b-[40px] relative overflow-hidden shadow-sm border-b border-[#E8D9C5] pt-24 sm:pt-28 pb-8 sm:pb-12 min-h-[360px] sm:min-h-[420px] flex items-center select-none">
-                {/* Right-side portrait image extending to top, bottom, and right edge */}
+            <section
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                className="bg-gradient-to-r from-[#FAF3E8] via-[#FAF3E8] to-[#F5ECE0] rounded-b-3xl sm:rounded-b-[40px] relative overflow-hidden shadow-sm border-b border-[#E8D9C5] pt-24 sm:pt-28 pb-8 sm:pb-12 min-h-[370px] sm:min-h-[430px] flex items-center select-none"
+            >
+                {/* Right-side portrait image with smooth transition */}
                 <div className="absolute right-0 top-0 bottom-0 w-[55%] sm:w-[50%] md:w-[46%] h-full overflow-hidden pointer-events-none">
                     <img
-                        src={bridalBannerBride}
-                        alt="Kanhangad's Signature Bridal Makeover Studio"
-                        className="w-full h-full object-cover object-[center_15%]"
+                        key={currentSlide}
+                        src={slide.image}
+                        alt={slide.alt}
+                        className="w-full h-full object-cover object-[center_15%] transition-opacity duration-700 ease-in-out"
                         loading="eager"
                     />
                     {/* Soft smooth gradient blend from the left cream background into the portrait */}
                     <div className="absolute inset-0 bg-gradient-to-r from-[#FAF3E8] via-[#FAF3E8]/60 via-30% to-transparent pointer-events-none" />
                 </div>
 
-                {/* Left-side typography and CTA */}
+                {/* Left-side typography and CTA with smooth fade */}
                 <div className="container-custom px-4 sm:px-6 relative z-10 w-full">
                     <div className="w-[66%] sm:w-[58%] md:w-[52%] pl-1 sm:pl-4 py-2 flex flex-col justify-center">
-                        {/* Eyebrow with golden line */}
+                        {/* Eyebrow with golden lines */}
                         <div className="flex items-center gap-2 mb-2">
                             <span className="w-5 sm:w-8 h-[1.5px] bg-[#B98327]/80"></span>
                             <span className="text-[#A46E19] font-black uppercase tracking-[0.2em] text-[9.5px] sm:text-xs">
-                                KANHANGAD'S SIGNATURE
+                                {slide.eyebrow}
                             </span>
                             <span className="w-5 sm:w-8 h-[1.5px] bg-[#B98327]/80"></span>
                         </div>
 
                         {/* Grand Serif Headline */}
                         <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.12] tracking-tight">
-                            <span className="text-[#22160F] block">Bridal</span>
-                            <span className="text-[#22160F] block">Makeover</span>
-                            <span className="text-[#B98327] block font-serif">Studio</span>
+                            <span className="text-[#22160F] block">{slide.titleLine1}</span>
+                            <span className="text-[#22160F] block">{slide.titleLine2}</span>
+                            <span className="text-[#B98327] block font-serif">{slide.highlight}</span>
                         </h1>
 
                         {/* Subtitle */}
-                        <p className="text-gray-700 text-[11px] sm:text-xs md:text-sm font-medium leading-relaxed my-2 sm:my-3 max-w-xs">
-                            Traditional Kerala Bridal Artistry with Modern Salon Expertise across 172+ certified services.
+                        <p className="text-gray-700 text-[11px] sm:text-xs md:text-sm font-medium leading-relaxed my-2 sm:my-3 max-w-xs min-h-[34px] sm:min-h-[42px]">
+                            {slide.subtitle}
                         </p>
 
-                        {/* Golden Pill CTA Button & Trust Pill */}
+                        {/* Golden Pill CTA Button & Secondary Link */}
                         <div className="flex flex-wrap items-center gap-2 mt-1 sm:mt-2">
                             <button
                                 type="button"
-                                onClick={() => openBooking({ name: 'Bridal Makeover', category: 'Bridal' })}
+                                onClick={slide.buttonAction}
                                 className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full bg-gradient-to-r from-[#B97A1E] via-[#A86B14] to-[#8E580B] hover:from-[#A86B14] hover:to-[#7E4C07] text-white font-bold text-xs sm:text-sm shadow-md active:scale-95 transition-all w-fit"
                             >
                                 <FaCalendarCheck size={12} />
-                                <span>Book Appointment</span>
+                                <span>{slide.buttonText}</span>
                                 <FaArrowRight size={10} />
                             </button>
 
                             <Link
-                                to="/bridal"
+                                to={slide.secondaryLink}
                                 className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/80 hover:bg-white text-[#4A0A16] border border-[#E8D9C5] text-xs font-bold transition-all shadow-xs"
                             >
                                 <FaCrown className="text-amber-600" size={11} />
-                                <span>Bridal Gallery</span>
+                                <span>{slide.secondaryLabel}</span>
                             </Link>
                         </div>
                     </div>
                 </div>
 
-                {/* Pagination Dots */}
-                <div className="absolute bottom-2.5 sm:bottom-3.5 left-[48%] sm:left-[45%] -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2">
-                    <span className="w-3 h-3 rounded-full bg-[#A47134] ring-2 ring-white shadow-xs" />
-                    <span className="w-2 h-2 rounded-full bg-white/95 shadow-xs" />
-                    <span className="w-2 h-2 rounded-full bg-white/95 shadow-xs" />
+                {/* Left / Right Carousel Controls */}
+                <button
+                    onClick={prevSlide}
+                    className="absolute left-1.5 sm:left-3 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/70 hover:bg-white text-gray-800 flex items-center justify-center shadow-xs transition z-20 active:scale-90"
+                    aria-label="Previous slide"
+                    title="Previous slide"
+                >
+                    <FaChevronLeft size={11} />
+                </button>
+                <button
+                    onClick={nextSlide}
+                    className="absolute right-1.5 sm:right-3 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/70 hover:bg-white text-gray-800 flex items-center justify-center shadow-xs transition z-20 active:scale-90"
+                    aria-label="Next slide"
+                    title="Next slide"
+                >
+                    <FaChevronRight size={11} />
+                </button>
+
+                {/* Interactive Clickable Pagination Dots */}
+                <div className="absolute bottom-2.5 sm:bottom-3.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+                    {heroSlides.map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setCurrentSlide(idx)}
+                            aria-label={`Go to slide ${idx + 1}`}
+                            className={`transition-all duration-300 rounded-full shadow-xs cursor-pointer ${
+                                currentSlide === idx
+                                    ? 'w-6 h-2.5 bg-[#A47134] ring-2 ring-white'
+                                    : 'w-2.5 h-2.5 bg-white/80 hover:bg-white'
+                            }`}
+                        />
+                    ))}
                 </div>
             </section>
 
@@ -298,64 +409,7 @@ const Home = () => {
                 </div>
 
                 {/* ============================================================ */}
-                {/* 5. PROMO BANNER CARD (Configurable from Mobile Admin)        */}
-                {/* ============================================================ */}
-                {(() => {
-                    const promo = specialOffers.promoBanner || {
-                        title: "O3+ & Gold Radiance",
-                        highlight: "Facials",
-                        subtitle: "De-Tan • Skin Polish • Glass Glow",
-                        buttonText: "Book Now",
-                        linkRoute: "/services",
-                        image: luxuryGoldFacial
-                    };
-                    return (
-                        <div className="mb-8 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xs border border-[#E8D9C5] bg-[#FAF3E8] relative min-h-[148px] sm:min-h-[175px] md:min-h-[195px] flex items-center select-none">
-                            {/* Right-side portrait image extending to top, bottom, and right edge without inner framing */}
-                            <div className="absolute right-0 top-0 bottom-0 w-[53%] sm:w-[50%] md:w-[46%] h-full overflow-hidden pointer-events-none">
-                                <img
-                                    src={promo.image || luxuryGoldFacial}
-                                    alt={`${promo.title} ${promo.highlight || ''}`}
-                                    className="w-full h-full object-cover object-[center_15%]"
-                                    loading="lazy"
-                                />
-                                {/* Soft smooth gradient blend from the left cream background into the portrait */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#FAF3E8] via-[#FAF3E8]/50 via-25% to-transparent pointer-events-none" />
-                            </div>
-
-                            {/* Left-side typography and button */}
-                            <div className="relative z-10 w-[64%] sm:w-[58%] pl-4 sm:pl-7 pr-1 py-3.5 sm:py-5 flex flex-col justify-center">
-                                <h2 className="text-[19px] sm:text-2xl md:text-3xl font-serif font-extrabold text-[#2A180E] leading-[1.12] tracking-tight">
-                                    {promo.title} {promo.highlight && <br />}
-                                    {promo.highlight && <span className="text-[#A47133] font-serif">{promo.highlight}</span>}
-                                </h2>
-                                <p className="text-[10px] sm:text-xs text-[#4C3B30] font-medium tracking-normal mt-1 sm:mt-1.5 whitespace-nowrap">
-                                    {promo.subtitle}
-                                </p>
-
-                                <div className="mt-2.5 sm:mt-3">
-                                    <Link
-                                        to={promo.linkRoute || "/services"}
-                                        className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-[#B97A1E] to-[#925C10] hover:from-[#A86E18] hover:to-[#82500C] text-white text-[11px] sm:text-xs font-bold shadow-xs active:scale-95 transition-all w-fit"
-                                    >
-                                        <span>{promo.buttonText || "Book Now"}</span>
-                                        <FaArrowRight size={9} />
-                                    </Link>
-                                </div>
-                            </div>
-
-                            {/* Dots Pagination */}
-                            <div className="absolute bottom-2.5 sm:bottom-3.5 left-[48%] sm:left-[46%] -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2">
-                                <span className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-[#A47134] ring-2 ring-white shadow-xs" />
-                                <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white/95 shadow-xs" />
-                                <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white/95 shadow-xs" />
-                            </div>
-                        </div>
-                    );
-                })()}
-
-                {/* ============================================================ */}
-                {/* 6. OUR SIGNATURE SERVICES (ELEVATED WITH LAUREL WREATH)      */}
+                {/* 5. OUR SIGNATURE SERVICES (ELEVATED WITH LAUREL WREATH)      */}
                 {/* ============================================================ */}
                 <section className="mb-10 sm:mb-14">
                     {/* Centered Laurel Wreath Section Header */}

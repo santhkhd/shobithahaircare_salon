@@ -47,16 +47,19 @@ const Footer = () => {
                         Quick Links
                     </h3>
                     <ul className="space-y-3 text-sm">
-                        {['Home', 'Services', 'Bridal', 'Gallery', 'Pricing', 'Reviews', 'Blog', 'Contact'].map((item) => (
-                            <li key={item}>
-                                <Link
-                                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
-                                    className="text-gray-300 hover:text-primary transition-colors flex items-center gap-2 font-medium"
-                                >
-                                    <span className="text-primary text-xs">&rsaquo;</span> {item}
-                                </Link>
-                            </li>
-                        ))}
+                        {['Home', 'Services', 'Bridal', 'Wedding Store', 'Gallery', 'Pricing', 'Reviews', 'Blog', 'Contact'].map((item) => {
+                            const path = item === 'Home' ? '/' : item === 'Wedding Store' ? '/wedding-store' : `/${item.toLowerCase()}`;
+                            return (
+                                <li key={item}>
+                                    <Link
+                                        to={path}
+                                        className="text-gray-300 hover:text-primary transition-colors flex items-center gap-2 font-medium"
+                                    >
+                                        <span className="text-primary text-xs">&rsaquo;</span> {item}
+                                    </Link>
+                                </li>
+                            );
+                        })}
                     </ul>
                 </div>
 

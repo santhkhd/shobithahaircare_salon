@@ -251,6 +251,28 @@ const Bridal = () => {
                     </div>
                 </div>
 
+                {/* 4B. WEDDING STORE & MARRIAGE ITEMS MASTER CHECKLIST BANNER */}
+                <div className="bg-gradient-to-r from-[#4A0A16] via-[#5C101F] to-[#4A0A16] text-white rounded-2xl sm:rounded-3xl border border-[#7D1B2D] shadow-md p-4 sm:p-6 my-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div className="flex-1 text-center sm:text-left">
+                        <span className="text-amber-400 font-extrabold uppercase tracking-wider text-[10px] sm:text-xs block mb-1">
+                            FREE MASTER CHECKLIST & BRIDAL STORE
+                        </span>
+                        <h3 className="font-serif font-extrabold text-lg sm:text-2xl text-white leading-tight">
+                            Complete Marriage Items & Saree Store
+                        </h3>
+                        <p className="text-xs sm:text-sm text-amber-100/90 mt-1 max-w-xl">
+                            Pure Kanjivaram silk sarees, Solah Shringar (16 adornments), groom accessories, Vivah puja samagri, and trousseau trays all in one place.
+                        </p>
+                    </div>
+                    <Link
+                        to="/wedding-store"
+                        className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#B97A1E] via-[#A86B14] to-[#8E580B] hover:from-[#A86B14] hover:to-[#7E4C07] text-white font-bold text-xs sm:text-sm shadow-md active:scale-95 transition-all whitespace-nowrap flex items-center gap-1.5"
+                    >
+                        <span>Open Wedding Checklist</span>
+                        <FaArrowRight size={11} />
+                    </Link>
+                </div>
+
                 {/* 5. WHY CHOOSE SHOBITHA BRIDAL STUDIO? */}
                 <div className="my-7 sm:my-10">
                     <h2 className="text-center font-serif font-extrabold text-gray-950 text-base sm:text-xl mb-4 sm:mb-6">

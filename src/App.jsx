@@ -15,6 +15,7 @@ import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import PriceManager from './pages/PriceManager';
+import WeddingStore from './pages/WeddingStore';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
                     <Route path="/services" element={<Services />} />
                     <Route path="/services/:id" element={<ServiceDetail />} />
                     <Route path="/bridal" element={<Bridal />} />
+                    <Route path="/wedding-store" element={<WeddingStore />} />
+                    <Route path="/marriage-items" element={<WeddingStore />} />
                     <Route path="/gallery" element={<Gallery />} />
                     <Route path="/pricing" element={<Pricing />} />
                     <Route path="/reviews" element={<Reviews />} />

@@ -37,10 +37,15 @@ const Home = () => {
 
     useEffect(() => {
         document.title = "Shobitha Haircare & Bridal Makeup Studio | Kanhangad Luxury Salon";
-        try {
-            const saved = JSON.parse(localStorage.getItem('shobitha_favorites') || '{}');
-            setFavorites(saved);
-        } catch (e) {}
+        const updateFavs = () => {
+            try {
+                const saved = JSON.parse(localStorage.getItem('shobitha_favorites') || '{}');
+                setFavorites(saved);
+            } catch (e) {}
+        };
+        updateFavs();
+        window.addEventListener('favorites_updated', updateFavs);
+        return () => window.removeEventListener('favorites_updated', updateFavs);
     }, []);
 
     const toggleFavorite = (id, e) => {
@@ -49,6 +54,7 @@ const Home = () => {
             const updated = { ...prev, [id]: !prev[id] };
             try {
                 localStorage.setItem('shobitha_favorites', JSON.stringify(updated));
+                window.dispatchEvent(new Event('favorites_updated'));
             } catch (err) {}
             return updated;
         });
@@ -185,10 +191,10 @@ const Home = () => {
             <div className="container-custom px-4 sm:px-6 pt-4">
 
                 {/* ============================================================ */}
-                {/* 2. SEARCH BAR & QUICK WISHLIST SHORTCUT                      */}
+                {/* 2. SEARCH BAR                                                */}
                 {/* ============================================================ */}
-                <form onSubmit={handleSearchSubmit} className="pt-2 pb-4 flex items-center gap-2 max-w-2xl mx-auto">
-                    <div className="relative flex-1 flex items-center">
+                <form onSubmit={handleSearchSubmit} className="pt-2 pb-4 max-w-2xl mx-auto">
+                    <div className="relative w-full flex items-center">
                         <FaSearch className="absolute left-4 text-[#A46E19] text-sm pointer-events-none" />
                         <input
                             type="text"
@@ -208,18 +214,6 @@ const Home = () => {
                             </button>
                         )}
                     </div>
-
-                    {/* Quick Favorites Shortcut Button with Live Count */}
-                    <button
-                        type="button"
-                        onClick={() => navigate('/services')}
-                        className="h-11 sm:h-12 px-4 rounded-full border border-rose-200 bg-white hover:bg-rose-50 flex items-center justify-center gap-1.5 transition-all shadow-xs shrink-0 active:scale-95"
-                        title="View Saved Wishlist"
-                        aria-label="Wishlist"
-                    >
-                        <FaHeart className="text-rose-500 text-sm" />
-                        <span className="text-xs font-bold leading-none text-gray-800">{favoriteCount}</span>
-                    </button>
                 </form>
 
                 {/* ============================================================ */}

@@ -22,3 +22,4 @@ export const LaurelBranch = ({ flip = false, className = "w-8 sm:w-12 h-16 sm:h-
 );
 
 export default LaurelBranch;
+

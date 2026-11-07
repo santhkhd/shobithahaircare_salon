@@ -1,15 +1,34 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaPhoneAlt, FaWhatsapp, FaCalendarCheck } from 'react-icons/fa';
+import { FaPhoneAlt, FaWhatsapp, FaCalendarCheck, FaHeart } from 'react-icons/fa';
 import { useBooking } from '../context/BookingContext';
 import OfferBanner from './OfferBanner';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [favoriteCount, setFavoriteCount] = useState(0);
     const { openBooking } = useBooking();
     const location = useLocation();
     const navigate = useNavigate();
+
+    // Listen to favorite count changes across all tabs and components
+    useEffect(() => {
+        const updateFavCount = () => {
+            try {
+                const saved = JSON.parse(localStorage.getItem('shobitha_favorites') || '{}');
+                const count = Object.values(saved).filter(Boolean).length;
+                setFavoriteCount(count);
+            } catch (e) {}
+        };
+        updateFavCount();
+        window.addEventListener('favorites_updated', updateFavCount);
+        window.addEventListener('storage', updateFavCount);
+        return () => {
+            window.removeEventListener('favorites_updated', updateFavCount);
+            window.removeEventListener('storage', updateFavCount);
+        };
+    }, []);
 
     // Secret Admin Shortcut: Triple-tap the logo to open Admin panel
     const tapTimeoutRef = useRef(null);
@@ -96,7 +115,7 @@ const Navbar = () => {
                 </Link>
 
                 {/* Desktop Nav */}
-                <nav className="hidden lg:flex items-center gap-7">
+                <nav className="hidden lg:flex items-center gap-6 xl:gap-7">
                     {navLinks.map((link) => (
                         <NavLink
                             key={link.name}
@@ -112,6 +131,27 @@ const Navbar = () => {
                             {link.name}
                         </NavLink>
                     ))}
+
+                    {/* Favorite Heart Link on Top after Contact Menu */}
+                    <NavLink
+                        to="/services?category=Favorites"
+                        className={({ isActive }) =>
+                            `relative text-sm font-bold tracking-wide transition-all py-1 flex items-center gap-1.5 ${
+                                isActive
+                                    ? 'text-rose-600 font-extrabold after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-rose-600 after:rounded-full'
+                                    : 'text-gray-800 hover:text-rose-600'
+                            }`
+                        }
+                        title="Your Saved Favorites"
+                    >
+                        <FaHeart className="text-rose-500" size={14} />
+                        <span>Favorites</span>
+                        {favoriteCount > 0 && (
+                            <span className="bg-rose-500 text-white font-black text-[10px] px-1.5 py-0.5 rounded-full leading-none shadow-xs">
+                                {favoriteCount}
+                            </span>
+                        )}
+                    </NavLink>
                 </nav>
 
                 {/* Desktop Action Buttons */}
@@ -131,8 +171,23 @@ const Navbar = () => {
                     </button>
                 </div>
 
-                {/* Mobile Right Icons matching Image 2: Circular Phone + Hamburger */}
+                {/* Mobile Right Icons: Favorite Heart + Circular Gold Phone + Hamburger */}
                 <div className="flex items-center gap-2 lg:hidden">
+                    {/* Mobile Favorite Heart Button */}
+                    <Link
+                        to="/services?category=Favorites"
+                        className="relative w-9 h-9 rounded-full border border-rose-200 text-rose-500 flex items-center justify-center hover:bg-rose-50 active:scale-95 transition-all shadow-xs"
+                        aria-label="Saved Favorites"
+                        title="Saved Favorites"
+                    >
+                        <FaHeart size={14} className="text-rose-500" />
+                        {favoriteCount > 0 && (
+                            <span className="absolute -top-1 -right-1 bg-rose-600 text-white font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
+                                {favoriteCount}
+                            </span>
+                        )}
+                    </Link>
+
                     {/* Circular Gold Phone Button */}
                     <a
                         href="tel:+918075340778"
@@ -184,6 +239,26 @@ const Navbar = () => {
                                     <span className="text-xs text-gray-400">&rarr;</span>
                                 </NavLink>
                             ))}
+
+                            {/* Mobile Drawer Favorites Link after Contact */}
+                            <NavLink
+                                to="/services?category=Favorites"
+                                className={({ isActive }) =>
+                                    `py-3 text-sm font-bold flex items-center justify-between transition-colors ${
+                                        isActive
+                                            ? 'text-rose-600 font-extrabold bg-rose-50 px-3 rounded-xl'
+                                            : 'text-gray-900 hover:text-rose-600 px-1'
+                                    }`
+                                }
+                            >
+                                <div className="flex items-center gap-2">
+                                    <FaHeart className="text-rose-500 text-sm" />
+                                    <span>Favorites / Wishlist</span>
+                                </div>
+                                <span className="bg-rose-100 text-rose-700 text-xs font-black px-2 py-0.5 rounded-full">
+                                    {favoriteCount}
+                                </span>
+                            </NavLink>
                         </nav>
 
                         <div className="pt-3 border-t border-gray-100 flex flex-col gap-2.5">

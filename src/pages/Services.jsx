@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { services, categories, fallbackMap } from '../data/services';
 import { useBooking } from '../context/BookingContext';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { 
     FaSearch, FaRegClock, FaTag, FaArrowRight, FaCalendarCheck, 
     FaCut, FaSpa, FaMagic, FaPaintBrush, FaThLarge, 
@@ -69,6 +69,7 @@ const carouselSlides = [
 ];
 
 const Services = () => {
+    const location = useLocation();
     const [searchTerm, setSearchTerm] = useState('');
     const [activeCategory, setActiveCategory] = useState('All');
     const [favorites, setFavorites] = useState({});
@@ -84,13 +85,32 @@ const Services = () => {
         return () => clearInterval(timer);
     }, []);
 
+    // Listen to URL query params (e.g. /services?category=Favorites or /services?q=cut)
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const cat = params.get('category') || params.get('tab');
+        if (cat === 'Favorites' || cat === 'favorites' || params.get('favorites') === 'true') {
+            setActiveCategory('Favorites');
+        } else if (cat) {
+            setActiveCategory(cat);
+        }
+        if (params.get('q')) {
+            setSearchTerm(params.get('q'));
+        }
+    }, [location.search]);
+
     // SEO Dynamic Document Title and favorites load
     useEffect(() => {
         document.title = "Salon Services & Bridal Catalogue | Shobitha Haircare Kanhangad";
-        try {
-            const savedFavs = JSON.parse(localStorage.getItem('shobitha_favorites') || '{}');
-            setFavorites(savedFavs);
-        } catch (e) {}
+        const updateFavs = () => {
+            try {
+                const savedFavs = JSON.parse(localStorage.getItem('shobitha_favorites') || '{}');
+                setFavorites(savedFavs);
+            } catch (e) {}
+        };
+        updateFavs();
+        window.addEventListener('favorites_updated', updateFavs);
+        return () => window.removeEventListener('favorites_updated', updateFavs);
     }, []);
 
     const toggleFavorite = (id) => {
@@ -98,6 +118,7 @@ const Services = () => {
             const updated = { ...prev, [id]: !prev[id] };
             try {
                 localStorage.setItem('shobitha_favorites', JSON.stringify(updated));
+                window.dispatchEvent(new Event('favorites_updated'));
             } catch (e) {}
             return updated;
         });

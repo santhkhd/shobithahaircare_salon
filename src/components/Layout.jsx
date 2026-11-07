@@ -38,12 +38,12 @@ const Layout = ({ children }) => {
     return (
         <div className="flex flex-col min-h-screen relative bg-[#FAF9F6] text-gray-800">
             <Navbar />
-            
+
             {/* Main Content with bottom padding on mobile to account for fixed bottom bar */}
             <main className={`flex-grow ${isAdminRoute ? 'pb-8' : 'pb-24 lg:pb-0'}`}>
                 {children}
             </main>
-            
+
             {!isAdminRoute && <Footer />}
 
             {/* Desktop Floating Actions */}

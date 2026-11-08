@@ -81,7 +81,7 @@ const Navbar = () => {
         { name: 'Home', path: '/', visible: true },
         { name: 'Services', path: '/services', visible: true },
         { name: 'Bridal', path: '/bridal', visible: pageVisibility.bridal },
-        { name: 'Wedding Store', path: '/wedding-store', visible: pageVisibility.store },
+        { name: 'Store', path: '/wedding-store', visible: pageVisibility.store },
         { name: 'Gallery', path: '/gallery', visible: pageVisibility.gallery },
         { name: 'Pricing', path: '/pricing', visible: pageVisibility.pricing },
         { name: 'Reviews', path: '/reviews', visible: pageVisibility.reviews },
@@ -120,35 +120,14 @@ const Navbar = () => {
                     </div>
                 </Link>
 
-                {/* Live Salon Operating Status Pill */}
-                {salonStatus?.showStatusPill && (
-                    <div className={`hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black border tracking-tight select-none ${
-                        salonStatus.state === 'open'
-                            ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
-                            : salonStatus.state === 'closed'
-                            ? 'bg-red-50 text-red-800 border-red-300'
-                            : salonStatus.state === 'booked'
-                            ? 'bg-amber-50 text-amber-800 border-amber-300'
-                            : 'bg-purple-50 text-purple-800 border-purple-300'
-                    }`}>
-                        <span className={`w-2 h-2 rounded-full ${
-                            salonStatus.state === 'open' ? 'bg-emerald-500 animate-pulse' : salonStatus.state === 'closed' ? 'bg-red-500' : 'bg-amber-500'
-                        }`} />
-                        <span>{salonStatus.stateLabel || 'Open Today'}</span>
-                        {salonStatus.hours && (
-                            <span className="opacity-75 font-semibold text-[11px] hidden xl:inline">({salonStatus.hours})</span>
-                        )}
-                    </div>
-                )}
-
-                {/* Desktop Nav */}
-                <nav className="hidden lg:flex items-center gap-6 xl:gap-7">
+                {/* Desktop Nav - Neatly aligned & spaced */}
+                <nav className="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-7">
                     {navLinks.map((link) => (
                         <NavLink
                             key={link.name}
                             to={link.path}
                             className={({ isActive }) =>
-                                `relative text-sm font-bold tracking-wide transition-colors py-1 ${
+                                `whitespace-nowrap relative text-[13px] xl:text-sm font-bold tracking-tight xl:tracking-normal transition-colors py-1 ${
                                     isActive
                                         ? 'text-primary-dark font-extrabold after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary-dark after:rounded-full'
                                         : 'text-gray-800 hover:text-primary-dark'
@@ -163,7 +142,7 @@ const Navbar = () => {
                     <NavLink
                         to="/services?category=Favorites"
                         className={({ isActive }) =>
-                            `relative text-sm font-bold tracking-wide transition-all py-1 flex items-center gap-1.5 ${
+                            `whitespace-nowrap relative text-[13px] xl:text-sm font-bold tracking-tight xl:tracking-normal transition-all py-1 flex items-center gap-1.5 ${
                                 isActive
                                     ? 'text-rose-600 font-extrabold after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-rose-600 after:rounded-full'
                                     : 'text-gray-800 hover:text-rose-600'
@@ -171,10 +150,10 @@ const Navbar = () => {
                         }
                         title="Your Saved Favorites"
                     >
-                        <FaHeart className="text-rose-500" size={14} />
+                        <FaHeart className="text-rose-500" size={13} />
                         <span>Favorites</span>
                         {favoriteCount > 0 && (
-                            <span className="bg-rose-500 text-white font-black text-[10px] px-1.5 py-0.5 rounded-full leading-none shadow-xs">
+                            <span className="bg-rose-500 text-white font-black text-[9.5px] px-1.5 py-0.5 rounded-full leading-none shadow-xs">
                                 {favoriteCount}
                             </span>
                         )}
@@ -182,17 +161,17 @@ const Navbar = () => {
                 </nav>
 
                 {/* Desktop Action Buttons */}
-                <div className="hidden lg:flex items-center gap-3">
+                <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
                     {/* Cart Drawer Trigger */}
                     <button
                         onClick={openCart}
-                        className="relative p-2 text-gray-700 hover:text-amber-800 transition active:scale-95"
+                        className="relative p-2 text-gray-700 hover:text-[#4A0A16] hover:bg-amber-50 rounded-full transition active:scale-95"
                         title="View Cart"
                         aria-label="Shopping Cart"
                     >
-                        <FaShoppingBag size={17} />
+                        <FaShoppingBag size={16} />
                         {cartCount > 0 && (
-                            <span className="absolute -top-1 -right-1 bg-[#4A0A16] text-amber-300 font-black text-[10px] w-4 h-4 rounded-full flex items-center justify-center shadow-xs border border-white">
+                            <span className="absolute -top-0.5 -right-0.5 bg-[#4A0A16] text-amber-300 font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow-xs border-2 border-white">
                                 {cartCount}
                             </span>
                         )}
@@ -200,16 +179,17 @@ const Navbar = () => {
 
                     <a
                         href="tel:+918075340778"
-                        className="p-2 text-gray-700 hover:text-primary-dark transition-colors"
+                        className="p-2 text-gray-700 hover:text-primary-dark hover:bg-amber-50 rounded-full transition-colors"
                         title="Call Salon"
                     >
-                        <FaPhoneAlt size={16} />
+                        <FaPhoneAlt size={15} />
                     </a>
+
                     <button
                         onClick={() => openBooking()}
-                        className="btn-primary py-2.5 px-5 text-sm font-bold flex items-center gap-2 shadow-sm"
+                        className="btn-primary py-2 px-4 xl:px-5 text-xs xl:text-sm font-black flex items-center gap-1.5 shadow-sm active:scale-95 transition whitespace-nowrap"
                     >
-                        <FaCalendarCheck /> Book Now
+                        <FaCalendarCheck size={12} /> <span>Book Now</span>
                     </button>
                 </div>
 

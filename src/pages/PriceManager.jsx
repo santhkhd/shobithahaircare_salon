@@ -3,13 +3,15 @@ import { services, categories } from '../data/services';
 import { specialOffers, defaultOffers } from '../data/offers';
 import { reviews } from '../data/reviews';
 import { blogPosts, blogCategories } from '../data/blogs';
+import { initialStoreProducts, storeCategories } from '../data/storeProducts';
+import { useSiteSettings } from '../context/SiteSettingsContext';
 import { 
     FaTag, FaCheck, FaCopy, FaDownload, FaSyncAlt, FaArrowRight, 
     FaWhatsapp, FaShieldAlt, FaMobileAlt, FaImage, FaSearch, 
     FaTimes, FaExternalLinkAlt, FaCloudUploadAlt, FaEdit, 
     FaPlus, FaMinus, FaEye, FaEyeSlash, FaRobot, FaTable, FaLock, FaKey,
     FaBook, FaCalendarCheck, FaClock, FaStore, FaPhoneAlt, FaStar,
-    FaTrash, FaShareSquare, FaCalculator
+    FaTrash, FaShareSquare, FaCalculator, FaShoppingBag, FaThLarge, FaGlobe
 } from 'react-icons/fa';
 
 // Bundled image presets for promo banner selection
@@ -126,6 +128,114 @@ const PriceManager = () => {
     const [syncStatus, setSyncStatus] = useState('');
     const [copied, setCopied] = useState(false);
     const [savedNotification, setSavedNotification] = useState(false);
+
+    // Site Settings Context Integration (Navigation, Status, Home Sections, Affiliates)
+    const { 
+        pageVisibility, togglePage, 
+        salonStatus, setSalonState, 
+        homeSections, toggleHomeSection, 
+        contactSettings, affiliateSettings,
+        updateSettings 
+    } = useSiteSettings();
+
+    // Store & Affiliate Items State
+    const [storeProductsList, setStoreProductsList] = useState(() => {
+        try {
+            const saved = localStorage.getItem('shobitha_custom_store_products');
+            if (saved) return JSON.parse(saved);
+        } catch (e) {}
+        return initialStoreProducts;
+    });
+
+    const [newProduct, setNewProduct] = useState({
+        name: '',
+        brand: '',
+        category: 'clothing',
+        platform: 'amazon',
+        price: '',
+        originalPrice: '',
+        affiliateUrl: '',
+        image: '',
+        shortDesc: '',
+        badge: 'Recommended'
+    });
+    const [productAddedSuccess, setProductAddedSuccess] = useState(false);
+
+    const handleSaveStoreProducts = (updated) => {
+        setStoreProductsList(updated);
+        try {
+            localStorage.setItem('shobitha_custom_store_products', JSON.stringify(updated));
+            window.dispatchEvent(new Event('store_products_updated'));
+        } catch (e) {}
+    };
+
+    const handleToggleProductStock = (id) => {
+        const updated = storeProductsList.map(p => p.id === id ? { ...p, inStock: !p.inStock } : p);
+        handleSaveStoreProducts(updated);
+    };
+
+    const handleToggleProductHide = (id) => {
+        const updated = storeProductsList.map(p => p.id === id ? { ...p, hidden: !p.hidden } : p);
+        handleSaveStoreProducts(updated);
+    };
+
+    const handleDeleteProduct = (id) => {
+        if (window.confirm("Are you sure you want to delete this product?")) {
+            const updated = storeProductsList.filter(p => p.id !== id);
+            handleSaveStoreProducts(updated);
+        }
+    };
+
+    const handleAddNewProduct = (e) => {
+        e.preventDefault();
+        if (!newProduct.name || !newProduct.price) {
+            alert("Please enter at least product name and price");
+            return;
+        }
+
+        const priceNum = parseInt(newProduct.price.replace(/[^\d]/g, ''), 10) || 0;
+        const origNum = parseInt(newProduct.originalPrice.replace(/[^\d]/g, ''), 10) || priceNum;
+        const discountPercent = origNum > priceNum ? Math.round(((origNum - priceNum) / origNum) * 100) : 0;
+
+        const item = {
+            id: `prod-${Date.now()}`,
+            name: newProduct.name,
+            brand: newProduct.brand || (newProduct.platform === 'salon' ? 'Shobitha Studio' : newProduct.platform.toUpperCase()),
+            category: newProduct.category,
+            platform: newProduct.platform,
+            price: newProduct.price.startsWith('₹') ? newProduct.price : `₹${newProduct.price}`,
+            priceNum,
+            originalPrice: newProduct.originalPrice ? (newProduct.originalPrice.startsWith('₹') ? newProduct.originalPrice : `₹${newProduct.originalPrice}`) : '',
+            originalPriceNum: origNum,
+            discountPercent,
+            badge: newProduct.badge || 'Recommended',
+            rating: 4.8,
+            reviewsCount: 1,
+            image: newProduct.image || luxuryGoldFacial,
+            inStock: true,
+            affiliateUrl: newProduct.affiliateUrl,
+            deliveryTag: newProduct.platform === 'salon' ? 'Studio Pickup & Courier' : `${newProduct.platform.toUpperCase()} Assured Delivery`,
+            shortDesc: newProduct.shortDesc || newProduct.name,
+            details: [newProduct.shortDesc || newProduct.name]
+        };
+
+        const updated = [item, ...storeProductsList];
+        handleSaveStoreProducts(updated);
+        setNewProduct({
+            name: '',
+            brand: '',
+            category: 'clothing',
+            platform: 'amazon',
+            price: '',
+            originalPrice: '',
+            affiliateUrl: '',
+            image: '',
+            shortDesc: '',
+            badge: 'Recommended'
+        });
+        setProductAddedSuccess(true);
+        setTimeout(() => setProductAddedSuccess(false), 3000);
+    };
 
     useEffect(() => {
         document.title = "Mobile Salon Studio Admin | Shobitha Haircare";
@@ -659,10 +769,13 @@ function doGet(e) {
                 <div className="flex items-center gap-2 bg-white p-2 rounded-2xl border border-[#E8D9C5] shadow-xs mb-5 overflow-x-auto no-scrollbar">
                     {[
                         { id: 'prices', label: `Prices (${serviceList.length})`, icon: FaTag },
+                        { id: 'pages', label: 'Menu & Pages', icon: FaGlobe },
+                        { id: 'status', label: 'Salon Live Status', icon: FaStore },
+                        { id: 'sections', label: 'Home Sections', icon: FaThLarge },
+                        { id: 'store_mgr', label: `Store & Affiliate (${storeProductsList.length})`, icon: FaShoppingBag },
                         { id: 'offers', label: 'Offers & Banners', icon: FaImage },
                         { id: 'blogs', label: 'Blog Publisher', icon: FaBook },
                         { id: 'leads', label: `Inquiries (${appointmentLeads.length})`, icon: FaCalendarCheck },
-                        { id: 'status', label: 'Store Hours', icon: FaStore },
                         { id: 'quote', label: 'WhatsApp Quote', icon: FaWhatsapp },
                         { id: 'reviews', label: 'Featured Reviews', icon: FaStar },
                         { id: 'sheet', label: 'Google Sheets', icon: FaTable },
@@ -1336,70 +1449,513 @@ function doGet(e) {
                 )}
 
                 {/* ============================================================ */}
-                {/* TAB 5: FEATURE 3 - STORE HOURS & HOLIDAY TOGGLE              */}
+                {/* TAB: MENU & PAGE VISIBILITY (SHOW / HIDE PAGES)              */}
                 {/* ============================================================ */}
-                {activeTab === 'status' && (
-                    <div className="bg-white rounded-3xl p-5 sm:p-7 border border-[#E8D9C5] shadow-xs space-y-5">
-                        <div>
-                            <h2 className="font-serif font-black text-lg sm:text-xl text-gray-950">
-                                Salon Hours & Operating Status
-                            </h2>
-                            <p className="text-xs text-gray-500 font-medium">Toggle holiday closures or special Muhurtham hours</p>
+                {activeTab === 'pages' && (
+                    <div className="bg-white rounded-3xl p-5 sm:p-7 border border-[#E8D9C5] shadow-xs space-y-6">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-4 border-b border-gray-100">
+                            <div>
+                                <h2 className="font-serif font-black text-lg sm:text-2xl text-gray-950">
+                                    Navigation Menu & Page Visibility
+                                </h2>
+                                <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                                    Instantly show or hide pages from the desktop Navbar, mobile menu drawer, and footer.
+                                </p>
+                            </div>
+                            <span className="text-xs font-black bg-amber-100 text-[#8E580B] px-3 py-1 rounded-full">
+                                Instant Real-Time Sync
+                            </span>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {[
+                                { key: 'store', name: 'Wedding Store & Essentials', path: '/wedding-store', desc: 'Bridal sarees, jewellery, haircare oils, and shaadi shopping hub', icon: '🛍️' },
+                                { key: 'bridal', name: 'Bridal Studio & Makeovers', path: '/bridal', desc: 'Kerala bridal packages, saree draping & mehndi gallery', icon: '👰' },
+                                { key: 'gallery', name: 'Real Transformations Gallery', path: '/gallery', desc: 'Haircut, keratin smoothening & facial photo portfolio', icon: '📸' },
+                                { key: 'pricing', name: 'Full Price Table', path: '/pricing', desc: 'Complete 172 service rate chart & package pricing', icon: '💰' },
+                                { key: 'reviews', name: 'Client Reviews & Testimonials', path: '/reviews', desc: '5-star Google & wedding customer feedback', icon: '🌟' },
+                                { key: 'blog', name: 'Bridal Beauty Blog', path: '/blog', desc: 'Salon tips, post-keratin haircare guides & bridal advice', icon: '📖' },
+                                { key: 'contact', name: 'Contact & Location Page', path: '/contact', desc: 'Salon address, Google Map & direct phone dialer', icon: '📞' }
+                            ].map(item => {
+                                const isVisible = pageVisibility[item.key] !== false;
+                                return (
+                                    <div 
+                                        key={item.key}
+                                        className={`p-4 rounded-2xl border-2 transition-all flex items-center justify-between gap-3 ${
+                                            isVisible ? 'border-emerald-200 bg-emerald-50/30' : 'border-red-200 bg-red-50/30 opacity-75'
+                                        }`}
+                                    >
+                                        <div className="flex items-center gap-3 min-w-0">
+                                            <span className="text-2xl">{item.icon}</span>
+                                            <div className="min-w-0">
+                                                <h3 className="font-serif font-black text-sm sm:text-base text-gray-950 truncate">
+                                                    {item.name}
+                                                </h3>
+                                                <div className="text-[11px] font-mono text-gray-500 font-bold">{item.path}</div>
+                                                <p className="text-[11px] text-gray-600 line-clamp-1 mt-0.5">{item.desc}</p>
+                                            </div>
+                                        </div>
+
+                                        <button
+                                            onClick={() => togglePage(item.key)}
+                                            className={`px-3.5 py-2 rounded-xl text-xs font-black flex items-center gap-1.5 shrink-0 transition active:scale-95 shadow-xs border ${
+                                                isVisible 
+                                                    ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-700' 
+                                                    : 'bg-red-600 hover:bg-red-700 text-white border-red-700'
+                                            }`}
+                                        >
+                                            {isVisible ? (
+                                                <>
+                                                    <FaEye size={12} />
+                                                    <span>Visible</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <FaEyeSlash size={12} />
+                                                    <span>Hidden</span>
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+
+                {/* ============================================================ */}
+                {/* TAB: SALON LIVE OPERATING STATUS                             */}
+                {/* ============================================================ */}
+                {activeTab === 'status' && (
+                    <div className="bg-white rounded-3xl p-5 sm:p-7 border border-[#E8D9C5] shadow-xs space-y-6">
+                        <div>
+                            <h2 className="font-serif font-black text-lg sm:text-2xl text-gray-950">
+                                Salon Hours & Live Operating Status
+                            </h2>
+                            <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                                Controls the live availability badge displayed in the top navbar across all devices.
+                            </p>
+                        </div>
+
+                        {/* 4 Status Selector Buttons */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                             <button
-                                onClick={() => setStoreStatus({ ...storeStatus, state: 'open', text: 'Open Today: 10:00 AM – 6:00 PM' })}
+                                onClick={() => setSalonState('open', 'Open Today', salonStatus.hours || '9:00 AM – 8:00 PM')}
                                 className={`p-4 rounded-2xl border-2 text-center transition font-black text-sm ${
-                                    storeStatus.state === 'open' ? 'border-emerald-500 bg-emerald-50 text-emerald-900' : 'border-gray-200 bg-white'
+                                    salonStatus.state === 'open' ? 'border-emerald-500 bg-emerald-50 text-emerald-900 shadow-sm' : 'border-gray-200 bg-white'
                                 }`}
                             >
                                 <span className="text-2xl block mb-1">🟢</span>
-                                <span>Normal Hours</span>
-                                <span className="block text-[11px] text-gray-500 font-normal mt-0.5">10:00 AM – 6:00 PM</span>
+                                <span>Open Today</span>
+                                <span className="block text-[11px] text-gray-500 font-normal mt-0.5">Regular Service Hours</span>
                             </button>
 
                             <button
-                                onClick={() => setStoreStatus({ ...storeStatus, state: 'festival', text: 'Special Festival Hours: 8:00 AM – 8:00 PM' })}
+                                onClick={() => setSalonState('festival', 'Festival Hours', '8:00 AM – 10:00 PM')}
                                 className={`p-4 rounded-2xl border-2 text-center transition font-black text-sm ${
-                                    storeStatus.state === 'festival' ? 'border-amber-500 bg-amber-50 text-amber-900' : 'border-gray-200 bg-white'
+                                    salonStatus.state === 'festival' ? 'border-amber-500 bg-amber-50 text-amber-900 shadow-sm' : 'border-gray-200 bg-white'
                                 }`}
                             >
                                 <span className="text-2xl block mb-1">🟡</span>
-                                <span>Festival / Bridal Hours</span>
-                                <span className="block text-[11px] text-gray-500 font-normal mt-0.5">Extended Slot Hours</span>
+                                <span>Festival / Extended</span>
+                                <span className="block text-[11px] text-gray-500 font-normal mt-0.5">8:00 AM – 10:00 PM</span>
                             </button>
 
                             <button
-                                onClick={() => setStoreStatus({ ...storeStatus, state: 'closed', text: 'Salon Closed Today' })}
+                                onClick={() => setSalonState('booked', 'Fully Booked', salonStatus.hours, 'Walk-ins on waitlist')}
                                 className={`p-4 rounded-2xl border-2 text-center transition font-black text-sm ${
-                                    storeStatus.state === 'closed' ? 'border-red-500 bg-red-50 text-red-900' : 'border-gray-200 bg-white'
+                                    salonStatus.state === 'booked' ? 'border-purple-500 bg-purple-50 text-purple-900 shadow-sm' : 'border-gray-200 bg-white'
+                                }`}
+                            >
+                                <span className="text-2xl block mb-1">🟣</span>
+                                <span>Fully Booked</span>
+                                <span className="block text-[11px] text-gray-500 font-normal mt-0.5">Appointments Full Today</span>
+                            </button>
+
+                            <button
+                                onClick={() => setSalonState('closed', 'Closed Today', '', 'Weekly off or holiday')}
+                                className={`p-4 rounded-2xl border-2 text-center transition font-black text-sm ${
+                                    salonStatus.state === 'closed' ? 'border-red-500 bg-red-50 text-red-900 shadow-sm' : 'border-gray-200 bg-white'
                                 }`}
                             >
                                 <span className="text-2xl block mb-1">🔴</span>
-                                <span>Weekly Holiday / Closed</span>
-                                <span className="block text-[11px] text-gray-500 font-normal mt-0.5">Show Holiday Notice</span>
+                                <span>Closed Today</span>
+                                <span className="block text-[11px] text-gray-500 font-normal mt-0.5">Weekly Holiday</span>
                             </button>
                         </div>
 
-                        <div>
-                            <label className="block text-xs font-black text-gray-700 uppercase mb-1">
-                                Status Headline
-                            </label>
-                            <input
-                                type="text"
-                                value={storeStatus.text}
-                                onChange={(e) => setStoreStatus({ ...storeStatus, text: e.target.value })}
-                                className="w-full bg-[#FAF9F5] border-2 border-gray-200 rounded-2xl px-4 py-2.5 text-sm font-bold text-gray-900 outline-none"
-                            />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-xs font-black text-gray-700 uppercase mb-1">
+                                    Status Badge Label
+                                </label>
+                                <input
+                                    type="text"
+                                    value={salonStatus.stateLabel || ''}
+                                    onChange={(e) => updateSettings(prev => ({
+                                        ...prev,
+                                        salonStatus: { ...prev.salonStatus, stateLabel: e.target.value }
+                                    }))}
+                                    className="w-full bg-[#FAF9F5] border border-gray-200 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-black text-gray-700 uppercase mb-1">
+                                    Working Hours
+                                </label>
+                                <input
+                                    type="text"
+                                    value={salonStatus.hours || ''}
+                                    onChange={(e) => updateSettings(prev => ({
+                                        ...prev,
+                                        salonStatus: { ...prev.salonStatus, hours: e.target.value }
+                                    }))}
+                                    placeholder="e.g. 9:00 AM – 8:00 PM"
+                                    className="w-full bg-[#FAF9F5] border border-gray-200 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none"
+                                />
+                            </div>
                         </div>
 
-                        <button
-                            onClick={handleSaveToWebsite}
-                            className="btn-primary py-3 px-6 rounded-2xl text-sm font-black flex items-center gap-2"
-                        >
-                            <FaCheck /> Save Operating Status
-                        </button>
+                        <div className="flex items-center gap-3 pt-2">
+                            <button
+                                onClick={() => updateSettings(prev => ({
+                                    ...prev,
+                                    salonStatus: { ...prev.salonStatus, showStatusPill: !prev.salonStatus.showStatusPill }
+                                }))}
+                                className={`px-4 py-2 rounded-xl text-xs font-black border transition ${
+                                    salonStatus.showStatusPill !== false ? 'bg-emerald-100 text-emerald-900 border-emerald-300' : 'bg-gray-100 text-gray-600'
+                                }`}
+                            >
+                                {salonStatus.showStatusPill !== false ? '✓ Status Pill Visible in Navbar' : '✕ Status Pill Hidden'}
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {/* ============================================================ */}
+                {/* TAB: HOME PAGE SECTIONS TOGGLES                              */}
+                {/* ============================================================ */}
+                {activeTab === 'sections' && (
+                    <div className="bg-white rounded-3xl p-5 sm:p-7 border border-[#E8D9C5] shadow-xs space-y-6">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-4 border-b border-gray-100">
+                            <div>
+                                <h2 className="font-serif font-black text-lg sm:text-2xl text-gray-950">
+                                    Home Page Interactive Section Switches
+                                </h2>
+                                <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                                    Turn specific interactive features On or Off on the Home Page.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {[
+                                { key: 'beforeAfterSlider', name: 'Before & After Transformation Slider', desc: 'Interactive split image comparison slider for Keratin Smoothening', icon: '↔️' },
+                                { key: 'priceEstimator', name: 'Instant Multi-Service Price Estimator', desc: 'Package calculator allowing clients to total up multiple services', icon: '🧮' },
+                                { key: 'faqSection', name: 'Frequently Asked Questions (FAQ)', desc: 'Accordion answering hair smoothening, bridal booking, and advance slots', icon: '❓' },
+                                { key: 'instaFeed', name: 'Instagram Social Media Feed Strip', desc: 'Salon social proof gallery showcasing real client transformations', icon: '📸' },
+                                { key: 'statsStrip', name: 'Trust Stats Strip (10+ Years / 500+ Brides)', desc: 'Highlighting salon experience, satisfied brides, and certified experts', icon: '🏅' }
+                            ].map(sec => {
+                                const isEnabled = homeSections[sec.key] !== false;
+                                return (
+                                    <div 
+                                        key={sec.key}
+                                        className={`p-4 rounded-2xl border-2 transition-all flex items-center justify-between gap-3 ${
+                                            isEnabled ? 'border-emerald-200 bg-emerald-50/30' : 'border-gray-200 bg-gray-50 opacity-70'
+                                        }`}
+                                    >
+                                        <div className="flex items-center gap-3 min-w-0">
+                                            <span className="text-2xl">{sec.icon}</span>
+                                            <div className="min-w-0">
+                                                <h3 className="font-serif font-black text-sm sm:text-base text-gray-950 truncate">
+                                                    {sec.name}
+                                                </h3>
+                                                <p className="text-xs text-gray-600 line-clamp-2 mt-0.5">{sec.desc}</p>
+                                            </div>
+                                        </div>
+
+                                        <button
+                                            onClick={() => toggleHomeSection(sec.key)}
+                                            className={`px-3.5 py-2 rounded-xl text-xs font-black flex items-center gap-1.5 shrink-0 transition active:scale-95 shadow-xs border ${
+                                                isEnabled 
+                                                    ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-700' 
+                                                    : 'bg-gray-400 hover:bg-gray-500 text-white border-gray-500'
+                                            }`}
+                                        >
+                                            {isEnabled ? <FaCheck size={11} /> : <FaTimes size={11} />}
+                                            <span>{isEnabled ? 'Enabled' : 'Disabled'}</span>
+                                        </button>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+
+                {/* ============================================================ */}
+                {/* TAB: STORE & AFFILIATE PRODUCTS MANAGER                      */}
+                {/* ============================================================ */}
+                {activeTab === 'store_mgr' && (
+                    <div className="space-y-6">
+                        {/* Add New Product Card */}
+                        <div className="bg-white rounded-3xl p-5 sm:p-7 border border-[#E8D9C5] shadow-xs">
+                            <div className="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
+                                <div>
+                                    <h2 className="font-serif font-black text-lg sm:text-xl text-gray-950">
+                                        Add New Item (Salon Exclusive or Affiliate Link)
+                                    </h2>
+                                    <p className="text-xs text-gray-500 font-medium">
+                                        Add clothing, sarees, jewellery or styling tools from Amazon, Flipkart, Myntra, or your own studio.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {productAddedSuccess && (
+                                <div className="mb-4 p-3 bg-emerald-100 text-emerald-800 rounded-xl text-xs font-black flex items-center gap-2">
+                                    <FaCheck /> Item added to store successfully!
+                                </div>
+                            )}
+
+                            <form onSubmit={handleAddNewProduct} className="space-y-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                    <div>
+                                        <label className="block text-xs font-black text-gray-700 uppercase mb-1">
+                                            Product Name *
+                                        </label>
+                                        <input
+                                            type="text"
+                                            placeholder="e.g. Kalki Velvet Bridal Lehenga / Philips Salon Hair Dryer"
+                                            value={newProduct.name}
+                                            onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+                                            className="w-full bg-[#FAF9F5] border border-gray-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-medium outline-none focus:ring-2 focus:ring-amber-500"
+                                            required
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-black text-gray-700 uppercase mb-1">
+                                            Brand / Designer Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            placeholder="e.g. FabIndia / BIBA / Philips / Shobitha Signature"
+                                            value={newProduct.brand}
+                                            onChange={(e) => setNewProduct({ ...newProduct, brand: e.target.value })}
+                                            className="w-full bg-[#FAF9F5] border border-gray-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-medium outline-none focus:ring-2 focus:ring-amber-500"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                                    <div>
+                                        <label className="block text-xs font-black text-gray-700 uppercase mb-1">
+                                            Platform Source
+                                        </label>
+                                        <select
+                                            value={newProduct.platform}
+                                            onChange={(e) => setNewProduct({ ...newProduct, platform: e.target.value })}
+                                            className="w-full bg-[#FAF9F5] border border-gray-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold text-gray-900 outline-none"
+                                        >
+                                            <option value="salon">🛍️ Salon Exclusive (WhatsApp Cart)</option>
+                                            <option value="amazon">📦 Amazon Affiliate</option>
+                                            <option value="flipkart">⚡ Flipkart Affiliate</option>
+                                            <option value="myntra">👗 Myntra Affiliate</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-black text-gray-700 uppercase mb-1">
+                                            Category
+                                        </label>
+                                        <select
+                                            value={newProduct.category}
+                                            onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
+                                            className="w-full bg-[#FAF9F5] border border-gray-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold text-gray-900 outline-none"
+                                        >
+                                            <option value="sarees">Bridal Sarees & Silks</option>
+                                            <option value="clothing">Lehengas & Ethnic Wear</option>
+                                            <option value="jewellery">Jewellery & Solah Shringar</option>
+                                            <option value="haircare">Salon Haircare & Growth Oils</option>
+                                            <option value="styling_tools">Hair Dryers & Styling Tools</option>
+                                            <option value="skincare">Skincare & Glow Kits</option>
+                                            <option value="puja_gifts">Puja Samagri & Shagun Hampers</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-black text-gray-700 uppercase mb-1">
+                                            Badge / Tag
+                                        </label>
+                                        <input
+                                            type="text"
+                                            placeholder="e.g. 50% OFF / Amazon Choice / Bestseller"
+                                            value={newProduct.badge}
+                                            onChange={(e) => setNewProduct({ ...newProduct, badge: e.target.value })}
+                                            className="w-full bg-[#FAF9F5] border border-gray-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-medium outline-none"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                    <div>
+                                        <label className="block text-xs font-black text-gray-700 uppercase mb-1">
+                                            Selling Price *
+                                        </label>
+                                        <input
+                                            type="text"
+                                            placeholder="e.g. ₹2,499"
+                                            value={newProduct.price}
+                                            onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+                                            className="w-full bg-[#FAF9F5] border border-gray-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold text-gray-900 outline-none"
+                                            required
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-black text-gray-700 uppercase mb-1">
+                                            Original Price (MRP for strikethrough)
+                                        </label>
+                                        <input
+                                            type="text"
+                                            placeholder="e.g. ₹4,999"
+                                            value={newProduct.originalPrice}
+                                            onChange={(e) => setNewProduct({ ...newProduct, originalPrice: e.target.value })}
+                                            className="w-full bg-[#FAF9F5] border border-gray-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-medium outline-none"
+                                        />
+                                    </div>
+                                </div>
+
+                                {newProduct.platform !== 'salon' && (
+                                    <div>
+                                        <label className="block text-xs font-black text-gray-700 uppercase mb-1">
+                                            Affiliate Link URL * (Amazon / Flipkart / Myntra Link)
+                                        </label>
+                                        <input
+                                            type="url"
+                                            placeholder="e.g. https://amzn.to/3xyz or https://dl.flipkart.com/..."
+                                            value={newProduct.affiliateUrl}
+                                            onChange={(e) => setNewProduct({ ...newProduct, affiliateUrl: e.target.value })}
+                                            className="w-full bg-[#FAF9F5] border border-gray-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-mono outline-none"
+                                        />
+                                    </div>
+                                )}
+
+                                <div>
+                                    <label className="block text-xs font-black text-gray-700 uppercase mb-1">
+                                        Product Image URL (Paste link from Flipkart/Amazon or leave empty for default)
+                                    </label>
+                                    <input
+                                        type="url"
+                                        placeholder="https://images-na.ssl-images-amazon.com/..."
+                                        value={newProduct.image}
+                                        onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
+                                        className="w-full bg-[#FAF9F5] border border-gray-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-mono outline-none"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-black text-gray-700 uppercase mb-1">
+                                        Short Description / Fabric Details
+                                    </label>
+                                    <textarea
+                                        rows={2}
+                                        placeholder="Fabric, styling recommendations, wash care, etc."
+                                        value={newProduct.shortDesc}
+                                        onChange={(e) => setNewProduct({ ...newProduct, shortDesc: e.target.value })}
+                                        className="w-full bg-[#FAF9F5] border border-gray-200 rounded-xl p-3 text-xs sm:text-sm font-medium outline-none"
+                                    />
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className="btn-primary py-3 px-6 rounded-2xl text-xs sm:text-sm font-black flex items-center justify-center gap-2 active:scale-95 transition"
+                                >
+                                    <FaPlus size={12} /> Add Product to Store
+                                </button>
+                            </form>
+                        </div>
+
+                        {/* Existing Store Products List */}
+                        <div className="bg-white rounded-3xl p-5 sm:p-7 border border-[#E8D9C5] shadow-xs">
+                            <div className="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
+                                <div>
+                                    <h2 className="font-serif font-black text-lg sm:text-xl text-gray-950">
+                                        Store Catalog ({storeProductsList.length} items)
+                                    </h2>
+                                    <p className="text-xs text-gray-500 font-medium">Toggle stock availability or hide items from customers</p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-3">
+                                {storeProductsList.map((item, idx) => (
+                                    <div
+                                        key={item.id}
+                                        className={`p-3.5 sm:p-4 rounded-2xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                                            item.hidden ? 'bg-red-50/40 border-red-200 opacity-70' : 'bg-[#FAF9F5] border-gray-200'
+                                        }`}
+                                    >
+                                        <div className="flex items-center gap-3 min-w-0">
+                                            <img
+                                                src={item.image}
+                                                alt={item.name}
+                                                className="w-12 h-12 rounded-xl object-cover bg-gray-200 shrink-0 border"
+                                            />
+                                            <div className="min-w-0">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-white border text-gray-700">
+                                                        {item.platform || 'salon'}
+                                                    </span>
+                                                    <h4 className="font-serif font-black text-xs sm:text-sm text-gray-950 truncate">
+                                                        {item.name}
+                                                    </h4>
+                                                </div>
+                                                <div className="flex items-center gap-2 mt-1 text-xs">
+                                                    <span className="font-black text-[#4A0A16]">{item.price}</span>
+                                                    {item.originalPrice && (
+                                                        <span className="text-gray-400 line-through text-[11px]">{item.originalPrice}</span>
+                                                    )}
+                                                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+                                                        item.inStock ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'
+                                                    }`}>
+                                                        {item.inStock ? 'In Stock' : 'Out of Stock'}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                                            <button
+                                                onClick={() => handleToggleProductStock(item.id)}
+                                                className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition ${
+                                                    item.inStock ? 'bg-white text-gray-700 border-gray-300' : 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                                                }`}
+                                            >
+                                                {item.inStock ? 'Mark Out of Stock' : 'Mark In Stock'}
+                                            </button>
+
+                                            <button
+                                                onClick={() => handleToggleProductHide(item.id)}
+                                                className={`p-2 rounded-xl text-xs font-bold border transition ${
+                                                    item.hidden ? 'bg-red-100 text-red-700 border-red-300' : 'bg-white text-gray-600 border-gray-300'
+                                                }`}
+                                                title={item.hidden ? "Show on Store" : "Hide from Store"}
+                                            >
+                                                {item.hidden ? <FaEyeSlash size={13} /> : <FaEye size={13} />}
+                                            </button>
+
+                                            <button
+                                                onClick={() => handleDeleteProduct(item.id)}
+                                                className="p-2 rounded-xl text-xs text-red-600 hover:bg-red-50 border border-transparent hover:border-red-200 transition"
+                                                title="Delete item"
+                                            >
+                                                <FaTrash size={12} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 )}
 

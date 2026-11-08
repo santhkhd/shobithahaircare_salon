@@ -3,6 +3,7 @@ import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaPhoneAlt, FaWhatsapp, FaCalendarCheck, FaHeart, FaShoppingBag } from 'react-icons/fa';
 import { useBooking } from '../context/BookingContext';
 import { useCart } from '../context/CartContext';
+import { useSiteSettings } from '../context/SiteSettingsContext';
 import OfferBanner from './OfferBanner';
 
 const Navbar = () => {
@@ -11,6 +12,7 @@ const Navbar = () => {
     const [favoriteCount, setFavoriteCount] = useState(0);
     const { openBooking } = useBooking();
     const { cartCount, openCart } = useCart();
+    const { pageVisibility, salonStatus } = useSiteSettings();
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -75,17 +77,18 @@ const Navbar = () => {
         };
     }, [isOpen]);
 
-    const navLinks = [
-        { name: 'Home', path: '/' },
-        { name: 'Services', path: '/services' },
-        { name: 'Bridal', path: '/bridal' },
-        { name: 'Wedding Store', path: '/wedding-store' },
-        { name: 'Gallery', path: '/gallery' },
-        { name: 'Pricing', path: '/pricing' },
-        { name: 'Reviews', path: '/reviews' },
-        { name: 'Blog', path: '/blog' },
-        { name: 'Contact', path: '/contact' },
+    const allNavLinks = [
+        { name: 'Home', path: '/', visible: true },
+        { name: 'Services', path: '/services', visible: true },
+        { name: 'Bridal', path: '/bridal', visible: pageVisibility.bridal },
+        { name: 'Wedding Store', path: '/wedding-store', visible: pageVisibility.store },
+        { name: 'Gallery', path: '/gallery', visible: pageVisibility.gallery },
+        { name: 'Pricing', path: '/pricing', visible: pageVisibility.pricing },
+        { name: 'Reviews', path: '/reviews', visible: pageVisibility.reviews },
+        { name: 'Blog', path: '/blog', visible: pageVisibility.blog },
+        { name: 'Contact', path: '/contact', visible: pageVisibility.contact },
     ];
+    const navLinks = allNavLinks.filter(l => l.visible);
 
     return (
         <header
@@ -116,6 +119,27 @@ const Navbar = () => {
                         </span>
                     </div>
                 </Link>
+
+                {/* Live Salon Operating Status Pill */}
+                {salonStatus?.showStatusPill && (
+                    <div className={`hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black border tracking-tight select-none ${
+                        salonStatus.state === 'open'
+                            ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                            : salonStatus.state === 'closed'
+                            ? 'bg-red-50 text-red-800 border-red-300'
+                            : salonStatus.state === 'booked'
+                            ? 'bg-amber-50 text-amber-800 border-amber-300'
+                            : 'bg-purple-50 text-purple-800 border-purple-300'
+                    }`}>
+                        <span className={`w-2 h-2 rounded-full ${
+                            salonStatus.state === 'open' ? 'bg-emerald-500 animate-pulse' : salonStatus.state === 'closed' ? 'bg-red-500' : 'bg-amber-500'
+                        }`} />
+                        <span>{salonStatus.stateLabel || 'Open Today'}</span>
+                        {salonStatus.hours && (
+                            <span className="opacity-75 font-semibold text-[11px] hidden xl:inline">({salonStatus.hours})</span>
+                        )}
+                    </div>
+                )}
 
                 {/* Desktop Nav */}
                 <nav className="hidden lg:flex items-center gap-6 xl:gap-7">

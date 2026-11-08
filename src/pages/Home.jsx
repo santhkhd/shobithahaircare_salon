@@ -18,6 +18,7 @@ import FAQ from '../components/FAQ';
 import InstagramFeed from '../components/InstagramFeed';
 import PriceCalculator from '../components/PriceCalculator';
 import LaurelBranch from '../components/LaurelBranch';
+import { useSiteSettings } from '../context/SiteSettingsContext';
 
 // Bundled high-resolution images
 import bridalBannerBride from '../assets/images/bridal-banner-bride.jpg';
@@ -30,6 +31,7 @@ import hairSmootheningAfter from '../assets/images/hair-smoothening-after.jpg';
 
 const Home = () => {
     const { openBooking } = useBooking();
+    const { homeSections } = useSiteSettings();
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
     const [favorites, setFavorites] = useState({});
@@ -377,36 +379,38 @@ const Home = () => {
                 {/* ============================================================ */}
                 {/* 4. STATS / TRUST BADGES STRIP (UNIFIED CARD BORDER)          */}
                 {/* ============================================================ */}
-                <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8D9C5] shadow-xs p-3.5 sm:p-4 my-5 sm:my-6">
-                    <div className="grid grid-cols-3 divide-x divide-gray-100 text-center">
-                        {/* 10+ Years Experience */}
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 px-1">
-                            <FaMedal className="text-[#A46E19] text-lg sm:text-xl shrink-0" />
-                            <div className="text-center sm:text-left">
-                                <div className="font-extrabold text-gray-950 text-xs sm:text-sm leading-tight">10+ Years</div>
-                                <div className="text-[10px] sm:text-xs text-gray-500 font-semibold leading-tight">Experience</div>
+                {homeSections?.statsStrip !== false && (
+                    <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8D9C5] shadow-xs p-3.5 sm:p-4 my-5 sm:my-6">
+                        <div className="grid grid-cols-3 divide-x divide-gray-100 text-center">
+                            {/* 10+ Years Experience */}
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 px-1">
+                                <FaMedal className="text-[#A46E19] text-lg sm:text-xl shrink-0" />
+                                <div className="text-center sm:text-left">
+                                    <div className="font-extrabold text-gray-950 text-xs sm:text-sm leading-tight">10+ Years</div>
+                                    <div className="text-[10px] sm:text-xs text-gray-500 font-semibold leading-tight">Experience</div>
+                                </div>
                             </div>
-                        </div>
 
-                        {/* 500+ Happy Brides */}
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 px-1">
-                            <FaUsers className="text-[#A46E19] text-lg sm:text-xl shrink-0" />
-                            <div className="text-center sm:text-left">
-                                <div className="font-extrabold text-gray-950 text-xs sm:text-sm leading-tight">500+</div>
-                                <div className="text-[10px] sm:text-xs text-gray-500 font-semibold leading-tight">Happy Brides</div>
+                            {/* 500+ Happy Brides */}
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 px-1">
+                                <FaUsers className="text-[#A46E19] text-lg sm:text-xl shrink-0" />
+                                <div className="text-center sm:text-left">
+                                    <div className="font-extrabold text-gray-950 text-xs sm:text-sm leading-tight">500+</div>
+                                    <div className="text-[10px] sm:text-xs text-gray-500 font-semibold leading-tight">Happy Brides</div>
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Certified Bridal Experts */}
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 px-1">
-                            <FaShieldAlt className="text-[#A46E19] text-lg sm:text-xl shrink-0" />
-                            <div className="text-center sm:text-left">
-                                <div className="font-extrabold text-gray-950 text-xs sm:text-sm leading-tight">Certified</div>
-                                <div className="text-[10px] sm:text-xs text-gray-500 font-semibold leading-tight">Bridal Experts</div>
+                            {/* Certified Bridal Experts */}
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 px-1">
+                                <FaShieldAlt className="text-[#A46E19] text-lg sm:text-xl shrink-0" />
+                                <div className="text-center sm:text-left">
+                                    <div className="font-extrabold text-gray-950 text-xs sm:text-sm leading-tight">Certified</div>
+                                    <div className="text-[10px] sm:text-xs text-gray-500 font-semibold leading-tight">Bridal Experts</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                )}
 
                 {/* ============================================================ */}
                 {/* 5. OUR SIGNATURE SERVICES (ELEVATED WITH LAUREL WREATH)      */}
@@ -556,82 +560,90 @@ const Home = () => {
                 {/* ============================================================ */}
                 {/* 8. INSTANT PRICE ESTIMATOR                                   */}
                 {/* ============================================================ */}
-                <section className="my-10 sm:my-14">
-                    <div className="text-center mb-6 sm:mb-8">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                            <span className="w-6 sm:w-9 h-[1.5px] bg-[#B98327]/60"></span>
-                            <span className="text-[#A46E19] font-black uppercase tracking-[0.2em] text-[10px] sm:text-xs">
-                                TRANSPARENT PRICING
-                            </span>
-                            <span className="w-6 sm:w-9 h-[1.5px] bg-[#B98327]/60"></span>
+                {homeSections?.priceEstimator !== false && (
+                    <section className="my-10 sm:my-14">
+                        <div className="text-center mb-6 sm:mb-8">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                                <span className="w-6 sm:w-9 h-[1.5px] bg-[#B98327]/60"></span>
+                                <span className="text-[#A46E19] font-black uppercase tracking-[0.2em] text-[10px] sm:text-xs">
+                                    TRANSPARENT PRICING
+                                </span>
+                                <span className="w-6 sm:w-9 h-[1.5px] bg-[#B98327]/60"></span>
+                            </div>
+
+                            <div className="flex items-center justify-center gap-2 sm:gap-4 my-1">
+                                <LaurelBranch flip={false} />
+                                <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-[1.12]">
+                                    <span className="text-[#22160F]">Instant Price </span>
+                                    <span className="text-[#B98327]">Estimator</span>
+                                </h2>
+                                <LaurelBranch flip={true} />
+                            </div>
+
+                            <p className="text-gray-700 max-w-sm sm:max-w-md mx-auto text-xs sm:text-sm font-medium leading-relaxed mt-1">
+                                Select multiple services and calculate your customized salon package total instantly.
+                            </p>
                         </div>
 
-                        <div className="flex items-center justify-center gap-2 sm:gap-4 my-1">
-                            <LaurelBranch flip={false} />
-                            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-[1.12]">
-                                <span className="text-[#22160F]">Instant Price </span>
-                                <span className="text-[#B98327]">Estimator</span>
-                            </h2>
-                            <LaurelBranch flip={true} />
-                        </div>
-
-                        <p className="text-gray-700 max-w-sm sm:max-w-md mx-auto text-xs sm:text-sm font-medium leading-relaxed mt-1">
-                            Select multiple services and calculate your customized salon package total instantly.
-                        </p>
-                    </div>
-
-                    <PriceCalculator openBooking={openBooking} />
-                </section>
+                        <PriceCalculator openBooking={openBooking} />
+                    </section>
+                )}
 
                 {/* ============================================================ */}
                 {/* 9. BEFORE & AFTER TRANSFORMATION HIGHLIGHT                  */}
                 {/* ============================================================ */}
-                <section className="my-10 sm:my-14 bg-white p-5 sm:p-8 rounded-3xl border border-[#E8D9C5] shadow-xs">
-                    <div className="text-center mb-6">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                            <span className="w-6 sm:w-9 h-[1.5px] bg-[#B98327]/60"></span>
-                            <span className="text-[#A46E19] font-black uppercase tracking-[0.2em] text-[10px] sm:text-xs">
-                                REAL CLIENT RESULTS
-                            </span>
-                            <span className="w-6 sm:w-9 h-[1.5px] bg-[#B98327]/60"></span>
+                {homeSections?.beforeAfterSlider !== false && (
+                    <section className="my-10 sm:my-14 bg-white p-5 sm:p-8 rounded-3xl border border-[#E8D9C5] shadow-xs">
+                        <div className="text-center mb-6">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                                <span className="w-6 sm:w-9 h-[1.5px] bg-[#B98327]/60"></span>
+                                <span className="text-[#A46E19] font-black uppercase tracking-[0.2em] text-[10px] sm:text-xs">
+                                    REAL CLIENT RESULTS
+                                </span>
+                                <span className="w-6 sm:w-9 h-[1.5px] bg-[#B98327]/60"></span>
+                            </div>
+
+                            <div className="flex items-center justify-center gap-2 sm:gap-4 my-1">
+                                <LaurelBranch flip={false} />
+                                <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-[1.12]">
+                                    <span className="text-[#22160F]">Signature Hair </span>
+                                    <span className="text-[#B98327]">Smoothening</span>
+                                </h2>
+                                <LaurelBranch flip={true} />
+                            </div>
+
+                            <p className="text-gray-600 text-xs sm:text-sm max-w-md mx-auto mt-1">
+                                Drag the slider to compare frizz-free smoothness before and after our signature treatment.
+                            </p>
                         </div>
 
-                        <div className="flex items-center justify-center gap-2 sm:gap-4 my-1">
-                            <LaurelBranch flip={false} />
-                            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-[1.12]">
-                                <span className="text-[#22160F]">Signature Hair </span>
-                                <span className="text-[#B98327]">Smoothening</span>
-                            </h2>
-                            <LaurelBranch flip={true} />
+                        <div className="max-w-2xl mx-auto">
+                            <BeforeAfterSlider
+                                beforeImage={hairBefore}
+                                afterImage={hairSmootheningAfter}
+                                title="Keratin Gloss Transformation"
+                            />
                         </div>
-
-                        <p className="text-gray-600 text-xs sm:text-sm max-w-md mx-auto mt-1">
-                            Drag the slider to compare frizz-free smoothness before and after our signature treatment.
-                        </p>
-                    </div>
-
-                    <div className="max-w-2xl mx-auto">
-                        <BeforeAfterSlider
-                            beforeImage={hairBefore}
-                            afterImage={hairSmootheningAfter}
-                            title="Keratin Gloss Transformation"
-                        />
-                    </div>
-                </section>
+                    </section>
+                )}
 
                 {/* ============================================================ */}
                 {/* 10. INSTAGRAM COMMUNITY FEED                                 */}
                 {/* ============================================================ */}
-                <section className="my-10 sm:my-14">
-                    <InstagramFeed />
-                </section>
+                {homeSections?.instaFeed !== false && (
+                    <section className="my-10 sm:my-14">
+                        <InstagramFeed />
+                    </section>
+                )}
 
                 {/* ============================================================ */}
                 {/* 11. FAQ ACCORDION SECTION                                    */}
                 {/* ============================================================ */}
-                <section className="my-10 sm:my-14">
-                    <FAQ />
-                </section>
+                {homeSections?.faqSection !== false && (
+                    <section className="my-10 sm:my-14">
+                        <FAQ />
+                    </section>
+                )}
 
                 {/* ============================================================ */}
                 {/* 12. TESTIMONIALS: Loved by Kanhangad Brides                 */}

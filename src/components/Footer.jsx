@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaInstagram, FaFacebook, FaYoutube, FaMapMarkerAlt, FaPhoneAlt, FaClock, FaHeart } from 'react-icons/fa';
+import { useSiteSettings } from '../context/SiteSettingsContext';
 
 const Footer = () => {
+    const { pageVisibility } = useSiteSettings();
     return (
         <footer className="bg-dark text-white pt-16 pb-10 border-t border-white/10">
             <div className="container-custom grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12 px-4 sm:px-6">
@@ -47,19 +49,26 @@ const Footer = () => {
                         Quick Links
                     </h3>
                     <ul className="space-y-3 text-sm">
-                        {['Home', 'Services', 'Bridal', 'Wedding Store', 'Gallery', 'Pricing', 'Reviews', 'Blog', 'Contact'].map((item) => {
-                            const path = item === 'Home' ? '/' : item === 'Wedding Store' ? '/wedding-store' : `/${item.toLowerCase()}`;
-                            return (
-                                <li key={item}>
-                                    <Link
-                                        to={path}
-                                        className="text-gray-300 hover:text-primary transition-colors flex items-center gap-2 font-medium"
-                                    >
-                                        <span className="text-primary text-xs">&rsaquo;</span> {item}
-                                    </Link>
-                                </li>
-                            );
-                        })}
+                        {[
+                            { name: 'Home', path: '/', visible: true },
+                            { name: 'Services', path: '/services', visible: true },
+                            { name: 'Bridal', path: '/bridal', visible: pageVisibility.bridal },
+                            { name: 'Wedding Store', path: '/wedding-store', visible: pageVisibility.store },
+                            { name: 'Gallery', path: '/gallery', visible: pageVisibility.gallery },
+                            { name: 'Pricing', path: '/pricing', visible: pageVisibility.pricing },
+                            { name: 'Reviews', path: '/reviews', visible: pageVisibility.reviews },
+                            { name: 'Blog', path: '/blog', visible: pageVisibility.blog },
+                            { name: 'Contact', path: '/contact', visible: pageVisibility.contact },
+                        ].filter(item => item.visible).map((item) => (
+                            <li key={item.name}>
+                                <Link
+                                    to={item.path}
+                                    className="text-gray-300 hover:text-primary transition-colors flex items-center gap-2 font-medium"
+                                >
+                                    <span className="text-primary text-xs">&rsaquo;</span> {item.name}
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
                 </div>
 

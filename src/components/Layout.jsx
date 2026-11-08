@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { FaPhoneAlt, FaArrowUp, FaWhatsapp, FaCalendarCheck } from 'react-icons/fa';
+import CartDrawer from './CartDrawer';
+import { FaPhoneAlt, FaArrowUp, FaWhatsapp, FaCalendarCheck, FaShoppingBag } from 'react-icons/fa';
 import WhatsAppWidget from './WhatsAppWidget';
 import { useBooking } from '../context/BookingContext';
+import { useCart } from '../context/CartContext';
 
 const Layout = ({ children }) => {
     const { pathname } = useLocation();
     const { openBooking } = useBooking();
+    const { cartCount, cartTotal, openCart } = useCart();
     const [showScroll, setShowScroll] = useState(false);
 
     // Scroll to top on route change
@@ -33,7 +36,9 @@ const Layout = ({ children }) => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const isAdminRoute = pathname.startsWith('/admin') || pathname.startsWith('/price-editor');
+    const isAdminRoute = pathname.includes('admin') || 
+        pathname.includes('price-editor') || 
+        (typeof window !== 'undefined' && (window.location.hash.includes('admin') || window.location.hash.includes('price-editor')));
 
     return (
         <div className="flex flex-col min-h-screen relative bg-[#FAF9F6] text-gray-800">
@@ -45,6 +50,25 @@ const Layout = ({ children }) => {
             </main>
 
             {!isAdminRoute && <Footer />}
+
+            {/* Slide-out Cart Drawer */}
+            <CartDrawer />
+
+            {/* Floating Quick Cart Pill when items are in cart */}
+            {cartCount > 0 && !isAdminRoute && (
+                <div className="fixed bottom-20 lg:bottom-6 left-4 z-40 pointer-events-auto">
+                    <button
+                        onClick={openCart}
+                        className="bg-[#4A0A16] hover:bg-[#5C101F] text-white px-4 py-2.5 rounded-full shadow-2xl border-2 border-amber-300 flex items-center gap-2 font-black text-xs sm:text-sm active:scale-95 transition"
+                    >
+                        <FaShoppingBag className="text-amber-300" size={14} />
+                        <span>Cart ({cartCount})</span>
+                        <span className="bg-amber-300 text-[#4A0A16] px-2 py-0.5 rounded-full text-xs font-black">
+                            {cartTotal}
+                        </span>
+                    </button>
+                </div>
+            )}
 
             {/* Desktop Floating Actions */}
             <div className="hidden lg:flex fixed bottom-6 right-6 z-40 flex-col items-end gap-3 pointer-events-none">

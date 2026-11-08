@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaPhoneAlt, FaWhatsapp, FaCalendarCheck, FaHeart } from 'react-icons/fa';
+import { FaPhoneAlt, FaWhatsapp, FaCalendarCheck, FaHeart, FaShoppingBag } from 'react-icons/fa';
 import { useBooking } from '../context/BookingContext';
+import { useCart } from '../context/CartContext';
 import OfferBanner from './OfferBanner';
 
 const Navbar = () => {
@@ -9,6 +10,7 @@ const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [favoriteCount, setFavoriteCount] = useState(0);
     const { openBooking } = useBooking();
+    const { cartCount, openCart } = useCart();
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -157,6 +159,21 @@ const Navbar = () => {
 
                 {/* Desktop Action Buttons */}
                 <div className="hidden lg:flex items-center gap-3">
+                    {/* Cart Drawer Trigger */}
+                    <button
+                        onClick={openCart}
+                        className="relative p-2 text-gray-700 hover:text-amber-800 transition active:scale-95"
+                        title="View Cart"
+                        aria-label="Shopping Cart"
+                    >
+                        <FaShoppingBag size={17} />
+                        {cartCount > 0 && (
+                            <span className="absolute -top-1 -right-1 bg-[#4A0A16] text-amber-300 font-black text-[10px] w-4 h-4 rounded-full flex items-center justify-center shadow-xs border border-white">
+                                {cartCount}
+                            </span>
+                        )}
+                    </button>
+
                     <a
                         href="tel:+918075340778"
                         className="p-2 text-gray-700 hover:text-primary-dark transition-colors"
@@ -172,8 +189,23 @@ const Navbar = () => {
                     </button>
                 </div>
 
-                {/* Mobile Right Icons: Favorite Heart + Circular Gold Phone + Hamburger */}
+                {/* Mobile Right Icons: Cart + Favorite Heart + Circular Gold Phone + Hamburger */}
                 <div className="flex items-center gap-2 lg:hidden">
+                    {/* Mobile Cart Button */}
+                    <button
+                        onClick={openCart}
+                        className="relative w-9 h-9 rounded-full border border-amber-200 text-[#4A0A16] flex items-center justify-center hover:bg-amber-50 active:scale-95 transition-all shadow-xs"
+                        aria-label="Shopping Cart"
+                        title="Shopping Cart"
+                    >
+                        <FaShoppingBag size={13} className="text-[#8E580B]" />
+                        {cartCount > 0 && (
+                            <span className="absolute -top-1 -right-1 bg-[#4A0A16] text-amber-300 font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow-xs border border-white">
+                                {cartCount}
+                            </span>
+                        )}
+                    </button>
+
                     {/* Mobile Favorite Heart Button */}
                     <Link
                         to="/services?category=Favorites"
@@ -260,6 +292,23 @@ const Navbar = () => {
                                     {favoriteCount}
                                 </span>
                             </NavLink>
+
+                            {/* Mobile Drawer Cart Link */}
+                            <button
+                                onClick={() => {
+                                    setIsOpen(false);
+                                    openCart();
+                                }}
+                                className="w-full py-3 text-sm font-bold flex items-center justify-between text-gray-900 hover:text-amber-800 px-1"
+                            >
+                                <div className="flex items-center gap-2">
+                                    <FaShoppingBag className="text-[#8E580B] text-sm" />
+                                    <span>Shopping Cart</span>
+                                </div>
+                                <span className="bg-[#4A0A16] text-amber-300 text-xs font-black px-2.5 py-0.5 rounded-full">
+                                    {cartCount} items
+                                </span>
+                            </button>
                         </nav>
 
                         <div className="pt-3 border-t border-gray-100 flex flex-col gap-2.5">

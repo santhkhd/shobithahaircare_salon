@@ -1667,9 +1667,9 @@ function doGet(e) {
                                             <FaTimes size={13} />
                                         </button>
 
-                                        {/* Watermark Overlay Preview matching Image 2 with Soft Opacity */}
-                                        <div className="absolute top-3 left-3 bg-black/45 backdrop-blur-sm px-3 py-1.5 rounded-xl border border-amber-300/30 shadow-md opacity-80">
-                                            <Logo variant="gold" size="sm" showSwoop={true} align="left" />
+                                        {/* Watermark Overlay Preview - Compact Size */}
+                                        <div className="absolute top-3 left-3 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-xl border border-amber-300/25 shadow-xs opacity-75">
+                                            <Logo variant="gold" size="xs" showSwoop={true} align="left" />
                                         </div>
                                     </div>
 

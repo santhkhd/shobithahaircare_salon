@@ -496,9 +496,9 @@ const Home = () => {
                                             {srv.category}
                                         </div>
 
-                                        {/* Official Logo Watermark Overlay with Soft Opacity */}
-                                        <div className="absolute bottom-2 left-2 z-10 bg-black/40 backdrop-blur-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-xl border border-amber-300/25 shadow-xs pointer-events-none opacity-70 group-hover:opacity-90 transition-opacity">
-                                            <Logo variant="gold" size="xs" showSwoop={true} align="left" />
+                                        {/* Official Logo Watermark Overlay - Micro Compact Size */}
+                                        <div className="absolute bottom-1.5 left-1.5 z-10 bg-black/40 backdrop-blur-xs px-1.5 py-0.5 rounded-lg border border-amber-300/20 shadow-2xs pointer-events-none opacity-65 group-hover:opacity-85 transition-opacity">
+                                            <Logo variant="gold" size="micro" showSwoop={true} align="left" />
                                         </div>
                                     </div>
 

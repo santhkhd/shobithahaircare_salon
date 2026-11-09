@@ -143,9 +143,9 @@ const ServiceDetail = () => {
                                 loading="eager"
                             />
 
-                            {/* Official Logo Watermark Overlay with Soft Opacity */}
-                            <div className="absolute top-4 left-4 z-10 bg-black/45 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-2xl border border-amber-300/30 shadow-md pointer-events-none opacity-80">
-                                <Logo variant="gold" size="sm" showSwoop={true} align="left" />
+                            {/* Official Logo Watermark Overlay - Compact Size */}
+                            <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-xl border border-amber-300/25 shadow-xs pointer-events-none opacity-70">
+                                <Logo variant="gold" size="xs" showSwoop={true} align="left" />
                             </div>
                         </div>
 

@@ -329,9 +329,9 @@ const Gallery = () => {
                                         </div>
                                     )}
 
-                                    {/* Top-Left Logo Watermark Overlay with Soft Opacity */}
-                                    <div className="absolute top-2.5 left-2.5 z-10 bg-black/40 backdrop-blur-xs px-2 py-0.5 rounded-xl border border-amber-300/25 shadow-xs pointer-events-none opacity-70 group-hover:opacity-90 transition-opacity">
-                                        <Logo variant="gold" size="xs" showSwoop={true} align="left" />
+                                    {/* Top-Left Logo Watermark - Micro Compact Size */}
+                                    <div className="absolute top-2 left-2 z-10 bg-black/40 backdrop-blur-xs px-1.5 py-0.5 rounded-lg border border-amber-300/20 shadow-2xs pointer-events-none opacity-65 group-hover:opacity-85 transition-opacity">
+                                        <Logo variant="gold" size="micro" showSwoop={true} align="left" />
                                     </div>
 
                                     {/* Bottom Overlay Gradient & Deep Crimson/Burgundy Badge */}

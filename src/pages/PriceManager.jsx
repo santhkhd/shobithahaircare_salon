@@ -18,7 +18,8 @@ import {
     FaCamera, FaMagic, FaFolderOpen, FaPalette,
     FaBars, FaBell, FaCog, FaHome, FaLayerGroup, FaListAlt, FaChartBar,
     FaCrown, FaCut, FaWind, FaSpa, FaPaintBrush, FaLeaf, FaEllipsisH,
-    FaCrosshairs, FaCrop, FaDesktop, FaFilter, FaSave
+    FaCrosshairs, FaCrop, FaDesktop, FaFilter, FaSave,
+    FaChevronDown, FaChevronUp
 } from 'react-icons/fa';
 
 // Bundled image presets for promo banner selection
@@ -280,6 +281,29 @@ const PriceManager = () => {
     const [customTargetFileNames, setCustomTargetFileNames] = useState({});
     const [resizeQualityMode, setResizeQualityMode] = useState('800x1000'); // '800x1000' | '1000x1250' | '600x750'
     const [galleryViewMode, setGalleryViewMode] = useState('grid'); // 'grid' | 'detailed'
+    const [showPromptDetails, setShowPromptDetails] = useState({}); // { [id]: boolean } (prompts hidden by default)
+    const [showAllPromptsGlobal, setShowAllPromptsGlobal] = useState(false);
+    const [showModalPrompt, setShowModalPrompt] = useState(false);
+
+    const togglePromptVisibility = (id) => {
+        setShowPromptDetails(prev => ({
+            ...prev,
+            [id]: !prev[id]
+        }));
+    };
+
+    const toggleAllPromptsGlobal = () => {
+        const next = !showAllPromptsGlobal;
+        setShowAllPromptsGlobal(next);
+        if (!next) {
+            setShowPromptDetails({});
+        } else {
+            const allOpen = {};
+            serviceImagePrompts.forEach(p => { allOpen[p.id] = true; });
+            setShowPromptDetails(allOpen);
+        }
+    };
+
     const [customServiceImages, setCustomServiceImages] = useState(() => {
         try {
             return JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
@@ -2047,8 +2071,29 @@ function doGet(e) {
                                 {/* ======================================================== */}
                                 {galleryViewMode === 'detailed' && (
                                     <div className="space-y-4 pt-2">
+                                        {/* Global Toggle Strip for Prompts */}
+                                        <div className="flex items-center justify-between bg-amber-50/70 p-3 rounded-2xl border border-amber-200/80 text-xs text-amber-950">
+                                            <div className="flex items-center gap-2">
+                                                <span className="font-black">Prompt Display:</span>
+                                                <span className="text-gray-600 font-medium hidden sm:inline">
+                                                    Prompts are hidden by default to keep the page clean. Click any service prompt to view.
+                                                </span>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={toggleAllPromptsGlobal}
+                                                className="px-3 py-1.5 rounded-xl bg-white hover:bg-amber-100 text-[#4A0A16] font-black text-xs border border-amber-300 shadow-2xs flex items-center gap-1.5 transition active:scale-95"
+                                            >
+                                                {showAllPromptsGlobal ? <FaChevronUp size={11} className="text-amber-700" /> : <FaChevronDown size={11} className="text-amber-700" />}
+                                                <span>{showAllPromptsGlobal ? 'Hide All Prompts' : 'Show All Prompts'}</span>
+                                            </button>
+                                        </div>
+
                                         {filteredPrompts.map(item => {
                                             const isBridal = item.category === 'Bridal Makeup & Special Occasion Makeup';
+                                            const isPromptVisible = showPromptDetails[item.id] !== undefined
+                                                ? showPromptDetails[item.id]
+                                                : showAllPromptsGlobal;
 
                                             return (
                                                 <div
@@ -2131,40 +2176,81 @@ function doGet(e) {
                                                         </div>
                                                     </div>
 
-                                                    {/* Prompt Box */}
-                                                    <div>
-                                                        <div className="flex items-center justify-between mb-1.5">
-                                                            <label className="text-xs font-black uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
-                                                                <FaMagic className="text-amber-700" />
-                                                                <span>AI Model Image Generation Prompt</span>
-                                                            </label>
+                                                    {/* COLLAPSIBLE PROMPT SECTION (HIDDEN BY DEFAULT, CLICK TO SHOW) */}
+                                                    <div className="rounded-2xl border border-amber-200/80 bg-white overflow-hidden shadow-2xs transition-all">
+                                                        <div 
+                                                            onClick={() => togglePromptVisibility(item.id)}
+                                                            className="p-3 bg-gradient-to-r from-amber-50/80 via-white to-amber-50/40 hover:bg-amber-100/40 cursor-pointer flex items-center justify-between gap-2 select-none transition"
+                                                        >
+                                                            <div className="flex items-center gap-2.5 min-w-0">
+                                                                <span className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-xs shrink-0 shadow-2xs">
+                                                                    <FaMagic />
+                                                                </span>
+                                                                <div className="min-w-0">
+                                                                    <div className="text-xs font-black uppercase tracking-wider text-gray-800 flex items-center gap-2 flex-wrap">
+                                                                        <span>AI Model Image Generation Prompt</span>
+                                                                        <span className="text-[10px] font-black text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
+                                                                            {isPromptVisible ? 'Tap to Hide' : 'Tap to Show'}
+                                                                        </span>
+                                                                    </div>
+                                                                    {!isPromptVisible && (
+                                                                        <p className="text-[11px] text-gray-500 font-medium truncate mt-0.5 max-w-md">
+                                                                            {item.prompt.slice(0, 90)}...
+                                                                        </p>
+                                                                    )}
+                                                                </div>
+                                                            </div>
 
-                                                            <button
-                                                                onClick={() => handleCopyPrompt(item.id, item.prompt)}
-                                                                className={`px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-xs ${
-                                                                    copiedPromptId === item.id
-                                                                        ? 'bg-emerald-600 text-white'
-                                                                        : 'bg-[#B98327] hover:bg-[#A3701E] text-white'
-                                                                }`}
-                                                            >
-                                                                {copiedPromptId === item.id ? <FaCheck size={11} /> : <FaCopy size={11} />}
-                                                                <span>{copiedPromptId === item.id ? '✓ Prompt Copied!' : 'Copy Prompt'}</span>
-                                                            </button>
+                                                            <div className="flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
+                                                                {/* Show / Hide Toggle Button */}
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => togglePromptVisibility(item.id)}
+                                                                    className="px-3 py-1.5 rounded-xl text-xs font-black bg-amber-50 hover:bg-amber-100 text-[#4A0A16] border border-amber-200 flex items-center gap-1.5 transition active:scale-95 shadow-2xs"
+                                                                    title={isPromptVisible ? "Hide Prompt Text" : "Click to Show Full Prompt Text"}
+                                                                >
+                                                                    {isPromptVisible ? <FaChevronUp size={11} className="text-amber-700" /> : <FaChevronDown size={11} className="text-amber-700" />}
+                                                                    <span>{isPromptVisible ? 'Hide Prompt' : 'Show Prompt'}</span>
+                                                                </button>
+
+                                                                {/* Quick Copy Prompt Button */}
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => handleCopyPrompt(item.id, item.prompt)}
+                                                                    className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-2xs ${
+                                                                        copiedPromptId === item.id
+                                                                            ? 'bg-emerald-600 text-white'
+                                                                            : 'bg-[#B98327] hover:bg-[#A3701E] text-white'
+                                                                    }`}
+                                                                    title="Copy prompt text to clipboard"
+                                                                >
+                                                                    {copiedPromptId === item.id ? <FaCheck size={11} /> : <FaCopy size={11} />}
+                                                                    <span>{copiedPromptId === item.id ? 'Copied!' : 'Copy Prompt'}</span>
+                                                                </button>
+                                                            </div>
                                                         </div>
 
-                                                        <div className="p-3.5 rounded-2xl bg-white border border-gray-200 text-xs sm:text-sm text-gray-800 leading-relaxed font-medium select-all">
-                                                            {item.prompt}
-                                                        </div>
+                                                        {/* Expanded Prompt Details (Only visible when toggled open) */}
+                                                        {isPromptVisible && (
+                                                            <div className="p-3.5 pt-2 border-t border-amber-100 bg-[#FAF9F5] space-y-2.5 animate-in fade-in duration-200">
+                                                                <div className="p-3.5 rounded-2xl bg-white border border-gray-200 text-xs sm:text-sm text-gray-800 leading-relaxed font-medium select-all">
+                                                                    {item.prompt}
+                                                                </div>
 
-                                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-gray-500 font-bold px-1 mt-1.5 gap-1">
-                                                            <span>Aspect: {item.aspectRatio}</span>
-                                                            <span>Watermark: {item.watermark}</span>
-                                                        </div>
+                                                                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-gray-500 font-bold px-1 gap-1">
+                                                                    <span>Aspect: {item.aspectRatio}</span>
+                                                                    <span>Watermark: {item.watermark}</span>
+                                                                </div>
 
-                                                        {item.modelVariation && (
-                                                            <div className="mt-2.5 p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/60 flex flex-wrap items-center gap-2 text-xs">
-                                                                <span className="font-black text-amber-950">Model Variation:</span>
-                                                                <span className="text-amber-900">{item.modelVariation.modelProfile}</span>
+                                                                {item.modelVariation && (
+                                                                    <div className="mt-2.5 p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/60 flex flex-wrap items-center gap-2 text-xs">
+                                                                        <span className="font-black text-amber-950">Model Variation:</span>
+                                                                        <span className="text-amber-900">{item.modelVariation.modelProfile}</span>
+                                                                        {item.modelVariation.pose && (
+                                                                            <span className="text-gray-600 ml-2 font-medium">Pose: {item.modelVariation.pose}</span>
+                                                                        )}
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                         )}
                                                     </div>
@@ -2323,9 +2409,49 @@ function doGet(e) {
                                                 </div>
                                             </div>
 
-                                            {/* Scrollable Prompt Box */}
-                                            <div className="p-3 rounded-2xl bg-[#FAF9F5] border border-gray-200 text-xs text-gray-700 leading-relaxed font-medium max-h-36 overflow-y-auto">
-                                                {serviceObj?.description || previewServiceModal.prompt}
+                                            {/* Service Description */}
+                                            {serviceObj?.description && (
+                                                <div className="p-3 rounded-2xl bg-[#FAF9F5] border border-gray-200 text-xs text-gray-700 leading-relaxed font-medium">
+                                                    {serviceObj.description}
+                                                </div>
+                                            )}
+
+                                            {/* Collapsible Prompt Toggle inside Modal (Hidden by Default) */}
+                                            <div className="rounded-2xl border border-amber-200/80 bg-white overflow-hidden shadow-2xs">
+                                                <div 
+                                                    onClick={() => setShowModalPrompt(prev => !prev)}
+                                                    className="p-2.5 bg-amber-50/70 hover:bg-amber-100/50 cursor-pointer flex items-center justify-between gap-2 select-none"
+                                                >
+                                                    <span className="text-[11px] font-black uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
+                                                        <FaMagic className="text-amber-700" />
+                                                        <span>AI Generation Prompt</span>
+                                                        <span className="text-[9px] font-bold text-amber-800 bg-amber-200/60 px-1.5 py-0.5 rounded-full">
+                                                            {showModalPrompt ? 'Hide' : 'Show'}
+                                                        </span>
+                                                    </span>
+                                                    <div className="flex items-center gap-1 text-xs text-amber-900 font-bold">
+                                                        {showModalPrompt ? <FaChevronUp size={10} /> : <FaChevronDown size={10} />}
+                                                        <span>{showModalPrompt ? 'Hide' : 'Show Prompt'}</span>
+                                                    </div>
+                                                </div>
+
+                                                {showModalPrompt && (
+                                                    <div className="p-3 border-t border-amber-100 bg-[#FAF9F5] space-y-2 text-xs text-gray-700 max-h-40 overflow-y-auto animate-in fade-in duration-200">
+                                                        <div className="leading-relaxed select-all">
+                                                            {previewServiceModal.prompt}
+                                                        </div>
+                                                        <div className="flex items-center justify-between pt-1 border-t border-amber-200/50">
+                                                            <span className="text-[10px] text-gray-500 font-bold">Aspect: {previewServiceModal.aspectRatio}</span>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => handleCopyPrompt(previewServiceModal.id, previewServiceModal.prompt)}
+                                                                className="text-[11px] font-black text-amber-800 hover:text-amber-900 flex items-center gap-1 bg-amber-100 px-2 py-0.5 rounded-md active:scale-95 transition"
+                                                            >
+                                                                <FaCopy size={10} /> Copy
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
 
                                             {previewServiceModal.modelVariation && (

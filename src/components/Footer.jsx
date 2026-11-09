@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaInstagram, FaFacebook, FaYoutube, FaMapMarkerAlt, FaPhoneAlt, FaClock, FaHeart } from 'react-icons/fa';
 import { useSiteSettings } from '../context/SiteSettingsContext';
+import Logo from './Logo';
 
 const Footer = () => {
     const { pageVisibility } = useSiteSettings();
@@ -10,9 +11,9 @@ const Footer = () => {
             <div className="container-custom grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12 px-4 sm:px-6">
                 {/* Brand Column */}
                 <div>
-                    <h2 className="text-2xl sm:text-3xl font-serif font-extrabold text-primary mb-3">
-                        Shobitha <span className="text-white font-sans font-light">Haircare</span>
-                    </h2>
+                    <div className="mb-4">
+                        <Logo variant="gold" size="lg" align="left" showSwoop={true} />
+                    </div>
                     <p className="text-gray-300 text-sm mb-6 leading-relaxed font-normal">
                         Premier Kerala bridal makeover studio and professional haircare salon located at Municipal Bus Stand Road, Kanhangad.
                     </p>

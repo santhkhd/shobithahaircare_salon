@@ -38,6 +38,7 @@ export default {
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],
                 serif: ['Playfair Display', 'serif'],
+                script: ['Alex Brush', 'Great Vibes', 'cursive'],
             },
             animation: {
                 'fade-in': 'fadeIn 0.5s ease-out forwards',

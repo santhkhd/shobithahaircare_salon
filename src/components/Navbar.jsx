@@ -5,6 +5,7 @@ import { useBooking } from '../context/BookingContext';
 import { useCart } from '../context/CartContext';
 import { useSiteSettings } from '../context/SiteSettingsContext';
 import OfferBanner from './OfferBanner';
+import Logo from './Logo';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -100,24 +101,9 @@ const Navbar = () => {
             <div className={`container-custom flex justify-between items-center transition-all duration-300 px-3.5 sm:px-6 ${
                 scrolled ? 'py-2' : 'py-2.5 sm:py-3'
             }`}>
-                {/* Logo matching Image 2 (Triple-tap secretly opens Admin) */}
-                <Link to="/" onClick={handleLogoClick} className="flex items-center gap-2 group select-none">
-                    {/* Golden Lotus Silhouette Icon */}
-                    <div className="w-8 h-8 sm:w-9 sm:h-9 shrink-0 flex items-center justify-center">
-                        <svg viewBox="0 0 100 100" className="w-full h-full text-amber-600 fill-current drop-shadow-xs">
-                            <path d="M50 15 C52 28, 65 35, 68 50 C70 60, 62 70, 50 78 C38 70, 30 60, 32 50 C35 35, 48 28, 50 15 Z" fill="#C59B27"/>
-                            <path d="M50 30 C58 40, 72 45, 78 58 C82 66, 75 75, 62 80 C55 76, 51 72, 50 70 C49 72, 45 76, 38 80 C25 75, 18 66, 22 58 C28 45, 42 40, 50 30 Z" fill="#D4AF37" opacity="0.95"/>
-                            <path d="M50 45 C55 52, 65 58, 68 68 C70 74, 62 82, 50 85 C38 82, 30 74, 32 68 C35 58, 45 52, 50 45 Z" fill="#B8860B"/>
-                        </svg>
-                    </div>
-                    <div className="flex flex-col">
-                        <span className="text-base sm:text-xl md:text-2xl font-serif font-black tracking-tight text-gray-950 leading-tight">
-                            Shobitha <span className="font-serif text-gray-900 font-bold">Haircare</span>
-                        </span>
-                        <span className="text-[7.5px] sm:text-[9px] tracking-[0.22em] uppercase text-gray-800 font-extrabold leading-none mt-0.5">
-                            & BRIDAL MAKEUP STUDIO
-                        </span>
-                    </div>
+                {/* Official Salon Calligraphy Logo (Triple-tap secretly opens Admin) */}
+                <Link to="/" onClick={handleLogoClick} className="group select-none py-1 block shrink-0" title="Shobitha Haircare & Bridal Makeup Studio">
+                    <Logo variant="dark" size="sm" align="left" showSwoop={true} />
                 </Link>
 
                 {/* Desktop Nav - Neatly aligned & spaced */}

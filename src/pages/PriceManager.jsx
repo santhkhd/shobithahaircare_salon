@@ -6,6 +6,7 @@ import { blogPosts, blogCategories } from '../data/blogs';
 import { initialStoreProducts, storeCategories } from '../data/storeProducts';
 import { serviceImagePrompts } from '../data/serviceImagePrompts';
 import { useSiteSettings } from '../context/SiteSettingsContext';
+import Logo from '../components/Logo';
 import { 
     FaTag, FaCheck, FaCopy, FaDownload, FaSyncAlt, FaArrowRight, 
     FaWhatsapp, FaShieldAlt, FaMobileAlt, FaImage, FaSearch, 
@@ -1666,14 +1667,9 @@ function doGet(e) {
                                             <FaTimes size={13} />
                                         </button>
 
-                                        {/* Watermark Overlay Preview */}
-                                        <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-amber-400/60 shadow-md">
-                                            <div className="text-[11px] font-serif font-black text-amber-300 leading-tight">
-                                                Shobitha Haircare
-                                            </div>
-                                            <div className="text-[8px] font-bold text-amber-100 uppercase tracking-widest leading-tight">
-                                                & BRIDAL MAKEUP STUDIO
-                                            </div>
+                                        {/* Watermark Overlay Preview matching Image 2 */}
+                                        <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-sm px-3 py-1.5 rounded-xl border border-amber-400/50 shadow-md">
+                                            <Logo variant="gold" size="sm" showSwoop={true} align="left" />
                                         </div>
                                     </div>
 

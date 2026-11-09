@@ -355,14 +355,21 @@ const PriceManager = () => {
             }
         }
 
+        // Save to local storage
         const updated = { ...customServiceImages, [serviceId]: finalUrl };
         setCustomServiceImages(updated);
         try {
             localStorage.setItem('shobitha_custom_service_images', JSON.stringify(updated));
             window.dispatchEvent(new Event('service_images_updated'));
             if (showAlert) {
-                alert(`✓ Saved image for ${serviceId}! Live preview updated across website.`);
+                alert(`✓ Saved image for ${serviceId}! Live preview updated.`);
             }
+            // Auto-push image to Google Sheet cloud so all visitors worldwide see it immediately
+            setTimeout(() => {
+                if (sheetWebhookUrl) {
+                    handlePushToGoogleSheet();
+                }
+            }, 500);
         } catch (e) {
             console.error(e);
             alert('Could not save to browser storage. If uploading large files, please use the Upload & Auto-Resize button.');
@@ -631,8 +638,8 @@ const PriceManager = () => {
         localStorage.setItem('shobitha_custom_services', JSON.stringify(customServices));
     };
 
-    // Save all changes to local storage (immediately reflects across live website on this device)
-    const handleSaveToWebsite = () => {
+    // Save all changes to local storage & immediately push to Google Sheets for worldwide sync
+    const handleSaveToWebsite = (triggerCloudSync = true) => {
         try {
             saveServicesToStorage(serviceList);
 
@@ -665,13 +672,18 @@ const PriceManager = () => {
 
             setSavedNotification(true);
             setTimeout(() => setSavedNotification(false), 3000);
+
+            // Auto-sync everything worldwide via Google Sheets
+            if (triggerCloudSync && sheetWebhookUrl) {
+                handlePushToGoogleSheet(false);
+            }
         } catch (err) {
             alert('Failed to save to local storage: ' + err.message);
         }
     };
 
-    // Push Live to Google Sheet Webhook
-    const handlePushToGoogleSheet = async () => {
+    // Push Live to Google Sheet Webhook (Master Cloud Sync - Worldwide)
+    const handlePushToGoogleSheet = async (shouldSaveLocal = true) => {
         if (!sheetWebhookUrl) {
             alert("Please paste your Google Sheet Webhook URL in the 'Google Sheets' tab first!");
             setActiveTab('sheet');
@@ -696,13 +708,26 @@ const PriceManager = () => {
                     linkRoute: promoLinkRoute,
                     image: typeof promoImage === 'string' && promoImage.startsWith('data:') ? '[Base64 Image]' : promoImage
                 },
+                storeStatus,
+                serviceImages: customServiceImages,
+                siteSettings: {
+                    pageVisibility,
+                    salonStatus,
+                    homeSections,
+                    contactSettings,
+                    affiliateSettings
+                },
+                storeProducts: storeProductsList,
+                featuredReviews: reviewList.filter(r => r.featured).map(r => r.id),
                 services: serviceList.map(s => ({
                     id: s.id,
                     name: s.name,
                     category: s.category,
                     price: s.price,
                     offerPrice: s.offerPrice || '',
-                    hidden: !!s.hidden
+                    duration: s.duration || '',
+                    hidden: !!s.hidden,
+                    imageUrl: customServiceImages[s.id] || ''
                 }))
             };
 
@@ -713,7 +738,10 @@ const PriceManager = () => {
                 body: JSON.stringify(payload)
             });
 
-            handleSaveToWebsite();
+            if (shouldSaveLocal) {
+                handleSaveToWebsite(false);
+            }
+
             // Broadcast live sync
             syncWithGoogleSheets();
             setSyncStatus('success');
@@ -860,7 +888,7 @@ const PriceManager = () => {
         localStorage.setItem('shobitha_featured_reviews', JSON.stringify(updated));
     };
 
-    // Google Apps Script template code
+    // Google Apps Script template code (Full Admin Worldwide Live Sync)
     const googleAppsScriptCode = `// PASTE THIS IN GOOGLE SHEETS -> Extensions -> Apps Script
 var TELEGRAM_BOT_TOKEN = "PASTE_YOUR_TELEGRAM_BOT_TOKEN_HERE";
 
@@ -869,66 +897,79 @@ function doPost(e) {
     var data = JSON.parse(e.postData.contents);
     var ss = SpreadsheetApp.getActiveSpreadsheet();
 
-    // CASE 1: TELEGRAM BOT
-    if (data.message && data.message.text) {
-      var chatId = data.message.chat.id;
-      var text = data.message.text.trim();
-      var reply = "";
-
-      if (text.toLowerCase().startsWith("price ")) {
-        var cmd = text.substring(6).trim();
-        var priceSheet = ss.getSheetByName("Prices");
-        if (priceSheet) {
-          var rows = priceSheet.getDataRange().getValues();
-          for (var i = 1; i < rows.length; i++) {
-            if (cmd.toLowerCase().includes(String(rows[i][1]).toLowerCase())) {
-              var m = cmd.match(/₹?\\s*(\\d[\\d,]*)/);
-              if (m) {
-                priceSheet.getRange(i + 1, 4).setValue("₹" + m[1]);
-                reply = "✅ " + rows[i][1] + " updated to ₹" + m[1] + " in Google Sheet!";
-                break;
-              }
-            }
-          }
-        }
-      } else if (text.toLowerCase().startsWith("banner ")) {
-        var offerSheet = ss.getSheetByName("Offers");
-        if (offerSheet) {
-          offerSheet.getRange(4, 2).setValue(text.substring(7).trim());
-          reply = "🎉 Banner updated!";
-        }
-      }
-
-      if (TELEGRAM_BOT_TOKEN && TELEGRAM_BOT_TOKEN !== "PASTE_YOUR_TELEGRAM_BOT_TOKEN_HERE") {
-        UrlFetchApp.fetch("https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage", {
-          method: "post",
-          contentType: "application/json",
-          payload: JSON.stringify({ chat_id: chatId, text: reply || "Done!" })
-        });
-      }
-      return ContentService.createTextOutput("OK").setMimeType(ContentService.MimeType.TEXT);
+    // 1. SERVICES & PRICES
+    if (data.services && Array.isArray(data.services)) {
+      var priceSheet = ss.getSheetByName("Prices") || ss.insertSheet("Prices");
+      priceSheet.clear();
+      priceSheet.appendRow(["ID", "Service Name", "Category", "Price", "Offer", "Duration", "Hidden", "ImageURL"]);
+      data.services.forEach(function(s) {
+        var img = s.imageUrl || "";
+        if (img && img.length > 45000) { img = img.substring(0, 45000); }
+        priceSheet.appendRow([s.id, s.name, s.category, s.price, s.offerPrice, s.duration || "", s.hidden ? "YES" : "NO", img]);
+      });
     }
 
-    // CASE 2: WEBSITE PUSH
-    var offerSheet = ss.getSheetByName("Offers") || ss.insertSheet("Offers");
-    offerSheet.clear();
-    offerSheet.appendRow(["Key", "Value"]);
-    offerSheet.appendRow(["Banner Active", data.banner.active]);
-    offerSheet.appendRow(["Banner Badge", data.banner.badge]);
-    offerSheet.appendRow(["Banner Text", data.banner.text]);
-    offerSheet.appendRow(["Last Updated", data.timestamp]);
+    // 2. OFFERS & FESTIVE BANNERS
+    if (data.banner) {
+      var offerSheet = ss.getSheetByName("Offers") || ss.insertSheet("Offers");
+      offerSheet.clear();
+      offerSheet.appendRow(["Key", "Value"]);
+      offerSheet.appendRow(["Banner Active", data.banner.active]);
+      offerSheet.appendRow(["Banner Badge", data.banner.badge]);
+      offerSheet.appendRow(["Banner Text", data.banner.text]);
+      if (data.promoBanner) {
+        offerSheet.appendRow(["Promo Title", data.promoBanner.title || ""]);
+        offerSheet.appendRow(["Promo Subtitle", data.promoBanner.subtitle || ""]);
+        offerSheet.appendRow(["Promo Highlight", data.promoBanner.highlight || ""]);
+      }
+      offerSheet.appendRow(["Last Updated", data.timestamp || new Date().toISOString()]);
+    }
 
-    var priceSheet = ss.getSheetByName("Prices") || ss.insertSheet("Prices");
-    priceSheet.clear();
-    priceSheet.appendRow(["ID", "Service Name", "Category", "Price", "Offer", "Hidden"]);
-    data.services.forEach(function(s) {
-      priceSheet.appendRow([s.id, s.name, s.category, s.price, s.offerPrice, s.hidden ? "YES" : "NO"]);
-    });
+    // 3. SALON STORE STATUS & TIMINGS
+    if (data.storeStatus) {
+      var statusSheet = ss.getSheetByName("StoreStatus") || ss.insertSheet("StoreStatus");
+      statusSheet.clear();
+      statusSheet.appendRow(["Key", "Value"]);
+      statusSheet.appendRow(["State", data.storeStatus.state || "open"]);
+      statusSheet.appendRow(["Text", data.storeStatus.text || ""]);
+      statusSheet.appendRow(["CustomNote", data.storeStatus.customNote || ""]);
+      statusSheet.appendRow(["Last Updated", new Date().toISOString()]);
+    }
 
-    return ContentService.createTextOutput(JSON.stringify({status: "ok", count: data.services.length}))
+    // 4. CUSTOM SERVICE IMAGES (IMAGE UPLOADS SYNC WORLDWIDE)
+    if (data.serviceImages && typeof data.serviceImages === "object") {
+      var imgSheet = ss.getSheetByName("ServiceImages") || ss.insertSheet("ServiceImages");
+      imgSheet.clear();
+      imgSheet.appendRow(["ServiceID", "ImageURL", "LastUpdated"]);
+      for (var sId in data.serviceImages) {
+        if (data.serviceImages.hasOwnProperty(sId)) {
+          var val = String(data.serviceImages[sId]);
+          if (val.length > 45000) val = val.substring(0, 45000);
+          imgSheet.appendRow([sId, val, new Date().toISOString()]);
+        }
+      }
+    }
+
+    // 5. SITE SETTINGS (Navigation, Home Sections, Contact Numbers)
+    if (data.siteSettings) {
+      var setSheet = ss.getSheetByName("Settings") || ss.insertSheet("Settings");
+      setSheet.clear();
+      setSheet.appendRow(["Key", "JSONValue"]);
+      setSheet.appendRow(["siteSettings", JSON.stringify(data.siteSettings)]);
+    }
+
+    // 6. STORE PRODUCTS & REVIEWS
+    if (data.storeProducts) {
+      var prodSheet = ss.getSheetByName("StoreProducts") || ss.insertSheet("StoreProducts");
+      prodSheet.clear();
+      prodSheet.appendRow(["Key", "JSONValue"]);
+      prodSheet.appendRow(["products", JSON.stringify(data.storeProducts)]);
+    }
+
+    return ContentService.createTextOutput(JSON.stringify({ status: "success", timestamp: new Date().toISOString() }))
       .setMimeType(ContentService.MimeType.JSON);
   } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({error: err.toString()}))
+    return ContentService.createTextOutput(JSON.stringify({ error: err.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
@@ -936,25 +977,104 @@ function doPost(e) {
 function doGet(e) {
   try {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var result = {
+      status: "success",
+      timestamp: new Date().toISOString(),
+      services: [],
+      offers: {},
+      storeStatus: {},
+      serviceImages: {},
+      siteSettings: null,
+      storeProducts: null
+    };
+
+    // 1. READ SERVICES
     var priceSheet = ss.getSheetByName("Prices");
-    var services = [];
     if (priceSheet) {
       var rows = priceSheet.getDataRange().getValues();
       for (var i = 1; i < rows.length; i++) {
-        services.push({
-          id: String(rows[i][0]),
+        var sId = String(rows[i][0]).trim();
+        if (!sId) continue;
+        var imgUrl = rows[i][7] ? String(rows[i][7]) : "";
+        if (imgUrl) {
+          result.serviceImages[sId] = imgUrl;
+        }
+        result.services.push({
+          id: sId,
           name: String(rows[i][1]),
           category: String(rows[i][2]),
           price: String(rows[i][3]),
           offerPrice: String(rows[i][4]),
-          hidden: String(rows[i][5]).toUpperCase() === "YES"
+          duration: rows[i][5] ? String(rows[i][5]) : "",
+          hidden: String(rows[i][6]).toUpperCase() === "YES",
+          imageUrl: imgUrl
         });
       }
     }
-    return ContentService.createTextOutput(JSON.stringify({ status: "ok", services: services }))
+
+    // 2. READ OFFERS
+    var offerSheet = ss.getSheetByName("Offers");
+    if (offerSheet) {
+      var oRows = offerSheet.getDataRange().getValues();
+      for (var j = 1; j < oRows.length; j++) {
+        var k = String(oRows[j][0]).trim();
+        if (k) {
+          result.offers[k] = oRows[j][1];
+        }
+      }
+    }
+
+    // 3. READ STORE STATUS
+    var statusSheet = ss.getSheetByName("StoreStatus");
+    if (statusSheet) {
+      var sRows = statusSheet.getDataRange().getValues();
+      for (var m = 1; m < sRows.length; m++) {
+        var sk = String(sRows[m][0]).trim();
+        if (sk) {
+          result.storeStatus[sk] = sRows[m][1];
+        }
+      }
+    }
+
+    // 4. READ SERVICE IMAGES
+    var imgSheet = ss.getSheetByName("ServiceImages");
+    if (imgSheet) {
+      var imgRows = imgSheet.getDataRange().getValues();
+      for (var n = 1; n < imgRows.length; n++) {
+        var imgId = String(imgRows[n][0]).trim();
+        var imgVal = String(imgRows[n][1]).trim();
+        if (imgId && imgVal) {
+          result.serviceImages[imgId] = imgVal;
+        }
+      }
+    }
+
+    // 5. READ SETTINGS
+    var setSheet = ss.getSheetByName("Settings");
+    if (setSheet) {
+      var setRows = setSheet.getDataRange().getValues();
+      for (var p = 1; p < setRows.length; p++) {
+        if (String(setRows[p][0]) === "siteSettings" && setRows[p][1]) {
+          try { result.siteSettings = JSON.parse(setRows[p][1]); } catch(e){}
+        }
+      }
+    }
+
+    // 6. READ STORE PRODUCTS
+    var prodSheet = ss.getSheetByName("StoreProducts");
+    if (prodSheet) {
+      var prodRows = prodSheet.getDataRange().getValues();
+      for (var q = 1; q < prodRows.length; q++) {
+        if (String(prodRows[q][0]) === "products" && prodRows[q][1]) {
+          try { result.storeProducts = JSON.parse(prodRows[q][1]); } catch(e){}
+        }
+      }
+    }
+
+    return ContentService.createTextOutput(JSON.stringify(result))
       .setMimeType(ContentService.MimeType.JSON);
   } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({error: err.toString()}))
+    return ContentService.createTextOutput(JSON.stringify({ error: err.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 }`;
@@ -1035,22 +1155,33 @@ function doGet(e) {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2">
+                        {/* 1-Tap Master Cloud Sync to Google Sheets for Worldwide Update */}
                         <button
-                            onClick={handleSaveToWebsite}
-                            className="btn-primary py-2.5 px-4 sm:px-6 text-xs sm:text-sm font-black shadow-md flex items-center gap-2 active:scale-95 transition"
+                            onClick={() => handlePushToGoogleSheet(true)}
+                            disabled={syncStatus === 'syncing' || syncStatus === 'pulling'}
+                            className="bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-3 sm:px-4 rounded-2xl text-xs sm:text-sm font-black shadow-md flex items-center gap-1.5 active:scale-95 transition"
+                            title="Push all prices, image uploads, offers, and settings to Google Sheets so every visitor worldwide sees them"
+                        >
+                            <FaSyncAlt size={12} className={syncStatus === 'syncing' ? 'animate-spin text-amber-200' : 'text-emerald-200'} />
+                            <span>{syncStatus === 'syncing' ? 'Syncing...' : '🚀 Sync Worldwide'}</span>
+                        </button>
+
+                        <button
+                            onClick={() => handleSaveToWebsite(true)}
+                            className="btn-primary py-2 px-3 sm:px-4 text-xs sm:text-sm font-black shadow-md flex items-center gap-1.5 active:scale-95 transition"
                             title="Save all changes to website"
                         >
-                            <FaCheck size={13} />
+                            <FaCheck size={12} />
                             <span>Save Live</span>
                         </button>
 
                         <button
                             onClick={handleLock}
-                            className="w-10 h-10 rounded-2xl bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center text-sm transition"
+                            className="w-9 h-9 rounded-2xl bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center text-xs transition shrink-0"
                             title="Lock Admin"
                         >
-                            <FaLock size={13} />
+                            <FaLock size={12} />
                         </button>
                     </div>
                 </div>
@@ -2982,15 +3113,43 @@ function doGet(e) {
                         </div>
 
                         {syncStatus === 'success' && (
-                            <p className="text-emerald-700 font-black text-xs sm:text-sm flex items-center gap-1.5">
-                                <FaCheck size={14} /> Synced all 172 services & visibility flags to Google Sheet!
+                            <p className="text-emerald-700 font-black text-xs sm:text-sm flex items-center gap-1.5 bg-emerald-50 p-3 rounded-xl border border-emerald-300">
+                                <FaCheck size={14} className="text-emerald-600" />
+                                <span>Successfully synced everything (prices, uploaded images, offers & timings) to Google Sheet! Live across all mobile phones and PCs worldwide.</span>
                             </p>
                         )}
                         {syncStatus === 'pull_success' && (
-                            <p className="text-emerald-700 font-black text-xs sm:text-sm flex items-center gap-1.5">
-                                <FaCheck size={14} /> Pulled fresh prices & offers from Google Sheet!
+                            <p className="text-emerald-700 font-black text-xs sm:text-sm flex items-center gap-1.5 bg-emerald-50 p-3 rounded-xl border border-emerald-300">
+                                <FaCheck size={14} className="text-emerald-600" />
+                                <span>Pulled fresh prices, image URLs & offers from Google Sheet!</span>
                             </p>
                         )}
+
+                        {/* Apps Script Code Modal / Copy Section */}
+                        <div className="pt-4 border-t border-gray-100">
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs font-black uppercase text-gray-700">
+                                    Google Apps Script Backend Code (Copy & Paste):
+                                </span>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(googleAppsScriptCode);
+                                        alert("✓ Copied updated Google Apps Script code to clipboard! In Google Sheets, open Extensions -> Apps Script, replace the code, and click Deploy -> Manage Deployments -> New Version.");
+                                    }}
+                                    className="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-black flex items-center gap-1 shadow-xs transition active:scale-95"
+                                >
+                                    <FaCopy size={11} />
+                                    <span>Copy Apps Script Code</span>
+                                </button>
+                            </div>
+                            <pre className="p-3.5 rounded-2xl bg-[#1E1E1E] text-amber-200 text-[11px] font-mono overflow-x-auto max-h-48 border border-gray-800 leading-relaxed">
+                                {googleAppsScriptCode}
+                            </pre>
+                            <p className="text-[11px] text-gray-500 mt-2 font-medium">
+                                💡 <strong>How to paste:</strong> In your Google Spreadsheet, click <strong>Extensions ➔ Apps Script</strong>, paste this code, then click <strong>Deploy ➔ Manage Deployments ➔ Edit ➔ New version ➔ Deploy</strong>.
+                            </p>
+                        </div>
                     </div>
                 )}
 

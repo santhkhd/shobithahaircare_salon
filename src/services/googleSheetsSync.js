@@ -12,8 +12,10 @@ export const getGoogleSheetWebhookUrl = () => {
 };
 
 /**
- * Fetch latest prices and offers from Google Sheet and update in-memory catalog
- * Broadcasts 'prices_updated' event for live re-renders across all active components.
+ * Worldwide Master Sync:
+ * Fetches latest prices, festive offers, uploaded images, salon operating status,
+ * site navigation, and store products from Google Sheet.
+ * Broadcasts live update events to immediately re-render active components on all devices globally.
  */
 export const syncWithGoogleSheets = async () => {
     const webhookUrl = getGoogleSheetWebhookUrl();
@@ -32,7 +34,7 @@ export const syncWithGoogleSheets = async () => {
         const data = await response.json();
         let updatedCount = 0;
 
-        // 1. Update Services & Prices
+        // 1. Update Services, Prices & Durations
         if (data && data.services && Array.isArray(data.services) && data.services.length > 0) {
             const sheetMap = new Map();
             data.services.forEach(item => {
@@ -98,7 +100,49 @@ export const syncWithGoogleSheets = async () => {
             } catch (e) {}
         }
 
-        // 3. Broadcast to all active pages
+        // 3. Update Custom Service Images (Uploaded Images Sync Worldwide)
+        if (data && data.serviceImages && typeof data.serviceImages === 'object' && Object.keys(data.serviceImages).length > 0) {
+            try {
+                const existing = JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
+                const merged = { ...existing, ...data.serviceImages };
+                localStorage.setItem('shobitha_custom_service_images', JSON.stringify(merged));
+                window.dispatchEvent(new Event('service_images_updated'));
+            } catch (e) {}
+        }
+
+        // 4. Update Store Status & Operating Hours
+        if (data && data.storeStatus && typeof data.storeStatus === 'object') {
+            const st = data.storeStatus;
+            if (st.State || st.Text) {
+                try {
+                    const statusObj = {
+                        state: st.State || 'open',
+                        text: st.Text || 'Open Today: 9:00 AM – 8:00 PM',
+                        customNote: st.CustomNote || 'Walk-ins & Appointments welcome'
+                    };
+                    localStorage.setItem('shobitha_store_status', JSON.stringify(statusObj));
+                    window.dispatchEvent(new Event('store_status_updated'));
+                } catch (e) {}
+            }
+        }
+
+        // 5. Update Site Settings (Navigation, Home Sections, Contact)
+        if (data && data.siteSettings && typeof data.siteSettings === 'object') {
+            try {
+                localStorage.setItem('shobitha_site_settings', JSON.stringify(data.siteSettings));
+                window.dispatchEvent(new Event('site_settings_updated'));
+            } catch (e) {}
+        }
+
+        // 6. Update Store & Affiliate Products
+        if (data && data.storeProducts && Array.isArray(data.storeProducts) && data.storeProducts.length > 0) {
+            try {
+                localStorage.setItem('shobitha_custom_store_products', JSON.stringify(data.storeProducts));
+                window.dispatchEvent(new Event('store_products_updated'));
+            } catch (e) {}
+        }
+
+        // 7. Broadcast price update event to re-render all active pages
         if (typeof window !== 'undefined') {
             window.dispatchEvent(new CustomEvent('prices_updated', { 
                 detail: { updatedCount, timestamp: Date.now() } 

@@ -450,6 +450,23 @@ const PriceManager = () => {
         } catch (e) {}
     };
 
+    const handleResetAllCustomImages = () => {
+        const count = Object.keys(customServiceImages).length;
+        if (count === 0) {
+            alert("No custom uploaded images found on this device.");
+            return;
+        }
+        if (!window.confirm(`Are you sure you want to restore the original website catalogue images? This will clear all ${count} custom uploaded images on this device.`)) {
+            return;
+        }
+        setCustomServiceImages({});
+        try {
+            localStorage.removeItem('shobitha_custom_service_images');
+            window.dispatchEvent(new Event('service_images_updated'));
+            alert("✓ All service images have been restored to the original website catalogue!");
+        } catch (e) {}
+    };
+
     const handleExportImagesBackup = () => {
         const customCount = Object.keys(customServiceImages).length;
         if (customCount === 0) {
@@ -1598,6 +1615,19 @@ function doGet(e) {
                                         className="hidden"
                                         onChange={handleImportImagesBackup}
                                     />
+
+                                    {/* Restore / Reset All to Default */}
+                                    {Object.keys(customServiceImages).length > 0 && (
+                                        <button
+                                            type="button"
+                                            onClick={handleResetAllCustomImages}
+                                            className="px-3 py-2 rounded-xl bg-gray-100 hover:bg-red-50 text-gray-700 hover:text-red-700 border border-gray-300 text-xs font-bold flex items-center gap-1 transition active:scale-95"
+                                            title="Clear custom uploads and restore default website images"
+                                        >
+                                            <FaTrash size={11} className="text-red-500" />
+                                            <span>Restore Default Images</span>
+                                        </button>
+                                    )}
                                 </div>
                             </div>
 

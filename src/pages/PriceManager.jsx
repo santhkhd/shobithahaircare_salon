@@ -267,13 +267,73 @@ const PriceManager = () => {
     };
 
     const handleSaveServiceImage = (serviceId, imageUrl) => {
-        if (!imageUrl) return;
-        const updated = { ...customServiceImages, [serviceId]: imageUrl };
+        if (!imageUrl || !imageUrl.trim()) return;
+        let finalUrl = imageUrl.trim();
+
+        // Detect Gemini / ChatGPT webpage share links which are HTML SPAs, not images
+        if (finalUrl.includes('share.gemini.google') || finalUrl.includes('gemini.google.com/share') || finalUrl.includes('chatgpt.com/share')) {
+            alert(
+                "⚠️ Gemini Share Link Detected!\n\n" +
+                "The URL you pasted is a Gemini conversation webpage, not a direct image file.\n\n" +
+                "How to use your Gemini image:\n" +
+                "1. Open the Gemini link in your browser.\n" +
+                "2. Tap/right-click the generated image and choose 'Save Image' (or download it).\n" +
+                "3. Click the '📁 Upload Image from Phone/PC' button on this card to select the image!\n\n" +
+                "Alternatively, right-click the image in Gemini and choose 'Copy Image Address' to paste the direct image link."
+            );
+            return;
+        }
+
+        // Auto-convert Google Drive share link to direct view URL if applicable
+        if (finalUrl.includes('drive.google.com/file/d/')) {
+            const match = finalUrl.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+            if (match && match[1]) {
+                finalUrl = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+            }
+        }
+
+        const updated = { ...customServiceImages, [serviceId]: finalUrl };
         setCustomServiceImages(updated);
         try {
             localStorage.setItem('shobitha_custom_service_images', JSON.stringify(updated));
             window.dispatchEvent(new Event('service_images_updated'));
-            alert(`Saved custom image for ${serviceId}! Changes live across website.`);
+            alert(`✓ Saved image for ${serviceId}! Live preview updated across website.`);
+        } catch (e) {
+            console.error(e);
+            alert('Could not save to browser storage. If uploading large files, please compress first.');
+        }
+    };
+
+    const handleFileUpload = (serviceId, file) => {
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+            alert('Please select a valid image file (JPG, PNG, WebP).');
+            return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Image file is larger than 5MB. Please choose an image under 5MB or compress it.');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            const base64Data = reader.result;
+            handleSaveServiceImage(serviceId, base64Data);
+        };
+        reader.onerror = () => {
+            alert('Failed to read image file. Please try again.');
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const handleRemoveServiceImage = (serviceId) => {
+        const updated = { ...customServiceImages };
+        delete updated[serviceId];
+        setCustomServiceImages(updated);
+        try {
+            localStorage.setItem('shobitha_custom_service_images', JSON.stringify(updated));
+            window.dispatchEvent(new Event('service_images_updated'));
+            alert(`Reset ${serviceId} to default image.`);
         } catch (e) {}
     };
 
@@ -1326,21 +1386,56 @@ function doGet(e) {
 
                                             {/* Image Update & Modal Replacement Section */}
                                             <div className="p-3.5 rounded-2xl bg-amber-50/50 border border-amber-200/80 space-y-2.5">
-                                                <div className="flex items-center justify-between">
-                                                    <span className="text-xs font-black uppercase tracking-wider text-gray-800 flex items-center gap-1">
+                                                <div className="flex items-center justify-between flex-wrap gap-2">
+                                                    <span className="text-xs font-black uppercase tracking-wider text-gray-800 flex items-center gap-1.5">
                                                         <FaPalette className="text-amber-700" /> Replace Image for Service & Modal
                                                     </span>
-                                                    {customServiceImages[item.id] && (
-                                                        <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md">
-                                                            ✓ Custom Image Active
-                                                        </span>
-                                                    )}
+                                                    <div className="flex items-center gap-2">
+                                                        {customServiceImages[item.id] && (
+                                                            <>
+                                                                <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md">
+                                                                    ✓ Custom Active
+                                                                </span>
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => handleRemoveServiceImage(item.id)}
+                                                                    className="text-[11px] font-bold text-red-600 hover:text-red-700 underline"
+                                                                >
+                                                                    Reset
+                                                                </button>
+                                                            </>
+                                                        )}
+                                                    </div>
                                                 </div>
 
+                                                {/* File Upload Button + Direct URL Input */}
                                                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                                                    {/* Native File Upload (Supports Phone Gallery & PC files) */}
+                                                    <label
+                                                        htmlFor={`file-upload-${item.id}`}
+                                                        className="px-3.5 py-2 rounded-xl bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white text-xs font-black transition active:scale-95 shrink-0 shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                                                        title="Upload downloaded image from phone gallery or PC"
+                                                    >
+                                                        <FaCloudUploadAlt size={14} className="text-amber-400" />
+                                                        <span>📁 Upload from Phone/PC</span>
+                                                    </label>
+                                                    <input
+                                                        id={`file-upload-${item.id}`}
+                                                        type="file"
+                                                        accept="image/*"
+                                                        className="hidden"
+                                                        onChange={(e) => {
+                                                            if (e.target.files && e.target.files[0]) {
+                                                                handleFileUpload(item.id, e.target.files[0]);
+                                                                e.target.value = '';
+                                                            }
+                                                        }}
+                                                    />
+
+                                                    {/* Direct Image URL input */}
                                                     <input
                                                         type="url"
-                                                        placeholder="Paste image URL (from Midjourney / Cloud / Drive)..."
+                                                        placeholder="Or paste direct image URL (.jpg, .webp, .png)..."
                                                         value={serviceInputImages[item.id] !== undefined ? serviceInputImages[item.id] : (customServiceImages[item.id] || '')}
                                                         onChange={(e) => setServiceInputImages({ ...serviceInputImages, [item.id]: e.target.value })}
                                                         className="flex-1 bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-mono text-gray-900 outline-none focus:ring-2 focus:ring-amber-500"
@@ -1350,9 +1445,14 @@ function doGet(e) {
                                                         onClick={() => handleSaveServiceImage(item.id, serviceInputImages[item.id])}
                                                         className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black transition active:scale-95 shrink-0 shadow-xs"
                                                     >
-                                                        Save Image
+                                                        Save URL
                                                     </button>
                                                 </div>
+
+                                                {/* Helpful advice for Gemini links */}
+                                                <p className="text-[11px] text-gray-500 leading-snug">
+                                                    💡 <strong className="text-gray-700">For Gemini / AI users:</strong> Open your Gemini image, tap/right-click to <span className="text-[#4A0A16] font-bold">"Save Image"</span>, then click <span className="font-bold text-[#4A0A16]">"📁 Upload from Phone/PC"</span> above. Webpage links like <code className="bg-gray-100 text-gray-700 px-1 py-0.5 rounded text-[10px]">share.gemini.google</code> are chat pages and cannot be rendered as raw image files.
+                                                </p>
 
                                                 {/* Quick Preset Selector Buttons */}
                                                 <div className="flex items-center gap-1.5 overflow-x-auto pt-1 no-scrollbar">

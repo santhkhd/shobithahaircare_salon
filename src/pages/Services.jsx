@@ -123,6 +123,17 @@ const Services = () => {
         }
     });
 
+    // Re-render when live prices arrive from Google Sheets
+    const [, setPriceVersion] = useState(0);
+
+    useEffect(() => {
+        const handlePricesUpdate = () => {
+            setPriceVersion((v) => v + 1);
+        };
+        window.addEventListener('prices_updated', handlePricesUpdate);
+        return () => window.removeEventListener('prices_updated', handlePricesUpdate);
+    }, []);
+
     useEffect(() => {
         const handleImageUpdate = () => {
             try {

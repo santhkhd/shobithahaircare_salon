@@ -6,6 +6,7 @@ import { blogPosts, blogCategories } from '../data/blogs';
 import { initialStoreProducts, storeCategories } from '../data/storeProducts';
 import { serviceImagePrompts } from '../data/serviceImagePrompts';
 import { useSiteSettings } from '../context/SiteSettingsContext';
+import { syncWithGoogleSheets } from '../services/googleSheetsSync';
 import Logo from '../components/Logo';
 import { 
     FaTag, FaCheck, FaCopy, FaDownload, FaSyncAlt, FaArrowRight, 
@@ -713,6 +714,8 @@ const PriceManager = () => {
             });
 
             handleSaveToWebsite();
+            // Broadcast live sync
+            syncWithGoogleSheets();
             setSyncStatus('success');
             setTimeout(() => setSyncStatus(''), 4000);
         } catch (error) {
@@ -760,6 +763,7 @@ const PriceManager = () => {
                 }
 
                 setSyncStatus('pull_success');
+                syncWithGoogleSheets();
                 setTimeout(() => setSyncStatus(''), 4000);
             } else {
                 alert("Google Sheet returned empty services. Try 'Push to Sheet' first to populate rows.");
@@ -2922,13 +2926,27 @@ function doGet(e) {
                                 <FaTable />
                             </div>
                             <div>
-                                <h2 className="font-serif font-black text-lg sm:text-xl text-gray-950">
-                                    Google Sheets Live Sync
-                                </h2>
+                                <div className="flex items-center gap-2">
+                                    <h2 className="font-serif font-black text-lg sm:text-xl text-gray-950">
+                                        Google Sheets Live Sync
+                                    </h2>
+                                    <span className="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2 py-0.5 rounded-full flex items-center gap-1">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                        Worldwide Live Active
+                                    </span>
+                                </div>
                                 <p className="text-xs text-gray-500 font-medium">
-                                    Direct 2-way sync with your Google Sheet
+                                    Cloud database connected • Live automatic sync for all visitors worldwide
                                 </p>
                             </div>
+                        </div>
+
+                        {/* Live Sync Status Info Banner */}
+                        <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-xs text-emerald-950 leading-relaxed">
+                            <strong className="text-emerald-900 block mb-1 flex items-center gap-1.5">
+                                <span>🌐</span> How Live Sync Works on All Mobiles Worldwide:
+                            </strong>
+                            When any customer anywhere in the world opens the website on their mobile or PC, the website automatically connects to your Google Sheet in the background. Whenever you click <strong>"Push to Google Sheet"</strong> below (or edit cells directly in Google Drive), the new prices and festive banners immediately reflect across all devices globally!
                         </div>
 
                         <div>

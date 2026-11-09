@@ -13,12 +13,20 @@ const Pricing = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
 
+    const [priceVersion, setPriceVersion] = useState(0);
+
     useEffect(() => {
         document.title = "Salon Price List & Bridal Packages | Shobitha Haircare Kanhangad";
+
+        const handlePricesUpdated = () => {
+            setPriceVersion((v) => v + 1);
+        };
+        window.addEventListener('prices_updated', handlePricesUpdated);
+        return () => window.removeEventListener('prices_updated', handlePricesUpdated);
     }, []);
 
     // Filter out hidden services
-    const activeCatalog = useMemo(() => services.filter(s => !s.hidden), []);
+    const activeCatalog = useMemo(() => services.filter(s => !s.hidden), [priceVersion]);
 
     const filteredServices = useMemo(() => {
         return activeCatalog.filter(service => {

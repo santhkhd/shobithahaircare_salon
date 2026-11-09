@@ -14,6 +14,15 @@ const ServiceDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { openBooking } = useBooking();
+    const [, setPriceVersion] = useState(0);
+
+    useEffect(() => {
+        const handlePricesUpdated = () => {
+            setPriceVersion((v) => v + 1);
+        };
+        window.addEventListener('prices_updated', handlePricesUpdated);
+        return () => window.removeEventListener('prices_updated', handlePricesUpdated);
+    }, []);
     
     // Look up service by either id or slug for maximum URL flexibility
     const service = services.find(s => s.id === id || s.slug === id);

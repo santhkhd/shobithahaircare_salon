@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { syncWithGoogleSheets } from '../services/googleSheetsSync';
 
 const SETTINGS_STORAGE_KEY = 'shobitha_site_settings';
 
@@ -103,6 +104,28 @@ export const SiteSettingsProvider = ({ children }) => {
         return () => {
             window.removeEventListener('site_settings_updated', handleSync);
             window.removeEventListener('storage', handleSync);
+        };
+    }, []);
+
+    // Automatic Worldwide Live Sync with Google Sheets
+    useEffect(() => {
+        // Run initial live sync in background on site load
+        syncWithGoogleSheets();
+
+        // Re-sync when visitor returns to tab (e.g. mobile app switch or browser focus)
+        const handleWindowFocus = () => {
+            syncWithGoogleSheets();
+        };
+        window.addEventListener('focus', handleWindowFocus);
+
+        // Keep fresh every 5 minutes while visitor browses
+        const interval = setInterval(() => {
+            syncWithGoogleSheets();
+        }, 300000);
+
+        return () => {
+            window.removeEventListener('focus', handleWindowFocus);
+            clearInterval(interval);
         };
     }, []);
 

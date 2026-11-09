@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { specialOffers } from '../data/offers';
 import { FaTag, FaArrowRight, FaTimes, FaWhatsapp } from 'react-icons/fa';
@@ -6,7 +6,16 @@ import { useSiteSettings } from '../context/SiteSettingsContext';
 
 const OfferBanner = () => {
     const [dismissed, setDismissed] = useState(false);
+    const [, setBannerVersion] = useState(0);
     const { salonStatus } = useSiteSettings();
+
+    useEffect(() => {
+        const handlePricesUpdated = () => {
+            setBannerVersion((v) => v + 1);
+        };
+        window.addEventListener('prices_updated', handlePricesUpdated);
+        return () => window.removeEventListener('prices_updated', handlePricesUpdated);
+    }, []);
 
     if (!specialOffers.showTopBanner || dismissed) {
         return null;

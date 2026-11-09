@@ -15,7 +15,10 @@ import {
     FaPlus, FaMinus, FaEye, FaEyeSlash, FaRobot, FaTable, FaLock, FaKey,
     FaBook, FaCalendarCheck, FaClock, FaStore, FaPhoneAlt, FaStar,
     FaTrash, FaShareSquare, FaCalculator, FaShoppingBag, FaThLarge, FaGlobe,
-    FaCamera, FaMagic, FaFolderOpen, FaPalette
+    FaCamera, FaMagic, FaFolderOpen, FaPalette,
+    FaBars, FaBell, FaCog, FaHome, FaLayerGroup, FaListAlt, FaChartBar,
+    FaCrown, FaCut, FaWind, FaSpa, FaPaintBrush, FaLeaf, FaEllipsisH,
+    FaCrosshairs, FaCrop, FaDesktop, FaFilter, FaSave
 } from 'react-icons/fa';
 
 // Bundled image presets for promo banner selection
@@ -27,6 +30,18 @@ import caramelBalayage from '../assets/images/caramel-balayage.jpg';
 import hairSpaWash from '../assets/images/hair-spa-wash.jpg';
 import hairCut from '../assets/images/hair-cut.jpg';
 import bridalMehndi from '../assets/images/bridal-mehndi-art.jpg';
+import hairStylingVoluminous from '../assets/images/hair-styling-voluminous.jpg';
+import hairSmootheningAfter from '../assets/images/hair-smoothening-after.jpg';
+import bridalMuhurtham from '../assets/images/bridal-muhurtham.jpg';
+import bridalReception from '../assets/images/bridal-reception-look.jpg';
+import heroKeralaBride from '../assets/images/hero-kerala-bride.jpg';
+import bridalHeroPurpleSaree from '../assets/images/bridal-hero-purple-saree.jpg';
+import skinFacial from '../assets/images/skin-facial.jpg';
+import nailArt from '../assets/images/nail-art.jpg';
+import pedicureSpa from '../assets/images/pedicure-spa.jpg';
+import bodySpa from '../assets/images/body-spa.jpg';
+import hairColor from '../assets/images/hair-color.jpg';
+import hairTreatment from '../assets/images/hair-treatment.jpg';
 
 const imagePresets = [
     { name: "Gold Facial", image: luxuryGoldFacial, tag: "Facial" },
@@ -39,9 +54,21 @@ const imagePresets = [
     { name: "Bridal Mehndi", image: bridalMehndi, tag: "Mehndi" },
 ];
 
+const promptCategories = [
+    { id: 'All', label: 'All Services (172)', icon: null, title: 'All 172 Services' },
+    { id: 'Bridal', label: 'Bridal', icon: FaCrown, title: 'Bridal Makeup & Special Occasion' },
+    { id: 'Haircuts', label: 'Haircuts', icon: FaCut, title: 'Haircuts & Styling' },
+    { id: 'Hair Spa', label: 'Hair Spa', icon: FaWind, title: 'Hair Spa & Scalp Treatments' },
+    { id: 'Facial', label: 'Facial', icon: FaSpa, title: 'Facial & Skincare' },
+    { id: 'Threading', label: 'Threading', icon: FaEye, title: 'Threading & Eye Grooming' },
+    { id: 'Nail', label: 'Nails', icon: FaPaintBrush, title: 'Manicure, Pedicure & Nail Care' },
+    { id: 'Body', label: 'Body Spa', icon: FaLeaf, title: 'Body Care & Relaxation' },
+    { id: 'More', label: 'More', icon: FaEllipsisH, title: 'Packages, Waxing & Hair Colour' }
+];
+
 const PriceManager = () => {
-    // Active Admin Tab: 'prices' | 'offers' | 'blogs' | 'leads' | 'status' | 'quote' | 'reviews' | 'sheet' | 'bot'
-    const [activeTab, setActiveTab] = useState('prices');
+    // Active Admin Tab: 'prompts' | 'prices' | 'offers' | 'blogs' | 'leads' | 'status' | 'quote' | 'reviews' | 'sheet' | 'bot'
+    const [activeTab, setActiveTab] = useState('prompts');
 
     // Security PIN Lock (Optional for mobile quick protection)
     const [isUnlocked, setIsUnlocked] = useState(() => {
@@ -252,6 +279,7 @@ const PriceManager = () => {
     const [isProcessingUpload, setIsProcessingUpload] = useState({});
     const [customTargetFileNames, setCustomTargetFileNames] = useState({});
     const [resizeQualityMode, setResizeQualityMode] = useState('800x1000'); // '800x1000' | '1000x1250' | '600x750'
+    const [galleryViewMode, setGalleryViewMode] = useState('grid'); // 'grid' | 'detailed'
     const [customServiceImages, setCustomServiceImages] = useState(() => {
         try {
             return JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
@@ -259,6 +287,80 @@ const PriceManager = () => {
             return {};
         }
     });
+
+    // Helper: Select best high-res photo for each of the 172 service cards
+    const getServiceDisplayImage = (item) => {
+        if (!item) return hairCut;
+        if (customServiceImages[item.id]) {
+            return customServiceImages[item.id];
+        }
+        const svc = services.find(s => s.id === item.id);
+        if (svc && svc.image && typeof svc.image === 'string' && !svc.image.includes('placeholder')) {
+            return svc.image;
+        }
+
+        const lowerName = (item.name || '').toLowerCase();
+        const lowerCat = (item.category || '').toLowerCase();
+
+        // 1. Bridal Looks
+        if (lowerCat.includes('bridal') || lowerName.includes('bride') || lowerName.includes('muhurtham')) {
+            if (lowerName.includes('reception') || lowerName.includes('party')) return bridalReception;
+            if (lowerName.includes('purple') || lowerName.includes('christian')) return bridalHeroPurpleSaree;
+            if (lowerName.includes('saree') || lowerName.includes('draping')) return bridalSaree;
+            if (lowerName.includes('traditional') || lowerName.includes('kerala')) return heroKeralaBride;
+            return bridalMuhurtham;
+        }
+
+        // 2. Haircut & Styling
+        if (lowerCat.includes('haircut') || lowerName.includes('cut') || lowerName.includes('trim') || lowerName.includes('curling') || lowerName.includes('styling') || lowerName.includes('blowdry')) {
+            if (lowerName.includes('curling') || lowerName.includes('iron') || lowerName.includes('styling') || lowerName.includes('volume') || lowerName.includes('wave')) {
+                return hairStylingVoluminous;
+            }
+            return hairCut;
+        }
+
+        // 3. Hair Smoothening / Straightening / Keratin
+        if (lowerCat.includes('smoothening') || lowerName.includes('straight') || lowerName.includes('keratin') || lowerName.includes('botox') || lowerName.includes('nanoplastia')) {
+            if (lowerName.includes('straight')) return hairSmootheningAfter;
+            return keratinSmoothening;
+        }
+
+        // 4. Hair Spa & Scalp Treatments
+        if (lowerCat.includes('hair spa') || lowerCat.includes('treatment') || lowerName.includes('spa') || lowerName.includes('dandruff') || lowerName.includes('scalp')) {
+            if (lowerName.includes('treatment') || lowerName.includes('repair')) return hairTreatment;
+            return hairSpaWash;
+        }
+
+        // 5. Hair Colour & Highlights
+        if (lowerCat.includes('colour') || lowerCat.includes('color') || lowerName.includes('balayage') || lowerName.includes('highlight') || lowerName.includes('streaks')) {
+            if (lowerName.includes('balayage') || lowerName.includes('caramel')) return caramelBalayage;
+            return hairColor;
+        }
+
+        // 6. Facial & Skincare
+        if (lowerCat.includes('facial') || lowerCat.includes('skin') || lowerName.includes('facial') || lowerName.includes('cleanup') || lowerName.includes('bleach')) {
+            if (lowerName.includes('gold') || lowerName.includes('diamond')) return luxuryGoldFacial;
+            return skinFacial;
+        }
+
+        // 7. Mehndi Design
+        if (lowerCat.includes('mehndi') || lowerName.includes('mehndi') || lowerName.includes('henna')) {
+            return bridalMehndi;
+        }
+
+        // 8. Nails, Manicure & Pedicure
+        if (lowerCat.includes('nail') || lowerCat.includes('pedicure') || lowerCat.includes('manicure') || lowerName.includes('nail') || lowerName.includes('pedicure') || lowerName.includes('manicure')) {
+            if (lowerName.includes('pedicure') || lowerName.includes('feet') || lowerName.includes('foot')) return pedicureSpa;
+            return nailArt;
+        }
+
+        // 9. Body Spa & Care
+        if (lowerCat.includes('body') || lowerName.includes('body') || lowerName.includes('massage')) {
+            return bodySpa;
+        }
+
+        return hairCut;
+    };
 
     // Client-side auto-resize & compression helper (reduces 15MB+ phone/Gemini images to ~60KB WebP)
     const resizeAndOptimizeImage = (file, targetWidth = 800, targetHeight = 1000, quality = 0.82) => {
@@ -1152,95 +1254,178 @@ function doGet(e) {
     }
 
     return (
-        <div className="pt-28 sm:pt-36 pb-48 bg-[#FAF9F5] min-h-screen select-none">
+        <div className="pt-2 sm:pt-4 pb-48 bg-[#FAF7F2] min-h-screen select-none font-sans">
             
             {/* FLOATING SAVE CONFIRMATION */}
             {savedNotification && (
-                <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-[#155724] text-white px-6 py-3 rounded-full shadow-2xl text-sm font-black flex items-center gap-2 border-2 border-emerald-300 animate-bounce">
+                <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#155724] text-white px-6 py-3 rounded-full shadow-2xl text-sm font-black flex items-center gap-2 border-2 border-emerald-300 animate-bounce">
                     <FaCheck size={14} className="text-emerald-300" />
                     <span>Saved live to website! Changes visible immediately.</span>
                 </div>
             )}
 
-            <div className="container-custom px-3 sm:px-6 max-w-4xl">
+            {/* TOP LUXURY ADMIN HEADER NAVBAR (MATCHING MOCKUP) */}
+            <header className="bg-white/90 backdrop-blur-md border-b border-[#EADBCE] sticky top-0 z-40 px-4 py-3 shadow-xs mb-4">
+                <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
+                    {/* Left: Hamburger & Shobitha Script Logo */}
+                    <div className="flex items-center gap-3">
+                        <button
+                            type="button"
+                            onClick={() => setActiveTab(activeTab === 'prompts' ? 'prices' : 'prompts')}
+                            className="w-10 h-10 rounded-2xl hover:bg-amber-50 text-gray-800 flex items-center justify-center transition border border-gray-200"
+                            title="Toggle Menu / Views"
+                        >
+                            <FaBars size={17} />
+                        </button>
+                        <div className="flex flex-col">
+                            <div className="flex items-center gap-1.5">
+                                <span className="font-serif italic font-black text-xl sm:text-2xl text-[#5A0C1A] tracking-tight">
+                                    Shobitha
+                                </span>
+                                <span className="text-amber-500 text-xs">✨</span>
+                            </div>
+                            <span className="text-[9px] font-black tracking-[0.24em] text-gray-500 uppercase -mt-0.5">
+                                HAIRCARE & BRIDAL MAKEUP
+                            </span>
+                        </div>
+                    </div>
 
-                {/* 1. TOP MOBILE ADMIN BAR (BIG CLEAR TEXT) */}
-                <div className="bg-white rounded-3xl p-5 sm:p-6 border-2 border-amber-300 shadow-sm mb-5 flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-3.5">
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#B8860B] to-[#7D1B2D] text-white flex items-center justify-center font-serif font-black text-2xl shadow-md shrink-0">
+                    {/* Right: Search, Notification Bell, Cog, Gold S Avatar */}
+                    <div className="flex items-center gap-2 sm:gap-2.5">
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setActiveTab('prompts');
+                                const el = document.getElementById('studio-search-input');
+                                if (el) el.focus();
+                            }}
+                            className="w-10 h-10 rounded-full bg-gray-50 hover:bg-amber-50 text-gray-700 flex items-center justify-center transition border border-gray-200 shadow-2xs"
+                            title="Search 172 Prompts & Services"
+                        >
+                            <FaSearch size={14} />
+                        </button>
+
+                        <div className="relative">
+                            <button
+                                type="button"
+                                onClick={() => setActiveTab('leads')}
+                                className="w-10 h-10 rounded-full bg-gray-50 hover:bg-amber-50 text-gray-700 flex items-center justify-center transition border border-gray-200 shadow-2xs"
+                                title={`Inquiries & Notifications (${appointmentLeads.length})`}
+                            >
+                                <FaBell size={14} />
+                            </button>
+                            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-rose-500 rounded-full ring-2 ring-white"></span>
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={() => setActiveTab('sheet')}
+                            className="w-10 h-10 rounded-full bg-gray-50 hover:bg-amber-50 text-gray-700 flex items-center justify-center transition border border-gray-200 shadow-2xs"
+                            title="Settings & Google Sheets Sync"
+                        >
+                            <FaCog size={15} />
+                        </button>
+
+                        <div
+                            className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8E580B] to-[#5A0C1A] text-amber-200 flex items-center justify-center font-serif font-black text-base shadow-sm ring-2 ring-amber-300/60 cursor-pointer active:scale-95 transition"
+                            title="Click to Lock Admin Console"
+                            onClick={handleLock}
+                        >
+                            S
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div className="container-custom px-3 sm:px-6 max-w-6xl mx-auto space-y-4">
+
+                {/* 1. SALON MANAGEMENT CONSOLE EMBOSSED CARD (MATCHING MOCKUP) */}
+                <div className="bg-gradient-to-r from-[#FFFBF7] via-white to-[#FDF8F2] rounded-3xl p-4 sm:p-5 border border-[#EADBCE] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3.5 relative z-10">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#801328] via-[#520B19] to-[#30050E] text-amber-300 flex items-center justify-center font-serif font-black text-2xl shadow-md shrink-0 border border-amber-400/50">
                             S
                         </div>
                         <div>
-                            <span className="text-xs font-black uppercase tracking-wider text-[#A46E19] block">
+                            <span className="text-[11px] font-black uppercase tracking-[0.16em] text-[#9A6216] block">
                                 SALON MANAGEMENT CONSOLE
                             </span>
-                            <h1 className="font-serif font-black text-lg sm:text-2xl text-gray-950 leading-tight">
+                            <h1 className="font-serif font-black text-xl sm:text-2xl text-gray-950 leading-tight">
                                 Shobitha Studio Control
                             </h1>
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-2">
-                        {/* 1-Tap Master Cloud Sync to Google Sheets for Worldwide Update */}
+                    {/* Right Console Actions: Live Sync Pill + Squircles */}
+                    <div className="flex items-center gap-2 sm:gap-2.5 relative z-10 flex-wrap">
+                        {/* Live Sync Pill */}
                         <button
                             onClick={() => handlePushToGoogleSheet(true)}
                             disabled={syncStatus === 'syncing' || syncStatus === 'pulling'}
-                            className="bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-3 sm:px-4 rounded-2xl text-xs sm:text-sm font-black shadow-md flex items-center gap-1.5 active:scale-95 transition"
-                            title="Push all prices, image uploads, offers, and settings to Google Sheets so every visitor worldwide sees them"
+                            className="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 py-2 px-3.5 rounded-full text-xs font-black shadow-xs flex items-center gap-1.5 active:scale-95 transition"
+                            title="Push all prices, image uploads, offers, and settings to Google Sheets"
                         >
-                            <FaSyncAlt size={12} className={syncStatus === 'syncing' ? 'animate-spin text-amber-200' : 'text-emerald-200'} />
-                            <span>{syncStatus === 'syncing' ? 'Syncing...' : '🚀 Sync Worldwide'}</span>
+                            <FaCloudUploadAlt size={14} className={syncStatus === 'syncing' ? 'animate-bounce text-emerald-600' : 'text-emerald-700'} />
+                            <span>{syncStatus === 'syncing' ? 'Syncing...' : 'Synced'}</span>
+                        </button>
+
+                        <button
+                            onClick={() => handlePushToGoogleSheet(true)}
+                            className="w-10 h-10 rounded-2xl bg-white hover:bg-amber-50 text-gray-800 border border-gray-200 hover:border-amber-400 flex items-center justify-center transition shadow-xs active:scale-95"
+                            title="Push All Data to Google Cloud"
+                        >
+                            <FaCloudUploadAlt size={15} />
                         </button>
 
                         <button
                             onClick={() => handleSaveToWebsite(true)}
-                            className="btn-primary py-2 px-3 sm:px-4 text-xs sm:text-sm font-black shadow-md flex items-center gap-1.5 active:scale-95 transition"
-                            title="Save all changes to website"
+                            className="w-10 h-10 rounded-2xl bg-white hover:bg-amber-50 text-gray-800 border border-gray-200 hover:border-amber-400 flex items-center justify-center transition shadow-xs active:scale-95"
+                            title="Save Live to Website"
                         >
-                            <FaCheck size={12} />
-                            <span>Save Live</span>
+                            <FaSave size={15} />
                         </button>
 
                         <button
                             onClick={handleLock}
-                            className="w-9 h-9 rounded-2xl bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center text-xs transition shrink-0"
-                            title="Lock Admin"
+                            className="w-10 h-10 rounded-2xl bg-white hover:bg-red-50 text-gray-800 hover:text-red-700 border border-gray-200 hover:border-red-300 flex items-center justify-center transition shadow-xs active:scale-95"
+                            title="Lock Admin Console"
                         >
-                            <FaLock size={12} />
+                            <FaLock size={14} />
                         </button>
                     </div>
                 </div>
 
-                {/* 2. NAVIGATION TABS (LARGE, COMFORTABLE SCROLLBAR) */}
-                <div className="flex items-center gap-2 bg-white p-2 rounded-2xl border border-[#E8D9C5] shadow-xs mb-5 overflow-x-auto no-scrollbar">
+                {/* 2. HORIZONTAL SQUIRCLE TAB NAVIGATION BAR (MATCHING MOCKUP) */}
+                <div className="bg-[#F6EFE8] p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl border border-[#EADBCE] shadow-2xs flex items-center justify-between gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar">
                     {[
-                        { id: 'prices', label: `Prices (${serviceList.length})`, icon: FaTag },
-                        { id: 'prompts', label: '172 AI Image Studio', icon: FaCamera },
-                        { id: 'pages', label: 'Menu & Pages', icon: FaGlobe },
-                        { id: 'status', label: 'Salon Live Status', icon: FaStore },
-                        { id: 'sections', label: 'Home Sections', icon: FaThLarge },
-                        { id: 'store_mgr', label: `Store & Affiliate (${storeProductsList.length})`, icon: FaShoppingBag },
-                        { id: 'offers', label: 'Offers & Banners', icon: FaImage },
-                        { id: 'blogs', label: 'Blog Publisher', icon: FaBook },
-                        { id: 'leads', label: `Inquiries (${appointmentLeads.length})`, icon: FaCalendarCheck },
-                        { id: 'quote', label: 'WhatsApp Quote', icon: FaWhatsapp },
-                        { id: 'reviews', label: 'Featured Reviews', icon: FaStar },
-                        { id: 'sheet', label: 'Google Sheets', icon: FaTable },
-                        { id: 'bot', label: 'Bot Agent', icon: FaRobot }
-                    ].map(tab => (
-                        <button
-                            key={tab.id}
-                            onClick={() => setActiveTab(tab.id)}
-                            className={`py-2.5 px-3.5 sm:px-4 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap flex items-center gap-1.5 transition-all ${
-                                activeTab === tab.id
-                                    ? 'bg-[#A46E19] text-white shadow-sm'
-                                    : 'text-gray-700 hover:bg-amber-50/70'
-                            }`}
-                        >
-                            <tab.icon size={13} />
-                            <span>{tab.label}</span>
-                        </button>
-                    ))}
+                        { id: 'prompts', title: '172 AI Image Studio', icon: FaHome },
+                        { id: 'prices', title: `Prices Management (${serviceList.length})`, icon: FaTag },
+                        { id: 'offers', title: 'Offers & Promos', icon: FaImage },
+                        { id: 'pages', title: 'Menu & Pages', icon: FaLayerGroup },
+                        { id: 'sections', title: 'Home Sections', icon: FaThLarge },
+                        { id: 'store_mgr', title: 'Salon Store & Affiliate', icon: FaStore },
+                        { id: 'leads', title: `Inquiries (${appointmentLeads.length})`, icon: FaListAlt },
+                        { id: 'status', title: 'Salon Status & Timing', icon: FaChartBar },
+                        { id: 'reviews', title: 'Featured Reviews', icon: FaStar },
+                        { id: 'sheet', title: 'Settings & Google Sheets Sync', icon: FaCog }
+                    ].map(tab => {
+                        const IconComponent = tab.icon;
+                        const isActive = activeTab === tab.id;
+
+                        return (
+                            <button
+                                key={tab.id}
+                                onClick={() => setActiveTab(tab.id)}
+                                className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all shrink-0 ${
+                                    isActive
+                                        ? 'bg-gradient-to-br from-[#B37822] to-[#8E580B] text-white shadow-sm ring-2 ring-amber-400/40'
+                                        : 'bg-transparent hover:bg-white/70 text-[#543828]'
+                                }`}
+                                title={tab.title}
+                            >
+                                <IconComponent size={17} />
+                            </button>
+                        );
+                    })}
                 </div>
 
                 {/* ============================================================ */}
@@ -1488,133 +1673,171 @@ function doGet(e) {
                 {/* ============================================================ */}
                 {/* TAB: 172 AI IMAGE STUDIO & PROMPT GENERATOR                  */}
                 {/* ============================================================ */}
-                {activeTab === 'prompts' && (
-                    <div className="space-y-6">
-                        {/* Header Banner & Batch Actions */}
-                        <div className="bg-white rounded-3xl p-5 sm:p-7 border border-[#E8D9C5] shadow-xs">
-                            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-gray-100">
-                                <div>
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <span className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-sm shadow-xs">
-                                            <FaCamera />
+                {activeTab === 'prompts' && (() => {
+                    const filteredPrompts = serviceImagePrompts.filter(p => {
+                        let matchesCat = true;
+                        if (promptCategoryFilter === 'All') {
+                            matchesCat = true;
+                        } else if (promptCategoryFilter === 'Bridal') {
+                            matchesCat = p.category === 'Bridal Makeup & Special Occasion Makeup';
+                        } else if (promptCategoryFilter === 'More') {
+                            matchesCat = p.category.includes('Package') || p.category.includes('Waxing') || p.category.includes('Mehndi') || p.category.includes('Colour') || p.category.includes('Smoothening');
+                        } else {
+                            matchesCat = p.category.includes(promptCategoryFilter);
+                        }
+
+                        const matchesSearch = !promptSearch.trim() ||
+                            p.name.toLowerCase().includes(promptSearch.toLowerCase()) ||
+                            p.fileName.toLowerCase().includes(promptSearch.toLowerCase()) ||
+                            p.category.toLowerCase().includes(promptSearch.toLowerCase());
+
+                        return matchesCat && matchesSearch;
+                    });
+
+                    return (
+                        <div className="space-y-4 sm:space-y-5">
+                            
+                            {/* 1. AI IMAGE STUDIO & PROMPT GENERATOR CARD (MATCHING MOCKUP) */}
+                            <div className="bg-gradient-to-br from-[#FFF5F3] via-white to-[#FDF4EA] rounded-3xl p-5 sm:p-6 border border-[#EADBCE] shadow-sm relative overflow-hidden">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F0E4D8]">
+                                    <div className="flex items-start sm:items-center gap-3.5">
+                                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FDE8D7] to-[#FCE0D0] text-[#9A6216] flex items-center justify-center text-xl shadow-xs shrink-0 border border-amber-300/60">
+                                            <FaMagic />
+                                        </div>
+                                        <div>
+                                            <h2 className="font-serif font-black text-xl sm:text-2xl text-gray-950 leading-tight">
+                                                AI Image Studio & Prompt Generator
+                                            </h2>
+                                            <p className="text-xs sm:text-sm text-gray-600 font-medium max-w-2xl mt-1 leading-relaxed">
+                                                Generate photorealistic model imagery for all salon services with Kerala natural bridal looks, exact file naming, and "Shobitha Haircare" watermark.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Top Right Action Squircles matching mockup */}
+                                    <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                                        <button
+                                            type="button"
+                                            onClick={handleDownloadAllPromptsJSON}
+                                            className="w-10 h-10 rounded-2xl bg-white hover:bg-amber-50 text-gray-800 border border-gray-200 hover:border-amber-400 flex items-center justify-center transition shadow-xs active:scale-95"
+                                            title="Download 172 Prompts JSON"
+                                        >
+                                            <FaDownload size={14} className="text-[#8E580B]" />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={handleCopyAllPromptsText}
+                                            className="w-10 h-10 rounded-2xl bg-white hover:bg-amber-50 text-gray-800 border border-gray-200 hover:border-amber-400 flex items-center justify-center transition shadow-xs active:scale-95"
+                                            title="Copy All 172 Prompts to Clipboard"
+                                        >
+                                            <FaCopy size={14} className="text-[#8E580B]" />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => handlePushToGoogleSheet(false)}
+                                            className="w-10 h-10 rounded-2xl bg-white hover:bg-amber-50 text-gray-800 border border-gray-200 hover:border-amber-400 flex items-center justify-center transition shadow-xs active:scale-95"
+                                            title="Refresh / Re-sync"
+                                        >
+                                            <FaSyncAlt size={13} className={`text-[#8E580B] ${syncStatus === 'pulling' ? 'animate-spin' : ''}`} />
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* 5 Feature Pills Row matching mockup */}
+                                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-4">
+                                    <div className="bg-[#FFF8F6] border border-[#F5DDD7] rounded-2xl p-2.5 flex items-center gap-2 text-xs font-bold text-gray-800 shadow-2xs">
+                                        <span className="w-7 h-7 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-xs shrink-0">
+                                            <FaPalette />
                                         </span>
-                                        <h2 className="font-serif font-black text-xl sm:text-2xl text-gray-950">
-                                            172 AI Image Studio & Prompt Generator
-                                        </h2>
+                                        <span className="text-[11px] font-black">Kerala Bridal Looks</span>
                                     </div>
-                                    <p className="text-xs sm:text-sm text-gray-600 font-medium max-w-2xl">
-                                        Generate photorealistic model imagery for all 172 services. Features authentic <strong>Kerala natural bridal looks with gold flower ornaments</strong>, exact file naming, and automated <strong>"Shobitha Haircare"</strong> studio watermarking.
-                                    </p>
-                                </div>
 
-                                <div className="flex flex-wrap items-center gap-2">
-                                    <button
-                                        onClick={handleDownloadAllPromptsJSON}
-                                        className="py-2.5 px-4 rounded-xl bg-[#4A0A16] hover:bg-[#600C1D] text-amber-300 font-black text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition"
-                                        title="Download complete JSON catalog of all 172 prompts"
-                                    >
-                                        <FaDownload size={11} />
-                                        <span>Download Prompts JSON</span>
-                                    </button>
+                                    <div className="bg-[#FFFBF5] border border-[#F3E5D4] rounded-2xl p-2.5 flex items-center gap-2 text-xs font-bold text-gray-800 shadow-2xs">
+                                        <span className="w-7 h-7 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-xs shrink-0">
+                                            <FaCrop />
+                                        </span>
+                                        <span className="text-[11px] font-black">4:5 Portrait</span>
+                                    </div>
 
-                                    <button
-                                        onClick={handleCopyAllPromptsText}
-                                        className="py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-black text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition"
-                                        title="Copy all 172 prompts formatted for Midjourney or Imagen"
-                                    >
-                                        <FaCopy size={11} />
-                                        <span>Copy All 172 Prompts</span>
-                                    </button>
-                                </div>
-                            </div>
+                                    <div className="bg-[#FFFDF7] border border-[#F3E7D3] rounded-2xl p-2.5 flex items-center gap-2 text-xs font-bold text-gray-800 shadow-2xs">
+                                        <span className="w-7 h-7 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-xs shrink-0">
+                                            <FaMagic />
+                                        </span>
+                                        <span className="text-[11px] font-black">Auto Retouch</span>
+                                    </div>
 
-                            {/* Prompt Highlights & Watermark Rules Strip */}
-                            <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-4">
-                                <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-950">
-                                    <div className="font-black flex items-center gap-1.5 text-amber-900 mb-0.5">
-                                        <span>🌸</span> Kerala Bridal Specification
+                                    <div className="bg-[#FBF8F4] border border-[#EADBCE] rounded-2xl p-2.5 flex items-center gap-2 text-xs font-bold text-gray-800 shadow-2xs">
+                                        <span className="w-7 h-7 rounded-xl bg-orange-100 text-orange-800 flex items-center justify-center text-xs shrink-0">
+                                            <FaLayerGroup />
+                                        </span>
+                                        <span className="text-[11px] font-black">Studio Watermark</span>
                                     </div>
-                                    <div className="text-[11px] text-amber-800 leading-relaxed font-medium">
-                                        Natural dewy glow, fresh jasmine (mulla poo) garland in hair, traditional gold flower ornaments & Kasavu silk saree.
-                                    </div>
-                                </div>
 
-                                <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-950">
-                                    <div className="font-black flex items-center gap-1.5 text-amber-900 mb-0.5">
-                                        <span>📐</span> 4:5 Portrait Aspect Ratio
-                                    </div>
-                                    <div className="text-[11px] text-amber-800 leading-relaxed font-medium">
-                                        Pre-configured for 800×1000px portrait format to fit salon service cards and mobile modal views.
-                                    </div>
-                                </div>
-
-                                <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-950">
-                                    <div className="font-black flex items-center gap-1.5 text-amber-900 mb-0.5">
-                                        <span>⚡</span> Auto-Resize & Compression
-                                    </div>
-                                    <div className="text-[11px] text-amber-800 leading-relaxed font-medium">
-                                        Automatically resizes large 5MB–20MB Gemini/phone images to ~60KB WebP with zero storage errors!
-                                    </div>
-                                </div>
-
-                                <div className="p-3 rounded-2xl bg-emerald-50/90 border border-emerald-300 text-xs text-emerald-950">
-                                    <div className="font-black flex items-center justify-between text-emerald-900 mb-1">
-                                        <span className="flex items-center gap-1"><span>⚙️</span> Resize Target:</span>
-                                    </div>
-                                    <select
-                                        value={resizeQualityMode}
-                                        onChange={(e) => setResizeQualityMode(e.target.value)}
-                                        className="w-full bg-white border border-emerald-300 rounded-xl px-2 py-1.5 text-[11px] font-bold text-emerald-950 focus:ring-1 focus:ring-emerald-500 outline-none"
-                                    >
-                                        <option value="800x1000">800×1000 (Recommended • ~60KB)</option>
-                                        <option value="1000x1250">1000×1250 (HD • ~110KB)</option>
-                                        <option value="600x750">600×750 (Super Fast • ~35KB)</option>
-                                    </select>
-                                    <div className="text-[10px] text-emerald-700 mt-1 font-medium">
-                                        Applies automatically on image upload.
+                                    <div className="col-span-2 sm:col-span-1 bg-[#F0FAF5] border border-[#CDEBDC] rounded-2xl p-2.5 flex items-center gap-2 shadow-2xs">
+                                        <span className="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs shrink-0">
+                                            <FaCrosshairs />
+                                        </span>
+                                        <div className="flex-1 min-w-0">
+                                            <span className="block text-[9px] font-bold text-emerald-900 uppercase tracking-wider">Resize Target</span>
+                                            <select
+                                                value={resizeQualityMode}
+                                                onChange={(e) => setResizeQualityMode(e.target.value)}
+                                                className="w-full bg-transparent text-[11px] font-black text-emerald-950 focus:outline-none cursor-pointer"
+                                            >
+                                                <option value="800x1000">800 × 1000 px</option>
+                                                <option value="1000x1250">1000 × 1250 px</option>
+                                                <option value="600x750">600 × 750 px</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Phone ⇄ PC Sync & Backup Card */}
-                        <div className="bg-gradient-to-r from-amber-50 via-white to-amber-50/50 rounded-3xl p-5 border-2 border-amber-300/80 shadow-xs space-y-3">
-                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-amber-200/60">
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-lg">🔄</span>
-                                        <h3 className="font-serif font-black text-base sm:text-lg text-[#4A0A16]">
-                                            Phone ⇄ PC Sync & Image Transfer
+                            {/* 2. PHONE ⇄ PC SYNC & TRANSFER CARD (MATCHING MOCKUP) */}
+                            <div className="bg-white rounded-3xl p-4 sm:p-5 border border-[#EADBCE] shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-11 h-11 rounded-2xl bg-amber-50 text-amber-900 flex items-center justify-center text-lg border border-amber-200/80 shrink-0">
+                                        <FaDesktop />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-serif font-black text-base sm:text-lg text-gray-950 leading-tight">
+                                            Phone ⇄ PC Sync & Transfer
                                         </h3>
-                                        <span className="bg-[#4A0A16] text-amber-300 text-[11px] font-black px-2.5 py-0.5 rounded-full">
-                                            {Object.keys(customServiceImages).length} Custom Images on this Device
-                                        </span>
+                                        <p className="text-[11px] text-gray-500 font-medium">
+                                            {Object.keys(customServiceImages).length} custom image uploads saved on this device
+                                        </p>
                                     </div>
-                                    <p className="text-xs text-gray-600 mt-1 leading-relaxed">
-                                        <strong>Why does this happen?</strong> Browser storage saves images locally on the device you used to upload them (mobile phone). Use these buttons to transfer your images between Phone and PC in 5 seconds!
-                                    </p>
                                 </div>
 
-                                <div className="flex items-center gap-2 shrink-0 flex-wrap">
-                                    {/* Export Backup from Phone */}
+                                {/* Colorful action squircles matching mockup */}
+                                <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 flex-wrap">
+                                    {/* Pink: Cloud Upload / Sync */}
+                                    <button
+                                        type="button"
+                                        onClick={() => handlePushToGoogleSheet(true)}
+                                        className="w-10 h-10 rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 flex items-center justify-center transition shadow-2xs active:scale-95"
+                                        title="Push to Google Sheets (Worldwide Live Sync)"
+                                    >
+                                        <FaCloudUploadAlt size={16} />
+                                    </button>
+
+                                    {/* Green: Download / Export Backup */}
                                     <button
                                         type="button"
                                         onClick={handleExportImagesBackup}
-                                        className="px-3.5 py-2 rounded-xl bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-xs"
-                                        title="Export all uploaded images to transfer from phone to PC"
+                                        className="w-10 h-10 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 flex items-center justify-center transition shadow-2xs active:scale-95"
+                                        title="Export Images Backup File (Download to Phone)"
                                     >
-                                        <FaDownload size={12} className="text-amber-400" />
-                                        <span>📲 Export Images Backup</span>
+                                        <FaDownload size={14} />
                                     </button>
 
-                                    {/* Import Backup on PC */}
+                                    {/* Amber / Yellow: Folder Open / Import */}
                                     <label
                                         htmlFor="import-images-backup"
-                                        className="px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-xs cursor-pointer"
-                                        title="Import backup file to show all images on this PC"
+                                        className="w-10 h-10 rounded-2xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 flex items-center justify-center transition shadow-2xs active:scale-95 cursor-pointer"
+                                        title="Import Images Backup File (Open on PC)"
                                     >
-                                        <FaCloudUploadAlt size={13} className="text-white" />
-                                        <span>💻 Import on PC</span>
+                                        <FaFolderOpen size={15} />
                                     </label>
                                     <input
                                         id="import-images-backup"
@@ -1624,360 +1847,434 @@ function doGet(e) {
                                         onChange={handleImportImagesBackup}
                                     />
 
-                                    {/* Restore / Reset All to Default */}
-                                    {Object.keys(customServiceImages).length > 0 && (
+                                    {/* Blue: Add Custom Image / Gallery */}
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            if (filteredPrompts[0]) setPreviewServiceModal(filteredPrompts[0]);
+                                        }}
+                                        className="w-10 h-10 rounded-2xl bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 flex items-center justify-center transition shadow-2xs active:scale-95"
+                                        title="Upload / Manage Photos"
+                                    >
+                                        <FaImage size={15} />
+                                    </button>
+
+                                    {/* Red: Reset / Clear */}
+                                    <button
+                                        type="button"
+                                        onClick={handleResetAllCustomImages}
+                                        className="w-10 h-10 rounded-2xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 flex items-center justify-center transition shadow-2xs active:scale-95"
+                                        title="Reset All to Default Images"
+                                    >
+                                        <FaTrash size={13} />
+                                    </button>
+
+                                    {/* Gray: External Link / Open Website */}
+                                    <a
+                                        href="/#/services"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-10 h-10 rounded-2xl bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200 flex items-center justify-center transition shadow-2xs active:scale-95"
+                                        title="Open Live Public Services Page in New Tab"
+                                    >
+                                        <FaExternalLinkAlt size={13} />
+                                    </a>
+                                </div>
+                            </div>
+
+                            {/* 3. SEARCH BAR WITH FILTER FUNNEL ICON (MATCHING MOCKUP) */}
+                            <div className="relative flex items-center gap-2">
+                                <div className="relative flex-1">
+                                    <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
+                                    <input
+                                        id="studio-search-input"
+                                        type="text"
+                                        placeholder="Search 172 prompts by service name (e.g., Hair Cut, Bridal Makeup, Facial...)"
+                                        value={promptSearch}
+                                        onChange={(e) => setPromptSearch(e.target.value)}
+                                        className="w-full pl-11 pr-4 py-3 bg-white rounded-full border border-[#EADBCE] text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs"
+                                    />
+                                    {promptSearch && (
                                         <button
                                             type="button"
-                                            onClick={handleResetAllCustomImages}
-                                            className="px-3 py-2 rounded-xl bg-gray-100 hover:bg-red-50 text-gray-700 hover:text-red-700 border border-gray-300 text-xs font-bold flex items-center gap-1 transition active:scale-95"
-                                            title="Clear custom uploads and restore default website images"
+                                            onClick={() => setPromptSearch('')}
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs font-bold"
                                         >
-                                            <FaTrash size={11} className="text-red-500" />
-                                            <span>Restore Default Images</span>
+                                            ✕
                                         </button>
                                     )}
                                 </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setPromptCategoryFilter('All')}
+                                    className="w-11 h-11 rounded-full bg-white hover:bg-amber-50 text-gray-700 border border-[#EADBCE] flex items-center justify-center transition shadow-2xs shrink-0"
+                                    title="Reset / Toggle Filter"
+                                >
+                                    <FaFilter size={14} className={promptCategoryFilter !== 'All' ? 'text-[#8E580B]' : 'text-gray-600'} />
+                                </button>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-[11px] text-gray-700">
-                                <div className="p-2.5 rounded-xl bg-white border border-amber-200/70">
-                                    <strong className="text-amber-950 block mb-0.5">Step 1 (On Mobile Phone):</strong>
-                                    Tap <span className="font-bold text-[#4A0A16]">"📲 Export Images Backup"</span> to download your images backup JSON file. Send it to your PC via WhatsApp / Bluetooth / Email.
-                                </div>
-                                <div className="p-2.5 rounded-xl bg-white border border-amber-200/70">
-                                    <strong className="text-emerald-950 block mb-0.5">Step 2 (On PC):</strong>
-                                    Open this Admin page on PC, click <span className="font-bold text-emerald-800">"💻 Import on PC"</span> and select that file. Instantly all images appear!
-                                </div>
-                                <div className="p-2.5 rounded-xl bg-white border border-amber-200/70">
-                                    <strong className="text-blue-950 block mb-0.5">Permanent Worldwide Display:</strong>
-                                    Click <span className="font-bold text-blue-900">"Download File"</span> on any card to save as <code className="bg-gray-100 px-1 py-0.5 rounded text-[10px]">basic-haircut.webp</code> and add it into the website code so ALL visitors see it forever!
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Search & Category Filter */}
-                        <div className="bg-white rounded-3xl p-4 sm:p-5 border border-[#E8D9C5] shadow-xs space-y-3">
-                            <div className="relative">
-                                <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
-                                <input
-                                    type="text"
-                                    placeholder="Search 172 prompts by service name (e.g. Keratin, U-Cut, Kasavu Bridal, Facial, Nail)..."
-                                    value={promptSearch}
-                                    onChange={(e) => setPromptSearch(e.target.value)}
-                                    className="w-full pl-11 pr-4 py-2.5 bg-[#FAF9F5] rounded-2xl border border-gray-200 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-amber-500"
-                                />
-                            </div>
-
-                            {/* Filter Chips */}
+                            {/* 4. CATEGORY ICON PILLS ROW (MATCHING MOCKUP) */}
                             <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-                                {[
-                                    { id: 'All', label: 'All Services (172)' },
-                                    { id: 'Bridal', label: 'Bridal Makeup Only (20) ⭐' },
-                                    { id: 'Haircuts', label: 'Haircuts (25)' },
-                                    { id: 'Hair Spa', label: 'Hair Spa (18)' },
-                                    { id: 'Hair Colour', label: 'Hair Colour (14)' },
-                                    { id: 'Smoothening', label: 'Smoothening (6)' },
-                                    { id: 'Facial', label: 'Facials (22)' },
-                                    { id: 'Threading', label: 'Threading (13)' },
-                                    { id: 'Nail', label: 'Nails & Pedicure (16)' },
-                                    { id: 'Packages', label: 'Packages (10)' }
-                                ].map(cat => (
-                                    <button
-                                        key={cat.id}
-                                        onClick={() => setPromptCategoryFilter(cat.id)}
-                                        className={`px-3.5 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
-                                            promptCategoryFilter === cat.id
-                                                ? 'bg-[#4A0A16] text-amber-300 shadow-xs'
-                                                : 'bg-gray-100 text-gray-700 hover:bg-amber-100/60'
-                                        }`}
-                                    >
-                                        {cat.label}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* List of 172 Service Prompt Cards */}
-                        <div className="space-y-4">
-                            {serviceImagePrompts
-                                .filter(p => {
-                                    const matchesCat = promptCategoryFilter === 'All' ||
-                                        (promptCategoryFilter === 'Bridal' ? p.category === 'Bridal Makeup & Special Occasion Makeup' : p.category.includes(promptCategoryFilter));
-                                    const matchesSearch = !promptSearch.trim() ||
-                                        p.name.toLowerCase().includes(promptSearch.toLowerCase()) ||
-                                        p.fileName.toLowerCase().includes(promptSearch.toLowerCase()) ||
-                                        p.category.toLowerCase().includes(promptSearch.toLowerCase());
-                                    return matchesCat && matchesSearch;
-                                })
-                                .map((item) => {
-                                    const isBridal = item.category === 'Bridal Makeup & Special Occasion Makeup';
-                                    const activeImg = customServiceImages[item.id] || imagePresets[0].image;
+                                {promptCategories.map(cat => {
+                                    const IconComp = cat.icon;
+                                    const isActive = promptCategoryFilter === cat.id;
 
                                     return (
-                                        <div
-                                            key={item.id}
-                                            className={`bg-white rounded-3xl p-4 sm:p-6 border-2 transition-all ${
-                                                isBridal 
-                                                    ? 'border-amber-400 bg-amber-50/20 shadow-xs' 
-                                                    : 'border-[#E8D9C5] shadow-xs'
+                                        <button
+                                            key={cat.id}
+                                            type="button"
+                                            onClick={() => setPromptCategoryFilter(cat.id)}
+                                            className={`py-2 px-3.5 rounded-full text-xs font-black whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                                                isActive
+                                                    ? 'bg-[#4A0A16] text-amber-200 shadow-sm border border-[#4A0A16]'
+                                                    : 'bg-white hover:bg-[#FAF4ED] text-[#4A3222] border border-[#EADBCE] shadow-2xs'
                                             }`}
+                                            title={cat.title}
                                         >
-                                            {/* Top Line: Service Number, Category Tag, Badges */}
-                                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 pb-3 border-b border-gray-100">
-                                                <div className="flex items-center gap-2 flex-wrap">
-                                                    <span className="font-mono font-bold text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-md">
-                                                        #{item.index}
-                                                    </span>
-                                                    <h3 className="font-serif font-black text-base sm:text-xl text-gray-950">
-                                                        {item.name}
-                                                    </h3>
-                                                    <span className="bg-amber-100 text-amber-900 text-xs font-black px-2.5 py-0.5 rounded-lg">
-                                                        {item.category}
-                                                    </span>
-                                                    {isBridal && (
-                                                        <span className="bg-gradient-to-r from-[#4A0A16] to-[#681022] text-amber-300 text-[11px] font-black px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
-                                                            <span>🌸</span> Kerala Natural Look + Gold Flower
-                                                        </span>
-                                                    )}
-                                                </div>
+                                            {IconComp && <IconComp size={12} className={isActive ? 'text-amber-300' : 'text-[#8E580B]'} />}
+                                            <span>{cat.label}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
 
-                                                <div className="flex items-center gap-2">
-                                                    <button
-                                                        onClick={() => setPreviewServiceModal(item)}
-                                                        className="px-3 py-1.5 rounded-xl border border-gray-300 hover:border-amber-400 text-xs font-bold text-gray-700 bg-white hover:bg-amber-50 transition active:scale-95 flex items-center gap-1"
-                                                    >
-                                                        <FaEye size={12} className="text-amber-700" />
-                                                        <span>Preview Modal</span>
-                                                    </button>
-                                                </div>
-                                            </div>
+                            {/* 5. GENERATED IMAGES SECTION HEADER */}
+                            <div className="bg-white rounded-3xl p-4 sm:p-5 border border-[#EADBCE] shadow-sm space-y-4">
+                                <div className="flex items-center justify-between pb-3 border-b border-[#F0E4D8]">
+                                    <div className="flex items-center gap-2">
+                                        <FaImage className="text-[#8E580B] text-lg" />
+                                        <h3 className="font-serif font-black text-lg sm:text-xl text-gray-950">
+                                            Generated Images
+                                        </h3>
+                                    </div>
 
-                                            {/* File Name Row with Copy Button & Rename / Download */}
-                                            <div className="mb-3 p-3 rounded-2xl bg-gray-50 border border-gray-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                                                <div className="flex items-center gap-2 min-w-0 flex-1">
-                                                    <FaFolderOpen className="text-amber-700 text-sm shrink-0" />
-                                                    <span className="text-xs font-black text-gray-600 uppercase tracking-wider shrink-0">
-                                                        Target File Name:
-                                                    </span>
-                                                    <input
-                                                        type="text"
-                                                        value={customTargetFileNames[item.id] !== undefined ? customTargetFileNames[item.id] : item.fileName}
-                                                        onChange={(e) => setCustomTargetFileNames({ ...customTargetFileNames, [item.id]: e.target.value })}
-                                                        className="text-xs sm:text-sm font-mono font-bold text-[#4A0A16] bg-white px-2.5 py-1 rounded-lg border border-gray-300 focus:border-amber-500 outline-none flex-1 max-w-xs"
-                                                        title="Click to edit or rename target file name"
+                                    <div className="flex items-center gap-2">
+                                        <span className="bg-[#FAF4ED] text-[#8E580B] border border-[#EADBCE] text-xs font-black px-3 py-1 rounded-full">
+                                            {filteredPrompts.length} Images
+                                        </span>
+
+                                        {/* Grid vs Detailed Switcher */}
+                                        <div className="flex items-center bg-gray-100 p-0.5 rounded-xl border border-gray-200">
+                                            <button
+                                                type="button"
+                                                onClick={() => setGalleryViewMode('grid')}
+                                                className={`p-1.5 rounded-lg text-xs transition ${
+                                                    galleryViewMode === 'grid'
+                                                        ? 'bg-white text-gray-900 shadow-2xs font-bold'
+                                                        : 'text-gray-500 hover:text-gray-800'
+                                                }`}
+                                                title="Visual Photo Grid View"
+                                            >
+                                                <FaThLarge size={12} />
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => setGalleryViewMode('detailed')}
+                                                className={`p-1.5 rounded-lg text-xs transition ${
+                                                    galleryViewMode === 'detailed'
+                                                        ? 'bg-white text-gray-900 shadow-2xs font-bold'
+                                                        : 'text-gray-500 hover:text-gray-800'
+                                                }`}
+                                                title="Detailed Prompt List View"
+                                            >
+                                                <FaListAlt size={12} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* ======================================================== */}
+                                {/* MODE 1: VISUAL PHOTO GRID (MATCHING USER SCREENSHOT MOCKUP) */}
+                                {/* ======================================================== */}
+                                {galleryViewMode === 'grid' && (
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                                        {filteredPrompts.map(item => {
+                                            const cardImg = getServiceDisplayImage(item);
+                                            const hasCustom = !!customServiceImages[item.id];
+
+                                            return (
+                                                <div
+                                                    key={item.id}
+                                                    onClick={() => setPreviewServiceModal(item)}
+                                                    className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-[#241510] border border-[#EADBCE] shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer select-none"
+                                                >
+                                                    {/* Background Image */}
+                                                    <img
+                                                        src={cardImg}
+                                                        alt={item.name}
+                                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                        loading="lazy"
                                                     />
-                                                </div>
 
-                                                <div className="flex items-center gap-1.5 shrink-0">
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => handleCopyFileName(item.id, customTargetFileNames[item.id] || item.fileName)}
-                                                        className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition active:scale-95 ${
-                                                            copiedFileId === item.id
-                                                                ? 'bg-emerald-600 text-white'
-                                                                : 'bg-white hover:bg-gray-100 text-gray-800 border border-gray-300'
-                                                        }`}
-                                                    >
-                                                        {copiedFileId === item.id ? <FaCheck size={11} /> : <FaCopy size={11} />}
-                                                        <span>{copiedFileId === item.id ? 'Copied!' : 'Copy Name'}</span>
-                                                    </button>
-
-                                                    {customServiceImages[item.id] && (
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => handleDownloadResizedFile(item.id, customTargetFileNames[item.id] || item.fileName)}
-                                                            className="px-3 py-1.5 rounded-xl text-xs font-black bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-xs"
-                                                            title="Download this resized image with the exact target file name"
-                                                        >
-                                                            <FaDownload size={11} className="text-amber-400" />
-                                                            <span>Download File</span>
-                                                        </button>
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                            {/* Prompt Box with 1-Tap Copy Prompt */}
-                                            <div className="mb-4">
-                                                <div className="flex items-center justify-between mb-1.5">
-                                                    <label className="text-xs font-black uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
-                                                        <FaMagic className="text-amber-700" />
-                                                        <span>AI Model Image Generation Prompt</span>
-                                                    </label>
-
-                                                    <button
-                                                        onClick={() => handleCopyPrompt(item.id, item.prompt)}
-                                                        className={`px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-xs ${
-                                                            copiedPromptId === item.id
-                                                                ? 'bg-emerald-600 text-white'
-                                                                : 'bg-[#B98327] hover:bg-[#A3701E] text-white'
-                                                        }`}
-                                                    >
-                                                        {copiedPromptId === item.id ? <FaCheck size={11} /> : <FaCopy size={11} />}
-                                                        <span>{copiedPromptId === item.id ? '✓ Prompt Copied!' : 'Copy Prompt'}</span>
-                                                    </button>
-                                                </div>
-
-                                                <div className="p-3.5 rounded-2xl bg-[#FAF9F5] border-2 border-gray-200/90 text-xs sm:text-sm text-gray-800 leading-relaxed font-medium select-all">
-                                                    {item.prompt}
-                                                </div>
-
-                                                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-gray-500 font-bold px-1 mt-1.5 gap-1">
-                                                    <span>Aspect: {item.aspectRatio}</span>
-                                                    <span>Watermark: {item.watermark}</span>
-                                                </div>
-
-                                                {item.modelVariation && (
-                                                    <div className="mt-2.5 p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/60 flex flex-wrap items-center gap-2 text-xs">
-                                                        <span className="font-black text-[#4A0A16] flex items-center gap-1">
-                                                            <span>👤</span> Model:
-                                                        </span>
-                                                        <span className="bg-white/80 border border-amber-200 text-amber-950 font-semibold px-2 py-0.5 rounded-md text-[11px]">
-                                                            {item.modelVariation.modelProfile}
-                                                        </span>
-                                                        <span className="font-black text-gray-600 flex items-center gap-1">
-                                                            <span>📸</span> Pose:
-                                                        </span>
-                                                        <span className="bg-white/80 border border-gray-200 text-gray-800 font-medium px-2 py-0.5 rounded-md text-[11px]">
-                                                            {item.modelVariation.pose}
-                                                        </span>
-                                                        <span className="font-mono text-gray-400 text-[10px] ml-auto">
-                                                            Seed: #{item.modelVariation.variationSeed}
-                                                        </span>
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            {/* Image Update & Modal Replacement Section */}
-                                            <div className="p-3.5 rounded-2xl bg-amber-50/50 border border-amber-200/80 space-y-2.5">
-                                                <div className="flex items-center justify-between flex-wrap gap-2">
-                                                    <span className="text-xs font-black uppercase tracking-wider text-gray-800 flex items-center gap-1.5">
-                                                        <FaPalette className="text-amber-700" /> Replace Image for Service & Modal
-                                                    </span>
-                                                    <div className="flex items-center gap-2">
-                                                        {customServiceImages[item.id] && (
-                                                            <>
-                                                                <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md">
-                                                                    ✓ Custom Active
-                                                                </span>
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={() => handleRemoveServiceImage(item.id)}
-                                                                    className="text-[11px] font-bold text-red-600 hover:text-red-700 underline"
-                                                                >
-                                                                    Reset
-                                                                </button>
-                                                            </>
-                                                        )}
-                                                    </div>
-                                                </div>
-
-                                                {/* File Upload Button + Direct URL Input */}
-                                                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                                                    {/* Native File Upload (Supports Any Image Size - Auto-Resizes to ~60KB) */}
-                                                    <label
-                                                        htmlFor={`file-upload-${item.id}`}
-                                                        className={`px-3.5 py-2 rounded-xl text-xs font-black transition active:scale-95 shrink-0 shadow-xs flex items-center justify-center gap-1.5 cursor-pointer ${
-                                                            isProcessingUpload[item.id]
-                                                                ? 'bg-gray-400 text-white cursor-wait'
-                                                                : 'bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white'
-                                                        }`}
-                                                        title="Upload downloaded image from phone gallery or PC (Auto-resizes & compresses)"
-                                                    >
-                                                        <FaCloudUploadAlt size={14} className="text-amber-400" />
-                                                        <span>{isProcessingUpload[item.id] ? '⚡ Auto-Resizing...' : '📁 Upload & Auto-Resize'}</span>
-                                                    </label>
-                                                    <input
-                                                        id={`file-upload-${item.id}`}
-                                                        type="file"
-                                                        accept="image/*"
-                                                        disabled={isProcessingUpload[item.id]}
-                                                        className="hidden"
-                                                        onChange={(e) => {
-                                                            if (e.target.files && e.target.files[0]) {
-                                                                handleFileUpload(item.id, e.target.files[0], customTargetFileNames[item.id] || item.fileName);
-                                                                e.target.value = '';
-                                                            }
+                                                    {/* Top-Right Quick Action Frosted Pill */}
+                                                    <div
+                                                        className="absolute top-2.5 right-2.5 z-10 bg-black/60 hover:bg-black/80 backdrop-blur-md px-2 py-1 rounded-full text-white/90 flex items-center gap-1.5 border border-white/20 text-[11px] shadow-sm transition"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setPreviewServiceModal(item);
                                                         }}
-                                                    />
-
-                                                    {/* Direct Image URL input */}
-                                                    <input
-                                                        type="url"
-                                                        placeholder="Or paste direct image URL (.jpg, .webp, .png)..."
-                                                        value={serviceInputImages[item.id] !== undefined ? serviceInputImages[item.id] : (customServiceImages[item.id] || '')}
-                                                        onChange={(e) => setServiceInputImages({ ...serviceInputImages, [item.id]: e.target.value })}
-                                                        className="flex-1 bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-mono text-gray-900 outline-none focus:ring-2 focus:ring-amber-500"
-                                                    />
-
-                                                    <button
-                                                        onClick={() => handleSaveServiceImage(item.id, serviceInputImages[item.id])}
-                                                        className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black transition active:scale-95 shrink-0 shadow-xs"
+                                                        title="Preview Service Details"
                                                     >
-                                                        Save URL
-                                                    </button>
-                                                </div>
+                                                        <FaEye size={12} className="hover:text-amber-300" />
+                                                        <FaEllipsisH size={11} className="hover:text-amber-300" />
+                                                    </div>
 
-                                                {/* Upload Stats / Auto-Resize Result Banner */}
-                                                {uploadStats[item.id] && (
-                                                    <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 animate-in fade-in">
-                                                        <div className="flex items-center gap-1.5 flex-wrap">
-                                                            <span className="font-black text-emerald-800">✓ Auto-Resized:</span>
-                                                            <span className="line-through text-gray-500">{uploadStats[item.id].originalDisplay}</span>
-                                                            <span className="font-black text-emerald-900">➔ {uploadStats[item.id].newDisplay}</span>
-                                                            <span className="bg-emerald-200 text-emerald-950 px-1.5 py-0.5 rounded text-[10px] font-black">
-                                                                -{uploadStats[item.id].reduction}% smaller
+                                                    {/* Custom Upload Indicator Badge if applicable */}
+                                                    {hasCustom && (
+                                                        <div className="absolute top-2.5 left-2.5 z-10 bg-emerald-600/90 backdrop-blur-xs text-white text-[9px] font-black px-2 py-0.5 rounded-full border border-emerald-300 shadow-sm">
+                                                            Custom
+                                                        </div>
+                                                    )}
+
+                                                    {/* Bottom Frosted Dark Glass Service Title Overlay */}
+                                                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/65 to-transparent pt-10 pb-3.5 px-3 text-center">
+                                                        <h4 className="font-serif font-black text-sm sm:text-base text-white tracking-wide leading-snug drop-shadow-sm group-hover:text-amber-200 transition-colors">
+                                                            {item.name}
+                                                        </h4>
+                                                        <span className="text-[10px] font-semibold text-gray-300 tracking-wider block mt-0.5 opacity-80 group-hover:opacity-100">
+                                                            {item.fileName}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                )}
+
+                                {/* ======================================================== */}
+                                {/* MODE 2: DETAILED PROMPT LIST VIEW                        */}
+                                {/* ======================================================== */}
+                                {galleryViewMode === 'detailed' && (
+                                    <div className="space-y-4 pt-2">
+                                        {filteredPrompts.map(item => {
+                                            const isBridal = item.category === 'Bridal Makeup & Special Occasion Makeup';
+
+                                            return (
+                                                <div
+                                                    key={item.id}
+                                                    className={`bg-[#FAF7F2] rounded-3xl p-4 sm:p-5 border-2 transition-all ${
+                                                        isBridal 
+                                                            ? 'border-amber-400 bg-amber-50/30 shadow-xs' 
+                                                            : 'border-[#EADBCE] shadow-xs'
+                                                    }`}
+                                                >
+                                                    {/* Top Line: Service Number, Category Tag, Badges */}
+                                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 pb-3 border-b border-gray-200/80">
+                                                        <div className="flex items-center gap-2 flex-wrap">
+                                                            <span className="font-mono font-bold text-xs text-gray-500 bg-white px-2 py-0.5 rounded-md border border-gray-200">
+                                                                #{item.index}
                                                             </span>
-                                                            <span className="text-gray-600 text-[11px]">({uploadStats[item.id].dimensions})</span>
+                                                            <h3 className="font-serif font-black text-base sm:text-lg text-gray-950">
+                                                                {item.name}
+                                                            </h3>
+                                                            <span className="bg-amber-100 text-amber-900 text-xs font-black px-2.5 py-0.5 rounded-lg">
+                                                                {item.category}
+                                                            </span>
+                                                            {isBridal && (
+                                                                <span className="bg-gradient-to-r from-[#4A0A16] to-[#681022] text-amber-300 text-[11px] font-black px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
+                                                                    <span>🌸</span> Kerala Bridal + Gold Flower
+                                                                </span>
+                                                            )}
                                                         </div>
 
                                                         <button
-                                                            type="button"
-                                                            onClick={() => handleDownloadResizedFile(item.id, customTargetFileNames[item.id] || item.fileName)}
-                                                            className="px-2.5 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-[11px] font-bold flex items-center gap-1 shrink-0 transition"
+                                                            onClick={() => setPreviewServiceModal(item)}
+                                                            className="px-3 py-1.5 rounded-xl border border-gray-300 hover:border-amber-400 text-xs font-bold text-gray-700 bg-white hover:bg-amber-50 transition active:scale-95 flex items-center gap-1 self-start sm:self-center"
                                                         >
-                                                            <FaDownload size={10} />
-                                                            <span>Save as {customTargetFileNames[item.id] || item.fileName}</span>
+                                                            <FaEye size={12} className="text-amber-700" />
+                                                            <span>Preview Modal</span>
                                                         </button>
                                                     </div>
-                                                )}
 
-                                                {/* Helpful advice for Gemini links */}
-                                                <p className="text-[11px] text-gray-500 leading-snug">
-                                                    💡 <strong className="text-gray-700">Auto-Resize Active:</strong> Any image you pick (even 10MB–20MB from phone or Gemini) is instantly resized and compressed client-side to lightweight salon WebP format.
-                                                </p>
+                                                    {/* File Name & Download Row */}
+                                                    <div className="mb-3 p-3 rounded-2xl bg-white border border-gray-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                                        <div className="flex items-center gap-2 min-w-0 flex-1">
+                                                            <FaFolderOpen className="text-amber-700 text-sm shrink-0" />
+                                                            <span className="text-xs font-black text-gray-600 uppercase tracking-wider shrink-0">
+                                                                Target File Name:
+                                                            </span>
+                                                            <input
+                                                                type="text"
+                                                                value={customTargetFileNames[item.id] !== undefined ? customTargetFileNames[item.id] : item.fileName}
+                                                                onChange={(e) => setCustomTargetFileNames({ ...customTargetFileNames, [item.id]: e.target.value })}
+                                                                className="text-xs sm:text-sm font-mono font-bold text-[#4A0A16] bg-amber-50/50 px-2.5 py-1 rounded-lg border border-gray-300 focus:border-amber-500 outline-none flex-1 max-w-xs"
+                                                                title="Click to edit target file name"
+                                                            />
+                                                        </div>
 
-                                                {/* Quick Preset Selector Buttons */}
-                                                <div className="flex items-center gap-1.5 overflow-x-auto pt-1 no-scrollbar">
-                                                    <span className="text-[10px] font-black uppercase text-gray-400 shrink-0">
-                                                        Presets:
-                                                    </span>
-                                                    {imagePresets.map((preset, pIdx) => (
-                                                        <button
-                                                            key={pIdx}
-                                                            type="button"
-                                                            onClick={() => {
-                                                                setServiceInputImages({ ...serviceInputImages, [item.id]: preset.image });
-                                                                handleSaveServiceImage(item.id, preset.image);
-                                                            }}
-                                                            className="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-gray-700 text-[11px] font-bold border border-gray-200 transition shrink-0"
-                                                        >
-                                                            {preset.name}
-                                                        </button>
-                                                    ))}
+                                                        <div className="flex items-center gap-1.5 shrink-0">
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => handleCopyFileName(item.id, customTargetFileNames[item.id] || item.fileName)}
+                                                                className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition active:scale-95 ${
+                                                                    copiedFileId === item.id
+                                                                        ? 'bg-emerald-600 text-white'
+                                                                        : 'bg-white hover:bg-gray-100 text-gray-800 border border-gray-300'
+                                                                }`}
+                                                            >
+                                                                {copiedFileId === item.id ? <FaCheck size={11} /> : <FaCopy size={11} />}
+                                                                <span>{copiedFileId === item.id ? 'Copied!' : 'Copy Name'}</span>
+                                                            </button>
+
+                                                            {customServiceImages[item.id] && (
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => handleDownloadResizedFile(item.id, customTargetFileNames[item.id] || item.fileName)}
+                                                                    className="px-3 py-1.5 rounded-xl text-xs font-black bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-xs"
+                                                                    title="Download this resized image"
+                                                                >
+                                                                    <FaDownload size={11} className="text-amber-400" />
+                                                                    <span>Download File</span>
+                                                                </button>
+                                                            )}
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Prompt Box */}
+                                                    <div>
+                                                        <div className="flex items-center justify-between mb-1.5">
+                                                            <label className="text-xs font-black uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
+                                                                <FaMagic className="text-amber-700" />
+                                                                <span>AI Model Image Generation Prompt</span>
+                                                            </label>
+
+                                                            <button
+                                                                onClick={() => handleCopyPrompt(item.id, item.prompt)}
+                                                                className={`px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-xs ${
+                                                                    copiedPromptId === item.id
+                                                                        ? 'bg-emerald-600 text-white'
+                                                                        : 'bg-[#B98327] hover:bg-[#A3701E] text-white'
+                                                                }`}
+                                                            >
+                                                                {copiedPromptId === item.id ? <FaCheck size={11} /> : <FaCopy size={11} />}
+                                                                <span>{copiedPromptId === item.id ? '✓ Prompt Copied!' : 'Copy Prompt'}</span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div className="p-3.5 rounded-2xl bg-white border border-gray-200 text-xs sm:text-sm text-gray-800 leading-relaxed font-medium select-all">
+                                                            {item.prompt}
+                                                        </div>
+
+                                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-gray-500 font-bold px-1 mt-1.5 gap-1">
+                                                            <span>Aspect: {item.aspectRatio}</span>
+                                                            <span>Watermark: {item.watermark}</span>
+                                                        </div>
+
+                                                        {item.modelVariation && (
+                                                            <div className="mt-2.5 p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/60 flex flex-wrap items-center gap-2 text-xs">
+                                                                <span className="font-black text-amber-950">Model Variation:</span>
+                                                                <span className="text-amber-900">{item.modelVariation.modelProfile}</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    {/* Image Update & Modal Replacement Section */}
+                                                    <div className="mt-3 p-3.5 rounded-2xl bg-amber-50/50 border border-amber-200/80 space-y-2.5">
+                                                        <div className="flex items-center justify-between flex-wrap gap-2">
+                                                            <span className="text-xs font-black uppercase tracking-wider text-gray-800 flex items-center gap-1.5">
+                                                                <FaPalette className="text-amber-700" /> Replace Image for Service & Modal
+                                                            </span>
+                                                            <div className="flex items-center gap-2">
+                                                                {customServiceImages[item.id] && (
+                                                                    <>
+                                                                        <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md">
+                                                                            ✓ Custom Active
+                                                                        </span>
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={() => handleRemoveServiceImage(item.id)}
+                                                                            className="text-[11px] font-bold text-red-600 hover:text-red-700 underline"
+                                                                        >
+                                                                            Reset
+                                                                        </button>
+                                                                    </>
+                                                                )}
+                                                            </div>
+                                                        </div>
+
+                                                        {/* File Upload Button + Direct URL Input */}
+                                                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                                                            <label
+                                                                htmlFor={`file-upload-${item.id}`}
+                                                                className={`px-3.5 py-2 rounded-xl text-xs font-black transition active:scale-95 shrink-0 shadow-xs flex items-center justify-center gap-1.5 cursor-pointer ${
+                                                                    isProcessingUpload[item.id]
+                                                                        ? 'bg-gray-400 text-white cursor-wait'
+                                                                        : 'bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white'
+                                                                }`}
+                                                                title="Upload downloaded image from phone gallery or PC (Auto-resizes & compresses)"
+                                                            >
+                                                                <FaCloudUploadAlt size={14} className="text-amber-400" />
+                                                                <span>{isProcessingUpload[item.id] ? '⚡ Auto-Resizing...' : '📁 Upload & Auto-Resize'}</span>
+                                                            </label>
+                                                            <input
+                                                                id={`file-upload-${item.id}`}
+                                                                type="file"
+                                                                accept="image/*"
+                                                                disabled={isProcessingUpload[item.id]}
+                                                                className="hidden"
+                                                                onChange={(e) => {
+                                                                    if (e.target.files && e.target.files[0]) {
+                                                                        handleFileUpload(item.id, e.target.files[0], customTargetFileNames[item.id] || item.fileName);
+                                                                        e.target.value = '';
+                                                                    }
+                                                                }}
+                                                            />
+
+                                                            <input
+                                                                type="url"
+                                                                placeholder="Or paste direct image URL (.jpg, .webp, .png)..."
+                                                                value={serviceInputImages[item.id] !== undefined ? serviceInputImages[item.id] : (customServiceImages[item.id] || '')}
+                                                                onChange={(e) => setServiceInputImages({ ...serviceInputImages, [item.id]: e.target.value })}
+                                                                className="flex-1 bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-mono text-gray-900 outline-none focus:ring-2 focus:ring-amber-500"
+                                                            />
+
+                                                            <button
+                                                                onClick={() => handleSaveServiceImage(item.id, serviceInputImages[item.id])}
+                                                                className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black transition active:scale-95 shrink-0 shadow-xs"
+                                                            >
+                                                                Save URL
+                                                            </button>
+                                                        </div>
+
+                                                        {/* Upload Stats / Auto-Resize Result Banner */}
+                                                        {uploadStats[item.id] && (
+                                                            <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 animate-in fade-in">
+                                                                <div className="flex items-center gap-1.5 flex-wrap">
+                                                                    <span className="font-black text-emerald-800">✓ Auto-Resized:</span>
+                                                                    <span className="line-through text-gray-500">{uploadStats[item.id].originalDisplay}</span>
+                                                                    <span className="font-black text-emerald-900">➔ {uploadStats[item.id].newDisplay}</span>
+                                                                    <span className="bg-emerald-200 text-emerald-950 px-1.5 py-0.5 rounded text-[10px] font-black">
+                                                                        -{uploadStats[item.id].reduction}% smaller
+                                                                    </span>
+                                                                    <span className="text-gray-600 text-[11px]">({uploadStats[item.id].dimensions})</span>
+                                                                </div>
+
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => handleDownloadResizedFile(item.id, customTargetFileNames[item.id] || item.fileName)}
+                                                                    className="px-2.5 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-[11px] font-bold flex items-center gap-1 shrink-0 transition"
+                                                                >
+                                                                    <FaDownload size={10} />
+                                                                    <span>Save as {customTargetFileNames[item.id] || item.fileName}</span>
+                                                                </button>
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
+                                            );
+                                        })}
+                                    </div>
+                                )}
+                            </div>
                         </div>
+                    );
+                })()}
 
                         {/* Service Modal Preview Popup (Responsive, Scrollable, Easy to Close) */}
                         {previewServiceModal && (() => {
                             const serviceObj = services.find(s => s.id === previewServiceModal.id);
-                            const modalImg = customServiceImages[previewServiceModal.id] || 
-                                (serviceObj && serviceObj.image) || 
-                                (imagePresets.find(p => previewServiceModal.category && previewServiceModal.category.includes(p.tag))?.image) || 
-                                imagePresets[0].image;
+                            const modalImg = getServiceDisplayImage(previewServiceModal);
 
                             return (
                                 <div 
@@ -2056,8 +2353,7 @@ function doGet(e) {
                                 </div>
                             );
                         })()}
-                    </div>
-                )}
+
                 {activeTab === 'offers' && (
                     <div className="space-y-5">
                         {/* Top Announcement Banner Card */}

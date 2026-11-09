@@ -1651,52 +1651,68 @@ function doGet(e) {
                         </div>
 
                         {/* Service Modal Preview Popup */}
-                        {previewServiceModal && (
-                            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-                                <div className="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border-2 border-amber-400 relative animate-in fade-in zoom-in-95 duration-200">
-                                    <div className="relative aspect-[4/3] bg-gray-100">
-                                        <img
-                                            src={customServiceImages[previewServiceModal.id] || imagePresets[0].image}
-                                            alt={previewServiceModal.name}
-                                            className="w-full h-full object-cover"
-                                        />
-                                        <button
-                                            onClick={() => setPreviewServiceModal(null)}
-                                            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition"
-                                        >
-                                            <FaTimes size={13} />
-                                        </button>
+                        {previewServiceModal && (() => {
+                            const serviceObj = services.find(s => s.id === previewServiceModal.id);
+                            const modalImg = customServiceImages[previewServiceModal.id] || 
+                                (serviceObj && serviceObj.image) || 
+                                (imagePresets.find(p => previewServiceModal.category && previewServiceModal.category.includes(p.tag))?.image) || 
+                                imagePresets[0].image;
 
-                                        {/* Watermark Overlay Preview - Compact Size */}
-                                        <div className="absolute top-3 left-3 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-xl border border-amber-300/25 shadow-xs opacity-75">
-                                            <Logo variant="gold" size="xs" showSwoop={true} align="left" />
-                                        </div>
-                                    </div>
+                            return (
+                                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+                                    <div className="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border-2 border-amber-400 relative animate-in fade-in zoom-in-95 duration-200">
+                                        <div className="relative aspect-[4/3] bg-gray-100">
+                                            <img
+                                                src={modalImg}
+                                                alt={previewServiceModal.name}
+                                                className="w-full h-full object-cover"
+                                            />
+                                            <button
+                                                onClick={() => setPreviewServiceModal(null)}
+                                                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition"
+                                            >
+                                                <FaTimes size={13} />
+                                            </button>
 
-                                    <div className="p-5 space-y-3">
-                                        <div>
-                                            <span className="text-[10px] font-black uppercase text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">
-                                                {previewServiceModal.category}
-                                            </span>
-                                            <h3 className="font-serif font-black text-xl text-gray-950 mt-1">
-                                                {previewServiceModal.name}
-                                            </h3>
+                                            {/* Watermark Overlay Preview - Compact Size */}
+                                            <div className="absolute top-3 left-3 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-xl border border-amber-300/25 shadow-xs opacity-75">
+                                                <Logo variant="gold" size="xs" showSwoop={true} align="left" />
+                                            </div>
                                         </div>
 
-                                        <div className="p-3 rounded-2xl bg-[#FAF9F5] border border-gray-200 text-xs text-gray-700 leading-relaxed font-medium">
-                                            {previewServiceModal.prompt}
-                                        </div>
+                                        <div className="p-5 space-y-3">
+                                            <div>
+                                                <span className="text-[10px] font-black uppercase text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">
+                                                    {previewServiceModal.category}
+                                                </span>
+                                                <h3 className="font-serif font-black text-xl text-gray-950 mt-1">
+                                                    {previewServiceModal.name}
+                                                </h3>
+                                                <div className="text-xs font-mono font-bold text-gray-400 mt-0.5">
+                                                    File: {customTargetFileNames[previewServiceModal.id] || previewServiceModal.fileName}
+                                                </div>
+                                            </div>
 
-                                        <button
-                                            onClick={() => setPreviewServiceModal(null)}
-                                            className="w-full btn-primary py-2.5 rounded-xl text-xs font-black"
-                                        >
-                                            Close Preview
-                                        </button>
+                                            <div className="p-3 rounded-2xl bg-[#FAF9F5] border border-gray-200 text-xs text-gray-700 leading-relaxed font-medium">
+                                                {serviceObj?.description || previewServiceModal.prompt}
+                                            </div>
+
+                                            <div className="flex items-center justify-between pt-1">
+                                                <span className="text-[11px] text-gray-500 font-bold">
+                                                    {customServiceImages[previewServiceModal.id] ? '✓ Custom Image Active' : '• Default Service Image'}
+                                                </span>
+                                                <button
+                                                    onClick={() => setPreviewServiceModal(null)}
+                                                    className="btn-primary py-2 px-4 rounded-xl text-xs font-black"
+                                                >
+                                                    Close Preview
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )}
+                            );
+                        })()}
                     </div>
                 )}
                 {activeTab === 'offers' && (

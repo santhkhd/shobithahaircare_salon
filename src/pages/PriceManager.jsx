@@ -1520,10 +1520,30 @@ function doGet(e) {
                                                     {item.prompt}
                                                 </div>
 
-                                                <div className="flex items-center justify-between text-[11px] text-gray-500 font-bold px-1 mt-1.5">
+                                                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-gray-500 font-bold px-1 mt-1.5 gap-1">
                                                     <span>Aspect: {item.aspectRatio}</span>
                                                     <span>Watermark: {item.watermark}</span>
                                                 </div>
+
+                                                {item.modelVariation && (
+                                                    <div className="mt-2.5 p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/60 flex flex-wrap items-center gap-2 text-xs">
+                                                        <span className="font-black text-[#4A0A16] flex items-center gap-1">
+                                                            <span>👤</span> Model:
+                                                        </span>
+                                                        <span className="bg-white/80 border border-amber-200 text-amber-950 font-semibold px-2 py-0.5 rounded-md text-[11px]">
+                                                            {item.modelVariation.modelProfile}
+                                                        </span>
+                                                        <span className="font-black text-gray-600 flex items-center gap-1">
+                                                            <span>📸</span> Pose:
+                                                        </span>
+                                                        <span className="bg-white/80 border border-gray-200 text-gray-800 font-medium px-2 py-0.5 rounded-md text-[11px]">
+                                                            {item.modelVariation.pose}
+                                                        </span>
+                                                        <span className="font-mono text-gray-400 text-[10px] ml-auto">
+                                                            Seed: #{item.modelVariation.variationSeed}
+                                                        </span>
+                                                    </div>
+                                                )}
                                             </div>
 
                                             {/* Image Update & Modal Replacement Section */}
@@ -1696,6 +1716,13 @@ function doGet(e) {
                                             <div className="p-3 rounded-2xl bg-[#FAF9F5] border border-gray-200 text-xs text-gray-700 leading-relaxed font-medium">
                                                 {serviceObj?.description || previewServiceModal.prompt}
                                             </div>
+
+                                            {previewServiceModal.modelVariation && (
+                                                <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/80 text-[11px] text-amber-950 flex flex-col gap-1">
+                                                    <div><span className="font-bold text-[#4A0A16]">Model:</span> {previewServiceModal.modelVariation.modelProfile}</div>
+                                                    <div><span className="font-bold text-gray-700">Pose:</span> {previewServiceModal.modelVariation.pose}</div>
+                                                </div>
+                                            )}
 
                                             <div className="flex items-center justify-between pt-1">
                                                 <span className="text-[11px] text-gray-500 font-bold">

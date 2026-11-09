@@ -551,6 +551,13 @@ const PriceManager = () => {
     useEffect(() => {
         document.title = "Mobile Salon Studio Admin | Shobitha Haircare";
 
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                setPreviewServiceModal(null);
+            }
+        };
+        window.addEventListener('keydown', handleEscape);
+
         // Load custom saved services from localStorage if present
         try {
             const saved = localStorage.getItem('shobitha_custom_services');
@@ -563,12 +570,13 @@ const PriceManager = () => {
                         return custom ? { ...s, ...custom } : s;
                     });
                     setServiceList(merged);
-                    return;
+                    return () => window.removeEventListener('keydown', handleEscape);
                 }
             }
         } catch (e) {}
 
         setServiceList(services);
+        return () => window.removeEventListener('keydown', handleEscape);
     }, []);
 
     const handleUnlock = (e) => {
@@ -1963,7 +1971,7 @@ function doGet(e) {
                                 })}
                         </div>
 
-                        {/* Service Modal Preview Popup */}
+                        {/* Service Modal Preview Popup (Responsive, Scrollable, Easy to Close) */}
                         {previewServiceModal && (() => {
                             const serviceObj = services.find(s => s.id === previewServiceModal.id);
                             const modalImg = customServiceImages[previewServiceModal.id] || 
@@ -1972,41 +1980,54 @@ function doGet(e) {
                                 imagePresets[0].image;
 
                             return (
-                                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-                                    <div className="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border-2 border-amber-400 relative animate-in fade-in zoom-in-95 duration-200">
-                                        <div className="relative aspect-[4/3] bg-gray-100">
+                                <div 
+                                    className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto"
+                                    onClick={() => setPreviewServiceModal(null)}
+                                >
+                                    <div 
+                                        className="bg-white rounded-3xl w-full max-w-md max-h-[88vh] flex flex-col overflow-hidden shadow-2xl border-2 border-amber-400 relative animate-in fade-in zoom-in-95 duration-200 my-auto"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        {/* Header Image with Fixed-Position Close Button */}
+                                        <div className="relative h-44 sm:h-52 bg-stone-900 shrink-0 overflow-hidden">
                                             <img
                                                 src={modalImg}
                                                 alt={previewServiceModal.name}
                                                 className="w-full h-full object-cover"
                                             />
+                                            {/* Prominent High-Contrast Close Button */}
                                             <button
+                                                type="button"
                                                 onClick={() => setPreviewServiceModal(null)}
-                                                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition"
+                                                className="absolute top-2.5 right-2.5 w-9 h-9 rounded-full bg-black/80 hover:bg-black text-white flex items-center justify-center transition shadow-lg z-20 active:scale-90"
+                                                title="Close Preview (or tap outside)"
+                                                aria-label="Close Preview"
                                             >
-                                                <FaTimes size={13} />
+                                                <FaTimes size={15} />
                                             </button>
 
-                                            {/* Watermark Overlay Preview - Compact Size */}
-                                            <div className="absolute top-3 left-3 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-xl border border-amber-300/25 shadow-xs opacity-75">
-                                                <Logo variant="gold" size="xs" showSwoop={true} align="left" />
+                                            {/* Watermark Overlay Preview - Micro Compact Size */}
+                                            <div className="absolute top-2.5 left-2.5 bg-black/50 backdrop-blur-xs px-2 py-0.5 rounded-lg border border-amber-300/30 shadow-xs opacity-80 pointer-events-none">
+                                                <Logo variant="gold" size="micro" showSwoop={true} align="left" />
                                             </div>
                                         </div>
 
-                                        <div className="p-5 space-y-3">
+                                        {/* Scrollable Content Body */}
+                                        <div className="p-4 sm:p-5 overflow-y-auto space-y-3 flex-1 overscroll-contain">
                                             <div>
                                                 <span className="text-[10px] font-black uppercase text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">
                                                     {previewServiceModal.category}
                                                 </span>
-                                                <h3 className="font-serif font-black text-xl text-gray-950 mt-1">
+                                                <h3 className="font-serif font-black text-lg sm:text-xl text-gray-950 mt-1 leading-snug">
                                                     {previewServiceModal.name}
                                                 </h3>
-                                                <div className="text-xs font-mono font-bold text-gray-400 mt-0.5">
+                                                <div className="text-[11px] font-mono font-bold text-gray-400 mt-0.5 truncate">
                                                     File: {customTargetFileNames[previewServiceModal.id] || previewServiceModal.fileName}
                                                 </div>
                                             </div>
 
-                                            <div className="p-3 rounded-2xl bg-[#FAF9F5] border border-gray-200 text-xs text-gray-700 leading-relaxed font-medium">
+                                            {/* Scrollable Prompt Box */}
+                                            <div className="p-3 rounded-2xl bg-[#FAF9F5] border border-gray-200 text-xs text-gray-700 leading-relaxed font-medium max-h-36 overflow-y-auto">
                                                 {serviceObj?.description || previewServiceModal.prompt}
                                             </div>
 
@@ -2016,18 +2037,20 @@ function doGet(e) {
                                                     <div><span className="font-bold text-gray-700">Pose:</span> {previewServiceModal.modelVariation.pose}</div>
                                                 </div>
                                             )}
+                                        </div>
 
-                                            <div className="flex items-center justify-between pt-1">
-                                                <span className="text-[11px] text-gray-500 font-bold">
-                                                    {customServiceImages[previewServiceModal.id] ? '✓ Custom Image Active' : '• Default Service Image'}
-                                                </span>
-                                                <button
-                                                    onClick={() => setPreviewServiceModal(null)}
-                                                    className="btn-primary py-2 px-4 rounded-xl text-xs font-black"
-                                                >
-                                                    Close Preview
-                                                </button>
-                                            </div>
+                                        {/* Sticky Bottom Actions Bar */}
+                                        <div className="p-3.5 bg-gray-50 border-t border-gray-100 flex items-center justify-between shrink-0">
+                                            <span className="text-[11px] text-gray-500 font-bold truncate">
+                                                {customServiceImages[previewServiceModal.id] ? '✓ Custom Image Active' : '• Default Service Image'}
+                                            </span>
+                                            <button
+                                                type="button"
+                                                onClick={() => setPreviewServiceModal(null)}
+                                                className="btn-primary py-2 px-5 rounded-xl text-xs font-black shadow-md active:scale-95 transition"
+                                            >
+                                                Close Preview
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

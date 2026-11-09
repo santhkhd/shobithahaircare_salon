@@ -442,6 +442,69 @@ const PriceManager = () => {
         } catch (e) {}
     };
 
+    const handleExportImagesBackup = () => {
+        const customCount = Object.keys(customServiceImages).length;
+        if (customCount === 0) {
+            alert("No custom images have been uploaded on this device yet. Upload an image first!");
+            return;
+        }
+
+        const backupData = {
+            version: "1.0",
+            exportDate: new Date().toISOString(),
+            totalImages: customCount,
+            customServiceImages,
+            customTargetFileNames
+        };
+
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", `shobitha-custom-images-backup-${new Date().toISOString().slice(0, 10)}.json`);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+    };
+
+    const handleImportImagesBackup = (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const parsed = JSON.parse(event.target.result);
+                const importedImages = parsed.customServiceImages || parsed;
+                if (importedImages && typeof importedImages === 'object') {
+                    const count = Object.keys(importedImages).length;
+                    if (count === 0) {
+                        alert("The selected backup file contains 0 images.");
+                        return;
+                    }
+
+                    const merged = { ...customServiceImages, ...importedImages };
+                    setCustomServiceImages(merged);
+                    localStorage.setItem('shobitha_custom_service_images', JSON.stringify(merged));
+
+                    if (parsed.customTargetFileNames) {
+                        const mergedNames = { ...customTargetFileNames, ...parsed.customTargetFileNames };
+                        setCustomTargetFileNames(mergedNames);
+                    }
+
+                    window.dispatchEvent(new Event('service_images_updated'));
+                    alert(`✓ Successfully imported ${count} images! Your PC now displays all images uploaded from your mobile phone.`);
+                } else {
+                    alert("Invalid backup file format. Please choose a valid JSON backup file.");
+                }
+            } catch (err) {
+                console.error('Import error:', err);
+                alert("Failed to read backup file: " + err.message);
+            }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+    };
+
     const handleDownloadAllPromptsJSON = () => {
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(serviceImagePrompts, null, 2));
         const downloadAnchor = document.createElement('a');
@@ -1350,6 +1413,71 @@ function doGet(e) {
                                     <div className="text-[10px] text-emerald-700 mt-1 font-medium">
                                         Applies automatically on image upload.
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Phone ⇄ PC Sync & Backup Card */}
+                        <div className="bg-gradient-to-r from-amber-50 via-white to-amber-50/50 rounded-3xl p-5 border-2 border-amber-300/80 shadow-xs space-y-3">
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-amber-200/60">
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-lg">🔄</span>
+                                        <h3 className="font-serif font-black text-base sm:text-lg text-[#4A0A16]">
+                                            Phone ⇄ PC Sync & Image Transfer
+                                        </h3>
+                                        <span className="bg-[#4A0A16] text-amber-300 text-[11px] font-black px-2.5 py-0.5 rounded-full">
+                                            {Object.keys(customServiceImages).length} Custom Images on this Device
+                                        </span>
+                                    </div>
+                                    <p className="text-xs text-gray-600 mt-1 leading-relaxed">
+                                        <strong>Why does this happen?</strong> Browser storage saves images locally on the device you used to upload them (mobile phone). Use these buttons to transfer your images between Phone and PC in 5 seconds!
+                                    </p>
+                                </div>
+
+                                <div className="flex items-center gap-2 shrink-0 flex-wrap">
+                                    {/* Export Backup from Phone */}
+                                    <button
+                                        type="button"
+                                        onClick={handleExportImagesBackup}
+                                        className="px-3.5 py-2 rounded-xl bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-xs"
+                                        title="Export all uploaded images to transfer from phone to PC"
+                                    >
+                                        <FaDownload size={12} className="text-amber-400" />
+                                        <span>📲 Export Images Backup</span>
+                                    </button>
+
+                                    {/* Import Backup on PC */}
+                                    <label
+                                        htmlFor="import-images-backup"
+                                        className="px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-xs cursor-pointer"
+                                        title="Import backup file to show all images on this PC"
+                                    >
+                                        <FaCloudUploadAlt size={13} className="text-white" />
+                                        <span>💻 Import on PC</span>
+                                    </label>
+                                    <input
+                                        id="import-images-backup"
+                                        type="file"
+                                        accept=".json,application/json"
+                                        className="hidden"
+                                        onChange={handleImportImagesBackup}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-[11px] text-gray-700">
+                                <div className="p-2.5 rounded-xl bg-white border border-amber-200/70">
+                                    <strong className="text-amber-950 block mb-0.5">Step 1 (On Mobile Phone):</strong>
+                                    Tap <span className="font-bold text-[#4A0A16]">"📲 Export Images Backup"</span> to download your images backup JSON file. Send it to your PC via WhatsApp / Bluetooth / Email.
+                                </div>
+                                <div className="p-2.5 rounded-xl bg-white border border-amber-200/70">
+                                    <strong className="text-emerald-950 block mb-0.5">Step 2 (On PC):</strong>
+                                    Open this Admin page on PC, click <span className="font-bold text-emerald-800">"💻 Import on PC"</span> and select that file. Instantly all images appear!
+                                </div>
+                                <div className="p-2.5 rounded-xl bg-white border border-amber-200/70">
+                                    <strong className="text-blue-950 block mb-0.5">Permanent Worldwide Display:</strong>
+                                    Click <span className="font-bold text-blue-900">"Download File"</span> on any card to save as <code className="bg-gray-100 px-1 py-0.5 rounded text-[10px]">basic-haircut.webp</code> and add it into the website code so ALL visitors see it forever!
                                 </div>
                             </div>
                         </div>

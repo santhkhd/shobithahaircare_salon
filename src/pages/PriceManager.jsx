@@ -246,6 +246,10 @@ const PriceManager = () => {
     const [copiedFileId, setCopiedFileId] = useState(null);
     const [previewServiceModal, setPreviewServiceModal] = useState(null);
     const [serviceInputImages, setServiceInputImages] = useState({});
+    const [uploadStats, setUploadStats] = useState({});
+    const [isProcessingUpload, setIsProcessingUpload] = useState({});
+    const [customTargetFileNames, setCustomTargetFileNames] = useState({});
+    const [resizeQualityMode, setResizeQualityMode] = useState('800x1000'); // '800x1000' | '1000x1250' | '600x750'
     const [customServiceImages, setCustomServiceImages] = useState(() => {
         try {
             return JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
@@ -253,6 +257,63 @@ const PriceManager = () => {
             return {};
         }
     });
+
+    // Client-side auto-resize & compression helper (reduces 15MB+ phone/Gemini images to ~60KB WebP)
+    const resizeAndOptimizeImage = (file, targetWidth = 800, targetHeight = 1000, quality = 0.82) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    let { width, height } = img;
+                    
+                    // Downscale maintaining aspect ratio, bounded by targetWidth & targetHeight
+                    const scale = Math.min(targetWidth / width, targetHeight / height, 1);
+                    const finalW = Math.max(1, Math.round(width * scale));
+                    const finalH = Math.max(1, Math.round(height * scale));
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = finalW;
+                    canvas.height = finalH;
+                    const ctx = canvas.getContext('2d');
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    ctx.drawImage(img, 0, 0, finalW, finalH);
+
+                    // Try exporting to WebP first, fallback to JPEG
+                    let dataUrl;
+                    try {
+                        dataUrl = canvas.toDataURL('image/webp', quality);
+                        if (!dataUrl || !dataUrl.startsWith('data:image/webp')) {
+                            dataUrl = canvas.toDataURL('image/jpeg', quality);
+                        }
+                    } catch (e) {
+                        dataUrl = canvas.toDataURL('image/jpeg', quality);
+                    }
+
+                    // Calculate file size savings
+                    const approxBytes = Math.round((dataUrl.length - 22) * 3 / 4);
+                    const originalKB = (file.size / 1024).toFixed(0);
+                    const newKB = (approxBytes / 1024).toFixed(0);
+                    const originalMB = (file.size / (1024 * 1024)).toFixed(1);
+                    const reduction = Math.max(0, Math.round((1 - approxBytes / file.size) * 100));
+
+                    resolve({
+                        dataUrl,
+                        width: finalW,
+                        height: finalH,
+                        originalDisplay: file.size > 1024 * 1024 ? `${originalMB} MB` : `${originalKB} KB`,
+                        newDisplay: `${newKB} KB`,
+                        reduction
+                    });
+                };
+                img.onerror = () => reject(new Error('Image failed to decode'));
+                img.src = event.target.result;
+            };
+            reader.onerror = () => reject(new Error('FileReader failed'));
+            reader.readAsDataURL(file);
+        });
+    };
 
     const handleCopyPrompt = (id, text) => {
         navigator.clipboard.writeText(text);
@@ -266,7 +327,7 @@ const PriceManager = () => {
         setTimeout(() => setCopiedFileId(null), 2500);
     };
 
-    const handleSaveServiceImage = (serviceId, imageUrl) => {
+    const handleSaveServiceImage = (serviceId, imageUrl, showAlert = true) => {
         if (!imageUrl || !imageUrl.trim()) return;
         let finalUrl = imageUrl.trim();
 
@@ -278,7 +339,7 @@ const PriceManager = () => {
                 "How to use your Gemini image:\n" +
                 "1. Open the Gemini link in your browser.\n" +
                 "2. Tap/right-click the generated image and choose 'Save Image' (or download it).\n" +
-                "3. Click the '📁 Upload Image from Phone/PC' button on this card to select the image!\n\n" +
+                "3. Click the '📁 Upload & Auto-Resize' button on this card. It will automatically resize and optimize the file!\n\n" +
                 "Alternatively, right-click the image in Gemini and choose 'Copy Image Address' to paste the direct image link."
             );
             return;
@@ -297,33 +358,76 @@ const PriceManager = () => {
         try {
             localStorage.setItem('shobitha_custom_service_images', JSON.stringify(updated));
             window.dispatchEvent(new Event('service_images_updated'));
-            alert(`✓ Saved image for ${serviceId}! Live preview updated across website.`);
+            if (showAlert) {
+                alert(`✓ Saved image for ${serviceId}! Live preview updated across website.`);
+            }
         } catch (e) {
             console.error(e);
-            alert('Could not save to browser storage. If uploading large files, please compress first.');
+            alert('Could not save to browser storage. If uploading large files, please use the Upload & Auto-Resize button.');
         }
     };
 
-    const handleFileUpload = (serviceId, file) => {
+    const handleFileUpload = async (serviceId, file, targetFileName) => {
         if (!file) return;
         if (!file.type.startsWith('image/')) {
-            alert('Please select a valid image file (JPG, PNG, WebP).');
-            return;
-        }
-        if (file.size > 5 * 1024 * 1024) {
-            alert('Image file is larger than 5MB. Please choose an image under 5MB or compress it.');
+            alert('Please select a valid image file (JPG, PNG, WebP, AVIF).');
             return;
         }
 
-        const reader = new FileReader();
-        reader.onload = () => {
-            const base64Data = reader.result;
-            handleSaveServiceImage(serviceId, base64Data);
-        };
-        reader.onerror = () => {
-            alert('Failed to read image file. Please try again.');
-        };
-        reader.readAsDataURL(file);
+        setIsProcessingUpload(prev => ({ ...prev, [serviceId]: true }));
+
+        try {
+            // Pick target dimensions according to selected mode
+            let targetW = 800;
+            let targetH = 1000;
+            if (resizeQualityMode === '1000x1250') {
+                targetW = 1000;
+                targetH = 1250;
+            } else if (resizeQualityMode === '600x750') {
+                targetW = 600;
+                targetH = 750;
+            }
+
+            // Automatically resize and optimize (even 20MB files shrink to ~60KB)
+            const result = await resizeAndOptimizeImage(file, targetW, targetH, 0.82);
+
+            // Save optimized image without interruptive alert
+            handleSaveServiceImage(serviceId, result.dataUrl, false);
+
+            setUploadStats(prev => ({
+                ...prev,
+                [serviceId]: {
+                    originalDisplay: result.originalDisplay,
+                    newDisplay: result.newDisplay,
+                    reduction: result.reduction,
+                    dimensions: `${result.width}×${result.height}`,
+                    fileName: targetFileName || file.name,
+                    timestamp: Date.now()
+                }
+            }));
+        } catch (err) {
+            console.error('Resize failed:', err);
+            alert('Failed to process and resize image. Please try another image.');
+        } finally {
+            setIsProcessingUpload(prev => ({ ...prev, [serviceId]: false }));
+        }
+    };
+
+    const handleDownloadResizedFile = (serviceId, fallbackFileName) => {
+        const dataUrl = customServiceImages[serviceId];
+        if (!dataUrl) {
+            alert('Please upload an image first to download it.');
+            return;
+        }
+
+        const fileName = customTargetFileNames[serviceId] || fallbackFileName || `service-${serviceId}.webp`;
+
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
     };
 
     const handleRemoveServiceImage = (serviceId) => {
@@ -1201,7 +1305,7 @@ function doGet(e) {
                             </div>
 
                             {/* Prompt Highlights & Watermark Rules Strip */}
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-4">
                                 <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-950">
                                     <div className="font-black flex items-center gap-1.5 text-amber-900 mb-0.5">
                                         <span>🌸</span> Kerala Bridal Specification
@@ -1216,16 +1320,34 @@ function doGet(e) {
                                         <span>📐</span> 4:5 Portrait Aspect Ratio
                                     </div>
                                     <div className="text-[11px] text-amber-800 leading-relaxed font-medium">
-                                        All prompts pre-configured for 800x1000px portrait format to fit salon service cards and mobile modal views.
+                                        Pre-configured for 800×1000px portrait format to fit salon service cards and mobile modal views.
                                     </div>
                                 </div>
 
                                 <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-950">
                                     <div className="font-black flex items-center gap-1.5 text-amber-900 mb-0.5">
-                                        <span>🏷️</span> Automatic Watermark Branding
+                                        <span>⚡</span> Auto-Resize & Compression
                                     </div>
                                     <div className="text-[11px] text-amber-800 leading-relaxed font-medium">
-                                        Watermark text: <em>"Shobitha Haircare & BRIDAL MAKEUP STUDIO"</em> in rich gold with drop shadow.
+                                        Automatically resizes large 5MB–20MB Gemini/phone images to ~60KB WebP with zero storage errors!
+                                    </div>
+                                </div>
+
+                                <div className="p-3 rounded-2xl bg-emerald-50/90 border border-emerald-300 text-xs text-emerald-950">
+                                    <div className="font-black flex items-center justify-between text-emerald-900 mb-1">
+                                        <span className="flex items-center gap-1"><span>⚙️</span> Resize Target:</span>
+                                    </div>
+                                    <select
+                                        value={resizeQualityMode}
+                                        onChange={(e) => setResizeQualityMode(e.target.value)}
+                                        className="w-full bg-white border border-emerald-300 rounded-xl px-2 py-1.5 text-[11px] font-bold text-emerald-950 focus:ring-1 focus:ring-emerald-500 outline-none"
+                                    >
+                                        <option value="800x1000">800×1000 (Recommended • ~60KB)</option>
+                                        <option value="1000x1250">1000×1250 (HD • ~110KB)</option>
+                                        <option value="600x750">600×750 (Super Fast • ~35KB)</option>
+                                    </select>
+                                    <div className="text-[10px] text-emerald-700 mt-1 font-medium">
+                                        Applies automatically on image upload.
                                     </div>
                                 </div>
                             </div>
@@ -1328,29 +1450,48 @@ function doGet(e) {
                                                 </div>
                                             </div>
 
-                                            {/* File Name Row with Copy Button */}
+                                            {/* File Name Row with Copy Button & Rename / Download */}
                                             <div className="mb-3 p-3 rounded-2xl bg-gray-50 border border-gray-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                                                <div className="flex items-center gap-2 min-w-0">
+                                                <div className="flex items-center gap-2 min-w-0 flex-1">
                                                     <FaFolderOpen className="text-amber-700 text-sm shrink-0" />
                                                     <span className="text-xs font-black text-gray-600 uppercase tracking-wider shrink-0">
                                                         Target File Name:
                                                     </span>
-                                                    <code className="text-xs sm:text-sm font-mono font-bold text-[#4A0A16] bg-white px-2.5 py-1 rounded-lg border border-gray-200 truncate">
-                                                        {item.fileName}
-                                                    </code>
+                                                    <input
+                                                        type="text"
+                                                        value={customTargetFileNames[item.id] !== undefined ? customTargetFileNames[item.id] : item.fileName}
+                                                        onChange={(e) => setCustomTargetFileNames({ ...customTargetFileNames, [item.id]: e.target.value })}
+                                                        className="text-xs sm:text-sm font-mono font-bold text-[#4A0A16] bg-white px-2.5 py-1 rounded-lg border border-gray-300 focus:border-amber-500 outline-none flex-1 max-w-xs"
+                                                        title="Click to edit or rename target file name"
+                                                    />
                                                 </div>
 
-                                                <button
-                                                    onClick={() => handleCopyFileName(item.id, item.fileName)}
-                                                    className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 shrink-0 transition active:scale-95 ${
-                                                        copiedFileId === item.id
-                                                            ? 'bg-emerald-600 text-white'
-                                                            : 'bg-white hover:bg-gray-100 text-gray-800 border border-gray-300'
-                                                    }`}
-                                                >
-                                                    {copiedFileId === item.id ? <FaCheck size={11} /> : <FaCopy size={11} />}
-                                                    <span>{copiedFileId === item.id ? 'Copied!' : 'Copy File Name'}</span>
-                                                </button>
+                                                <div className="flex items-center gap-1.5 shrink-0">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleCopyFileName(item.id, customTargetFileNames[item.id] || item.fileName)}
+                                                        className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition active:scale-95 ${
+                                                            copiedFileId === item.id
+                                                                ? 'bg-emerald-600 text-white'
+                                                                : 'bg-white hover:bg-gray-100 text-gray-800 border border-gray-300'
+                                                        }`}
+                                                    >
+                                                        {copiedFileId === item.id ? <FaCheck size={11} /> : <FaCopy size={11} />}
+                                                        <span>{copiedFileId === item.id ? 'Copied!' : 'Copy Name'}</span>
+                                                    </button>
+
+                                                    {customServiceImages[item.id] && (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleDownloadResizedFile(item.id, customTargetFileNames[item.id] || item.fileName)}
+                                                            className="px-3 py-1.5 rounded-xl text-xs font-black bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-xs"
+                                                            title="Download this resized image with the exact target file name"
+                                                        >
+                                                            <FaDownload size={11} className="text-amber-400" />
+                                                            <span>Download File</span>
+                                                        </button>
+                                                    )}
+                                                </div>
                                             </div>
 
                                             {/* Prompt Box with 1-Tap Copy Prompt */}
@@ -1410,23 +1551,28 @@ function doGet(e) {
 
                                                 {/* File Upload Button + Direct URL Input */}
                                                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                                                    {/* Native File Upload (Supports Phone Gallery & PC files) */}
+                                                    {/* Native File Upload (Supports Any Image Size - Auto-Resizes to ~60KB) */}
                                                     <label
                                                         htmlFor={`file-upload-${item.id}`}
-                                                        className="px-3.5 py-2 rounded-xl bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white text-xs font-black transition active:scale-95 shrink-0 shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
-                                                        title="Upload downloaded image from phone gallery or PC"
+                                                        className={`px-3.5 py-2 rounded-xl text-xs font-black transition active:scale-95 shrink-0 shadow-xs flex items-center justify-center gap-1.5 cursor-pointer ${
+                                                            isProcessingUpload[item.id]
+                                                                ? 'bg-gray-400 text-white cursor-wait'
+                                                                : 'bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white'
+                                                        }`}
+                                                        title="Upload downloaded image from phone gallery or PC (Auto-resizes & compresses)"
                                                     >
                                                         <FaCloudUploadAlt size={14} className="text-amber-400" />
-                                                        <span>📁 Upload from Phone/PC</span>
+                                                        <span>{isProcessingUpload[item.id] ? '⚡ Auto-Resizing...' : '📁 Upload & Auto-Resize'}</span>
                                                     </label>
                                                     <input
                                                         id={`file-upload-${item.id}`}
                                                         type="file"
                                                         accept="image/*"
+                                                        disabled={isProcessingUpload[item.id]}
                                                         className="hidden"
                                                         onChange={(e) => {
                                                             if (e.target.files && e.target.files[0]) {
-                                                                handleFileUpload(item.id, e.target.files[0]);
+                                                                handleFileUpload(item.id, e.target.files[0], customTargetFileNames[item.id] || item.fileName);
                                                                 e.target.value = '';
                                                             }
                                                         }}
@@ -1449,9 +1595,33 @@ function doGet(e) {
                                                     </button>
                                                 </div>
 
+                                                {/* Upload Stats / Auto-Resize Result Banner */}
+                                                {uploadStats[item.id] && (
+                                                    <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 animate-in fade-in">
+                                                        <div className="flex items-center gap-1.5 flex-wrap">
+                                                            <span className="font-black text-emerald-800">✓ Auto-Resized:</span>
+                                                            <span className="line-through text-gray-500">{uploadStats[item.id].originalDisplay}</span>
+                                                            <span className="font-black text-emerald-900">➔ {uploadStats[item.id].newDisplay}</span>
+                                                            <span className="bg-emerald-200 text-emerald-950 px-1.5 py-0.5 rounded text-[10px] font-black">
+                                                                -{uploadStats[item.id].reduction}% smaller
+                                                            </span>
+                                                            <span className="text-gray-600 text-[11px]">({uploadStats[item.id].dimensions})</span>
+                                                        </div>
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleDownloadResizedFile(item.id, customTargetFileNames[item.id] || item.fileName)}
+                                                            className="px-2.5 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-[11px] font-bold flex items-center gap-1 shrink-0 transition"
+                                                        >
+                                                            <FaDownload size={10} />
+                                                            <span>Save as {customTargetFileNames[item.id] || item.fileName}</span>
+                                                        </button>
+                                                    </div>
+                                                )}
+
                                                 {/* Helpful advice for Gemini links */}
                                                 <p className="text-[11px] text-gray-500 leading-snug">
-                                                    💡 <strong className="text-gray-700">For Gemini / AI users:</strong> Open your Gemini image, tap/right-click to <span className="text-[#4A0A16] font-bold">"Save Image"</span>, then click <span className="font-bold text-[#4A0A16]">"📁 Upload from Phone/PC"</span> above. Webpage links like <code className="bg-gray-100 text-gray-700 px-1 py-0.5 rounded text-[10px]">share.gemini.google</code> are chat pages and cannot be rendered as raw image files.
+                                                    💡 <strong className="text-gray-700">Auto-Resize Active:</strong> Any image you pick (even 10MB–20MB from phone or Gemini) is instantly resized and compressed client-side to lightweight salon WebP format.
                                                 </p>
 
                                                 {/* Quick Preset Selector Buttons */}

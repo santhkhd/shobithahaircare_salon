@@ -496,8 +496,8 @@ const Home = () => {
                                             {srv.category}
                                         </div>
 
-                                        {/* Official Logo Watermark Overlay matching Admin Preview */}
-                                        <div className="absolute bottom-2 left-2 z-10 bg-black/75 backdrop-blur-xs px-2 sm:px-2.5 py-1 rounded-xl border border-amber-400/50 shadow-md pointer-events-none">
+                                        {/* Official Logo Watermark Overlay with Soft Opacity */}
+                                        <div className="absolute bottom-2 left-2 z-10 bg-black/40 backdrop-blur-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-xl border border-amber-300/25 shadow-xs pointer-events-none opacity-70 group-hover:opacity-90 transition-opacity">
                                             <Logo variant="gold" size="xs" showSwoop={true} align="left" />
                                         </div>
                                     </div>

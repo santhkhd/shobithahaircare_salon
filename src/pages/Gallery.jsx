@@ -329,8 +329,8 @@ const Gallery = () => {
                                         </div>
                                     )}
 
-                                    {/* Top-Left Logo Watermark Overlay */}
-                                    <div className="absolute top-2.5 left-2.5 z-10 bg-black/75 backdrop-blur-xs px-2 py-0.5 rounded-xl border border-amber-400/50 shadow-md pointer-events-none">
+                                    {/* Top-Left Logo Watermark Overlay with Soft Opacity */}
+                                    <div className="absolute top-2.5 left-2.5 z-10 bg-black/40 backdrop-blur-xs px-2 py-0.5 rounded-xl border border-amber-300/25 shadow-xs pointer-events-none opacity-70 group-hover:opacity-90 transition-opacity">
                                         <Logo variant="gold" size="xs" showSwoop={true} align="left" />
                                     </div>
 
@@ -374,8 +374,8 @@ const Gallery = () => {
 
                                 {/* Modal Media Body */}
                                 <div className="bg-stone-900 flex items-center justify-center max-h-[62vh] overflow-hidden relative">
-                                    {/* Watermark in Lightbox */}
-                                    <div className="absolute top-3 left-3 z-20 bg-black/75 backdrop-blur-sm px-3 py-1.5 rounded-2xl border border-amber-400/50 shadow-md pointer-events-none">
+                                    {/* Watermark in Lightbox with Soft Opacity */}
+                                    <div className="absolute top-3 left-3 z-20 bg-black/45 backdrop-blur-sm px-3 py-1.5 rounded-2xl border border-amber-300/30 shadow-md pointer-events-none opacity-80">
                                         <Logo variant="gold" size="sm" showSwoop={true} align="left" />
                                     </div>
                                     {selectedImage.isBeforeAfter ? (

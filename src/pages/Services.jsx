@@ -117,7 +117,14 @@ const Services = () => {
     // Custom Service Images from Admin AI Studio
     const [customImages, setCustomImages] = useState(() => {
         try {
-            return JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
+            const raw = JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
+            // Clean up any truncated strings from old sheet sync
+            Object.keys(raw).forEach(k => {
+                if (raw[k] && typeof raw[k] === 'string' && raw[k].startsWith('data:image/') && (raw[k].length === 45000 || raw[k].length === 50000)) {
+                    delete raw[k];
+                }
+            });
+            return raw;
         } catch (e) {
             return {};
         }
@@ -137,7 +144,13 @@ const Services = () => {
     useEffect(() => {
         const handleImageUpdate = () => {
             try {
-                setCustomImages(JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}'));
+                const raw = JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
+                Object.keys(raw).forEach(k => {
+                    if (raw[k] && typeof raw[k] === 'string' && raw[k].startsWith('data:image/') && (raw[k].length === 45000 || raw[k].length === 50000)) {
+                        delete raw[k];
+                    }
+                });
+                setCustomImages(raw);
             } catch (e) {}
         };
         window.addEventListener('service_images_updated', handleImageUpdate);
@@ -377,7 +390,7 @@ const Services = () => {
                                     {/* Image with Heart Favorite Button on top-right */}
                                     <div className="relative aspect-[4/3] sm:aspect-square overflow-hidden bg-stone-100">
                                         <img
-                                            src={customImages[service.id] || service.image}
+                                            src={customImages[service.id] || (service.slug && customImages[service.slug]) || service.image || fallbackMap[service.fallbackVar] || fallbackMap.hairCut}
                                             alt={service.name}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                             onError={(e) => {

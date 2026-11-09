@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { useBooking } from '../context/BookingContext';
 import { reviews } from '../data/reviews';
-import { services } from '../data/services';
+import { services, fallbackMap } from '../data/services';
 import { specialOffers } from '../data/offers';
 import { 
     FaSearch, FaTimes, FaHeart, FaRegHeart, FaArrowRight, 
@@ -472,9 +472,13 @@ const Home = () => {
                                     {/* Image with Wishlist Button & Official Logo Watermark */}
                                     <div className="relative aspect-[4/3] sm:aspect-square overflow-hidden bg-stone-100">
                                         <img
-                                            src={customImages[srv.id] || srv.image}
+                                            src={customImages[srv.id] || (srv.slug && customImages[srv.slug]) || srv.image || fallbackMap[srv.fallbackVar] || fallbackMap.hairCut}
                                             alt={srv.name}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.src = fallbackMap[srv.fallbackVar] || fallbackMap.hairCut;
+                                            }}
                                             loading="lazy"
                                         />
                                         <button

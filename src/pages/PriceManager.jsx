@@ -306,7 +306,19 @@ const PriceManager = () => {
 
     const [customServiceImages, setCustomServiceImages] = useState(() => {
         try {
-            return JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
+            const raw = JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
+            // Clean up any previously stored corrupted 45,000-character truncated strings
+            let changed = false;
+            Object.keys(raw).forEach(k => {
+                if (raw[k] && typeof raw[k] === 'string' && raw[k].startsWith('data:image/') && (raw[k].length === 45000 || raw[k].length === 50000)) {
+                    delete raw[k];
+                    changed = true;
+                }
+            });
+            if (changed) {
+                try { localStorage.setItem('shobitha_custom_service_images', JSON.stringify(raw)); } catch (e) {}
+            }
+            return raw;
         } catch (e) {
             return {};
         }
@@ -409,14 +421,28 @@ const PriceManager = () => {
                     ctx.drawImage(img, 0, 0, finalW, finalH);
 
                     // Try exporting to WebP first, fallback to JPEG
+                    // Ensure the base64 string stays under 40,000 characters so Google Sheets cells NEVER truncate it!
+                    let currentQuality = Math.min(quality, 0.72);
                     let dataUrl;
                     try {
-                        dataUrl = canvas.toDataURL('image/webp', quality);
+                        dataUrl = canvas.toDataURL('image/webp', currentQuality);
                         if (!dataUrl || !dataUrl.startsWith('data:image/webp')) {
-                            dataUrl = canvas.toDataURL('image/jpeg', quality);
+                            dataUrl = canvas.toDataURL('image/jpeg', currentQuality);
                         }
                     } catch (e) {
-                        dataUrl = canvas.toDataURL('image/jpeg', quality);
+                        dataUrl = canvas.toDataURL('image/jpeg', currentQuality);
+                    }
+
+                    // Dynamically reduce quality if needed so the base64 payload fits safely in Google Sheets
+                    let attempts = 0;
+                    while (dataUrl && dataUrl.length > 40000 && attempts < 4) {
+                        attempts++;
+                        currentQuality = Math.max(0.40, currentQuality - 0.10);
+                        try {
+                            dataUrl = canvas.toDataURL('image/webp', currentQuality);
+                        } catch (e) {
+                            dataUrl = canvas.toDataURL('image/jpeg', currentQuality);
+                        }
                     }
 
                     // Calculate file size savings

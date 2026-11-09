@@ -104,7 +104,36 @@ export const syncWithGoogleSheets = async () => {
         if (data && data.serviceImages && typeof data.serviceImages === 'object' && Object.keys(data.serviceImages).length > 0) {
             try {
                 const existing = JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
-                const merged = { ...existing, ...data.serviceImages };
+                const merged = { ...existing };
+
+                // Clean up any previously stored corrupted 45,000-character truncated strings
+                Object.keys(merged).forEach(k => {
+                    if (merged[k] && typeof merged[k] === 'string' && merged[k].startsWith('data:image/') && (merged[k].length === 45000 || merged[k].length === 50000)) {
+                        delete merged[k];
+                    }
+                });
+
+                // Merge from sheet, discarding any truncated 45,000-character strings
+                Object.keys(data.serviceImages).forEach(key => {
+                    const sheetVal = data.serviceImages[key];
+                    if (sheetVal && typeof sheetVal === 'string') {
+                        const trimmed = sheetVal.trim();
+                        // 1. Valid web URL or local asset path
+                        if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('/images/')) {
+                            merged[key] = trimmed;
+                        } 
+                        // 2. Base64 data URL (only accept if complete and NOT truncated by Google Sheet cell limit)
+                        else if (trimmed.startsWith('data:image/')) {
+                            if (trimmed.length !== 45000 && trimmed.length !== 50000 && trimmed.length > 200) {
+                                // If local already has a valid image, don't overwrite with shorter
+                                if (!merged[key] || !merged[key].startsWith('data:image/') || trimmed.length >= merged[key].length) {
+                                    merged[key] = trimmed;
+                                }
+                            }
+                        }
+                    }
+                });
+
                 localStorage.setItem('shobitha_custom_service_images', JSON.stringify(merged));
                 window.dispatchEvent(new Event('service_images_updated'));
             } catch (e) {}

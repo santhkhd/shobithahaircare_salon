@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { services, fallbackMap } from '../data/services';
 import { useBooking } from '../context/BookingContext';
@@ -16,24 +16,36 @@ const ServiceDetail = () => {
     const { openBooking } = useBooking();
     const [, setPriceVersion] = useState(0);
 
-    useEffect(() => {
-        const handlePricesUpdated = () => {
-            setPriceVersion((v) => v + 1);
-        };
-        window.addEventListener('prices_updated', handlePricesUpdated);
-        return () => window.removeEventListener('prices_updated', handlePricesUpdated);
-    }, []);
-    
     // Look up service by either id or slug for maximum URL flexibility
     const service = services.find(s => s.id === id || s.slug === id);
 
-    const customImages = (() => {
+    // Custom Service Images from Admin AI Studio & Google Sheets Sync
+    const [customImages, setCustomImages] = useState(() => {
         try {
             return JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
         } catch (e) {
             return {};
         }
-    })();
+    });
+
+    useEffect(() => {
+        const handlePricesUpdated = () => {
+            setPriceVersion((v) => v + 1);
+        };
+        const handleImagesUpdated = () => {
+            try {
+                setCustomImages(JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}'));
+            } catch (e) {}
+        };
+
+        window.addEventListener('prices_updated', handlePricesUpdated);
+        window.addEventListener('service_images_updated', handleImagesUpdated);
+
+        return () => {
+            window.removeEventListener('prices_updated', handlePricesUpdated);
+            window.removeEventListener('service_images_updated', handleImagesUpdated);
+        };
+    }, []);
 
     useEffect(() => {
         if (!service) {
@@ -140,7 +152,7 @@ const ServiceDetail = () => {
                         {/* Service-Specific Image in 4:5 Portrait Ratio with Graceful Auto-Fallback */}
                         <div className="rounded-3xl overflow-hidden shadow-xl mb-8 bg-white border-2 border-primary-200 aspect-[4/5] relative group">
                             <img
-                                src={customImages[service.id] || service.image}
+                                src={customImages[service.id] || (service.slug && customImages[service.slug]) || service.image || defaultFallback}
                                 alt={service.imageAlt || `${service.name} - Shobitha Haircare Kanhangad`}
                                 width="800"
                                 height="1000"

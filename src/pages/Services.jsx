@@ -113,6 +113,25 @@ const Services = () => {
         return () => window.removeEventListener('favorites_updated', updateFavs);
     }, []);
 
+    // Custom Service Images from Admin AI Studio
+    const [customImages, setCustomImages] = useState(() => {
+        try {
+            return JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
+        } catch (e) {
+            return {};
+        }
+    });
+
+    useEffect(() => {
+        const handleImageUpdate = () => {
+            try {
+                setCustomImages(JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}'));
+            } catch (e) {}
+        };
+        window.addEventListener('service_images_updated', handleImageUpdate);
+        return () => window.removeEventListener('service_images_updated', handleImageUpdate);
+    }, []);
+
     const toggleFavorite = (id) => {
         setFavorites((prev) => {
             const updated = { ...prev, [id]: !prev[id] };
@@ -346,7 +365,7 @@ const Services = () => {
                                     {/* Image with Heart Favorite Button on top-right */}
                                     <div className="relative aspect-[4/3] sm:aspect-square overflow-hidden bg-stone-100">
                                         <img
-                                            src={service.image}
+                                            src={customImages[service.id] || service.image}
                                             alt={service.name}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                             onError={(e) => {

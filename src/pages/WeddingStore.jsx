@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-    FaWhatsapp, FaCheckSquare, FaRegSquare, FaPrint, FaShareAlt, 
-    FaArrowRight, FaCalendarCheck, FaPhoneAlt, FaStar, FaCrown, 
-    FaShoppingBag, FaClock, FaCheckCircle, FaUndo, FaSearch, 
+import {
+    FaWhatsapp, FaCheckSquare, FaRegSquare, FaPrint, FaShareAlt,
+    FaArrowRight, FaCalendarCheck, FaPhoneAlt, FaStar, FaCrown,
+    FaShoppingBag, FaClock, FaCheckCircle, FaUndo, FaSearch,
     FaPlus, FaCheck, FaTruck, FaStore, FaShieldAlt, FaMagic,
     FaHeart, FaRegHeart, FaExternalLinkAlt, FaTag, FaFilter, FaSortAmountDown
 } from 'react-icons/fa';
@@ -33,7 +33,7 @@ const WeddingStore = () => {
         try {
             const saved = JSON.parse(localStorage.getItem('shobitha_custom_store_products') || '[]');
             if (saved.length > 0) return saved;
-        } catch (e) {}
+        } catch (e) { }
         return initialStoreProducts;
     }, []);
 
@@ -45,7 +45,7 @@ const WeddingStore = () => {
             setCheckedItems(savedChecklist);
             const savedWishlist = JSON.parse(localStorage.getItem('shobitha_store_wishlist') || '{}');
             setWishlist(savedWishlist);
-        } catch (e) {}
+        } catch (e) { }
     }, []);
 
     const toggleWishlist = (productId, e) => {
@@ -54,7 +54,7 @@ const WeddingStore = () => {
             const next = { ...prev, [productId]: !prev[productId] };
             try {
                 localStorage.setItem('shobitha_store_wishlist', JSON.stringify(next));
-            } catch (err) {}
+            } catch (err) { }
             return next;
         });
     };
@@ -64,7 +64,7 @@ const WeddingStore = () => {
         let list = products.filter(prod => {
             const matchesCat = selectedStoreCategory === 'all' || prod.category === selectedStoreCategory;
             const matchesPlatform = selectedPlatform === 'all' || prod.platform === selectedPlatform;
-            const matchesSearch = !searchQuery.trim() || 
+            const matchesSearch = !searchQuery.trim() ||
                 prod.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 prod.brand?.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 prod.shortDesc?.toLowerCase().includes(searchQuery.toLowerCase());
@@ -106,7 +106,7 @@ const WeddingStore = () => {
             const updated = { ...prev, [id]: !prev[id] };
             try {
                 localStorage.setItem('shobitha_wedding_checklist', JSON.stringify(updated));
-            } catch (e) {}
+            } catch (e) { }
             return updated;
         });
     };
@@ -150,7 +150,7 @@ const WeddingStore = () => {
                         <div className="text-xs font-bold text-amber-200">Added to your Cart!</div>
                         <div className="text-sm font-black truncate max-w-xs">{addedAlert}</div>
                     </div>
-                    <button 
+                    <button
                         onClick={openCart}
                         className="bg-amber-300 hover:bg-amber-400 text-[#4A0A16] px-3 py-1 rounded-xl text-xs font-black ml-2 shadow-xs"
                     >
@@ -204,11 +204,10 @@ const WeddingStore = () => {
                 <div className="flex items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
                     <button
                         onClick={() => setActiveTab('store')}
-                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-black flex items-center gap-2 transition-all shadow-xs active:scale-95 ${
-                            activeTab === 'store'
+                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-black flex items-center gap-2 transition-all shadow-xs active:scale-95 ${activeTab === 'store'
                                 ? 'bg-[#4A0A16] text-white ring-2 ring-amber-400 shadow-md'
                                 : 'bg-white text-gray-800 border border-[#E8D9C5] hover:border-amber-400'
-                        }`}
+                            }`}
                     >
                         <FaShoppingBag className={activeTab === 'store' ? 'text-amber-300' : 'text-amber-700'} />
                         <span>Boutique Store ({products.length})</span>
@@ -216,11 +215,10 @@ const WeddingStore = () => {
 
                     <button
                         onClick={() => setActiveTab('checklist')}
-                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-black flex items-center gap-2 transition-all shadow-xs active:scale-95 ${
-                            activeTab === 'checklist'
+                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-black flex items-center gap-2 transition-all shadow-xs active:scale-95 ${activeTab === 'checklist'
                                 ? 'bg-[#4A0A16] text-white ring-2 ring-amber-400 shadow-md'
                                 : 'bg-white text-gray-800 border border-[#E8D9C5] hover:border-amber-400'
-                        }`}
+                            }`}
                     >
                         <FaCheckSquare className={activeTab === 'checklist' ? 'text-amber-300' : 'text-emerald-600'} />
                         <span>Shaadi Checklist ({progressPercent}%)</span>
@@ -228,11 +226,10 @@ const WeddingStore = () => {
 
                     <button
                         onClick={() => setActiveTab('timeline')}
-                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-black flex items-center gap-2 transition-all shadow-xs active:scale-95 ${
-                            activeTab === 'timeline'
+                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-black flex items-center gap-2 transition-all shadow-xs active:scale-95 ${activeTab === 'timeline'
                                 ? 'bg-[#4A0A16] text-white ring-2 ring-amber-400 shadow-md'
                                 : 'bg-white text-gray-800 border border-[#E8D9C5] hover:border-amber-400'
-                        }`}
+                            }`}
                     >
                         <FaClock className={activeTab === 'timeline' ? 'text-amber-300' : 'text-amber-700'} />
                         <span>Shopping Timeline</span>
@@ -287,11 +284,10 @@ const WeddingStore = () => {
                                     <button
                                         key={p.id}
                                         onClick={() => setSelectedPlatform(p.id)}
-                                        className={`px-3 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all flex items-center gap-1.5 ${
-                                            selectedPlatform === p.id
+                                        className={`px-3 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all flex items-center gap-1.5 ${selectedPlatform === p.id
                                                 ? 'bg-[#4A0A16] text-amber-300 shadow-sm'
                                                 : 'bg-gray-100 text-gray-700 hover:bg-amber-100/60'
-                                        }`}
+                                            }`}
                                     >
                                         <span>{p.badge}</span>
                                         <span>{p.label}</span>
@@ -308,11 +304,10 @@ const WeddingStore = () => {
                                     <button
                                         key={cat.id}
                                         onClick={() => setSelectedStoreCategory(cat.id)}
-                                        className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1 ${
-                                            selectedStoreCategory === cat.id
+                                        className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1 ${selectedStoreCategory === cat.id
                                                 ? 'bg-[#B98327] text-white shadow-xs'
                                                 : 'bg-[#FAF3E8] text-[#8E580B] hover:bg-amber-200/60'
-                                        }`}
+                                            }`}
                                     >
                                         <span>{cat.icon}</span>
                                         <span>{cat.label}</span>
@@ -450,13 +445,12 @@ const WeddingStore = () => {
                                                         {/* Affiliate Direct Link Button */}
                                                         <button
                                                             onClick={(e) => handleAffiliateBuy(product, e)}
-                                                            className={`w-full py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition ${
-                                                                product.platform === 'amazon'
+                                                            className={`w-full py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition ${product.platform === 'amazon'
                                                                     ? 'bg-[#FF9900] hover:bg-[#E88B00] text-gray-950'
                                                                     : product.platform === 'flipkart'
-                                                                    ? 'bg-[#2874F0] hover:bg-[#1C60CE] text-white'
-                                                                    : 'bg-[#FF3F6C] hover:bg-[#E5325E] text-white'
-                                                            }`}
+                                                                        ? 'bg-[#2874F0] hover:bg-[#1C60CE] text-white'
+                                                                        : 'bg-[#FF3F6C] hover:bg-[#E5325E] text-white'
+                                                                }`}
                                                         >
                                                             <span>Buy on {product.platform === 'amazon' ? 'Amazon' : product.platform === 'flipkart' ? 'Flipkart' : 'Myntra'}</span>
                                                             <FaExternalLinkAlt size={10} />
@@ -575,11 +569,10 @@ const WeddingStore = () => {
                                                 <div
                                                     key={iIdx}
                                                     onClick={() => toggleChecklistItem(itemId)}
-                                                    className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-start gap-3 select-none ${
-                                                        isChecked
+                                                    className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-start gap-3 select-none ${isChecked
                                                             ? 'bg-emerald-50/70 border-emerald-300 shadow-2xs'
                                                             : 'bg-[#FAF9F5] border-gray-200/90 hover:border-amber-400'
-                                                    }`}
+                                                        }`}
                                                 >
                                                     <div className="mt-0.5 shrink-0 text-base">
                                                         {isChecked ? (
@@ -589,9 +582,8 @@ const WeddingStore = () => {
                                                         )}
                                                     </div>
                                                     <div className="flex-1 min-w-0">
-                                                        <h4 className={`text-xs sm:text-sm font-extrabold leading-snug ${
-                                                            isChecked ? 'line-through text-emerald-950 font-bold' : 'text-[#22160F]'
-                                                        }`}>
+                                                        <h4 className={`text-xs sm:text-sm font-extrabold leading-snug ${isChecked ? 'line-through text-emerald-950 font-bold' : 'text-[#22160F]'
+                                                            }`}>
                                                             {item.name}
                                                         </h4>
                                                         <p className="text-[11px] sm:text-xs text-gray-500 font-medium leading-relaxed mt-0.5">

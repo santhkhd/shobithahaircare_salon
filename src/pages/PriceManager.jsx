@@ -4,6 +4,7 @@ import { specialOffers, defaultOffers } from '../data/offers';
 import { reviews } from '../data/reviews';
 import { blogPosts, blogCategories } from '../data/blogs';
 import { initialStoreProducts, storeCategories } from '../data/storeProducts';
+import { serviceImagePrompts } from '../data/serviceImagePrompts';
 import { useSiteSettings } from '../context/SiteSettingsContext';
 import { 
     FaTag, FaCheck, FaCopy, FaDownload, FaSyncAlt, FaArrowRight, 
@@ -11,7 +12,8 @@ import {
     FaTimes, FaExternalLinkAlt, FaCloudUploadAlt, FaEdit, 
     FaPlus, FaMinus, FaEye, FaEyeSlash, FaRobot, FaTable, FaLock, FaKey,
     FaBook, FaCalendarCheck, FaClock, FaStore, FaPhoneAlt, FaStar,
-    FaTrash, FaShareSquare, FaCalculator, FaShoppingBag, FaThLarge, FaGlobe
+    FaTrash, FaShareSquare, FaCalculator, FaShoppingBag, FaThLarge, FaGlobe,
+    FaCamera, FaMagic, FaFolderOpen, FaPalette
 } from 'react-icons/fa';
 
 // Bundled image presets for promo banner selection
@@ -235,6 +237,62 @@ const PriceManager = () => {
         });
         setProductAddedSuccess(true);
         setTimeout(() => setProductAddedSuccess(false), 3000);
+    };
+
+    // 172 AI Image Studio State & Handlers
+    const [promptSearch, setPromptSearch] = useState('');
+    const [promptCategoryFilter, setPromptCategoryFilter] = useState('All');
+    const [copiedPromptId, setCopiedPromptId] = useState(null);
+    const [copiedFileId, setCopiedFileId] = useState(null);
+    const [previewServiceModal, setPreviewServiceModal] = useState(null);
+    const [serviceInputImages, setServiceInputImages] = useState({});
+    const [customServiceImages, setCustomServiceImages] = useState(() => {
+        try {
+            return JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
+        } catch (e) {
+            return {};
+        }
+    });
+
+    const handleCopyPrompt = (id, text) => {
+        navigator.clipboard.writeText(text);
+        setCopiedPromptId(id);
+        setTimeout(() => setCopiedPromptId(null), 2500);
+    };
+
+    const handleCopyFileName = (id, fileName) => {
+        navigator.clipboard.writeText(fileName);
+        setCopiedFileId(id);
+        setTimeout(() => setCopiedFileId(null), 2500);
+    };
+
+    const handleSaveServiceImage = (serviceId, imageUrl) => {
+        if (!imageUrl) return;
+        const updated = { ...customServiceImages, [serviceId]: imageUrl };
+        setCustomServiceImages(updated);
+        try {
+            localStorage.setItem('shobitha_custom_service_images', JSON.stringify(updated));
+            window.dispatchEvent(new Event('service_images_updated'));
+            alert(`Saved custom image for ${serviceId}! Changes live across website.`);
+        } catch (e) {}
+    };
+
+    const handleDownloadAllPromptsJSON = () => {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(serviceImagePrompts, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", "shobitha_172_service_image_prompts.json");
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+    };
+
+    const handleCopyAllPromptsText = () => {
+        const bulkText = serviceImagePrompts.map(p => 
+            `#${p.index} [${p.category}] ${p.name}\nFile: ${p.fileName}\nPrompt: ${p.prompt}\nWatermark: ${p.watermark}\n---\n`
+        ).join('\n');
+        navigator.clipboard.writeText(bulkText);
+        alert("All 172 service prompts copied to clipboard for batch AI generation!");
     };
 
     useEffect(() => {
@@ -769,6 +827,7 @@ function doGet(e) {
                 <div className="flex items-center gap-2 bg-white p-2 rounded-2xl border border-[#E8D9C5] shadow-xs mb-5 overflow-x-auto no-scrollbar">
                     {[
                         { id: 'prices', label: `Prices (${serviceList.length})`, icon: FaTag },
+                        { id: 'prompts', label: '172 AI Image Studio', icon: FaCamera },
                         { id: 'pages', label: 'Menu & Pages', icon: FaGlobe },
                         { id: 'status', label: 'Salon Live Status', icon: FaStore },
                         { id: 'sections', label: 'Home Sections', icon: FaThLarge },
@@ -1039,8 +1098,341 @@ function doGet(e) {
                 )}
 
                 {/* ============================================================ */}
-                {/* TAB 2: OFFERS & PROMO BANNER MANAGER (WITH IMAGE ADD)        */}
+                {/* TAB: 172 AI IMAGE STUDIO & PROMPT GENERATOR                  */}
                 {/* ============================================================ */}
+                {activeTab === 'prompts' && (
+                    <div className="space-y-6">
+                        {/* Header Banner & Batch Actions */}
+                        <div className="bg-white rounded-3xl p-5 sm:p-7 border border-[#E8D9C5] shadow-xs">
+                            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-gray-100">
+                                <div>
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <span className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-sm shadow-xs">
+                                            <FaCamera />
+                                        </span>
+                                        <h2 className="font-serif font-black text-xl sm:text-2xl text-gray-950">
+                                            172 AI Image Studio & Prompt Generator
+                                        </h2>
+                                    </div>
+                                    <p className="text-xs sm:text-sm text-gray-600 font-medium max-w-2xl">
+                                        Generate photorealistic model imagery for all 172 services. Features authentic <strong>Kerala natural bridal looks with gold flower ornaments</strong>, exact file naming, and automated <strong>"Shobitha Haircare"</strong> studio watermarking.
+                                    </p>
+                                </div>
+
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <button
+                                        onClick={handleDownloadAllPromptsJSON}
+                                        className="py-2.5 px-4 rounded-xl bg-[#4A0A16] hover:bg-[#600C1D] text-amber-300 font-black text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition"
+                                        title="Download complete JSON catalog of all 172 prompts"
+                                    >
+                                        <FaDownload size={11} />
+                                        <span>Download Prompts JSON</span>
+                                    </button>
+
+                                    <button
+                                        onClick={handleCopyAllPromptsText}
+                                        className="py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-black text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition"
+                                        title="Copy all 172 prompts formatted for Midjourney or Imagen"
+                                    >
+                                        <FaCopy size={11} />
+                                        <span>Copy All 172 Prompts</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Prompt Highlights & Watermark Rules Strip */}
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
+                                <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-950">
+                                    <div className="font-black flex items-center gap-1.5 text-amber-900 mb-0.5">
+                                        <span>🌸</span> Kerala Bridal Specification
+                                    </div>
+                                    <div className="text-[11px] text-amber-800 leading-relaxed font-medium">
+                                        Natural dewy glow, fresh jasmine (mulla poo) garland in hair, traditional gold flower ornaments & Kasavu silk saree.
+                                    </div>
+                                </div>
+
+                                <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-950">
+                                    <div className="font-black flex items-center gap-1.5 text-amber-900 mb-0.5">
+                                        <span>📐</span> 4:5 Portrait Aspect Ratio
+                                    </div>
+                                    <div className="text-[11px] text-amber-800 leading-relaxed font-medium">
+                                        All prompts pre-configured for 800x1000px portrait format to fit salon service cards and mobile modal views.
+                                    </div>
+                                </div>
+
+                                <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-950">
+                                    <div className="font-black flex items-center gap-1.5 text-amber-900 mb-0.5">
+                                        <span>🏷️</span> Automatic Watermark Branding
+                                    </div>
+                                    <div className="text-[11px] text-amber-800 leading-relaxed font-medium">
+                                        Watermark text: <em>"Shobitha Haircare & BRIDAL MAKEUP STUDIO"</em> in rich gold with drop shadow.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Search & Category Filter */}
+                        <div className="bg-white rounded-3xl p-4 sm:p-5 border border-[#E8D9C5] shadow-xs space-y-3">
+                            <div className="relative">
+                                <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
+                                <input
+                                    type="text"
+                                    placeholder="Search 172 prompts by service name (e.g. Keratin, U-Cut, Kasavu Bridal, Facial, Nail)..."
+                                    value={promptSearch}
+                                    onChange={(e) => setPromptSearch(e.target.value)}
+                                    className="w-full pl-11 pr-4 py-2.5 bg-[#FAF9F5] rounded-2xl border border-gray-200 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-amber-500"
+                                />
+                            </div>
+
+                            {/* Filter Chips */}
+                            <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                                {[
+                                    { id: 'All', label: 'All Services (172)' },
+                                    { id: 'Bridal', label: 'Bridal Makeup Only (20) ⭐' },
+                                    { id: 'Haircuts', label: 'Haircuts (25)' },
+                                    { id: 'Hair Spa', label: 'Hair Spa (18)' },
+                                    { id: 'Hair Colour', label: 'Hair Colour (14)' },
+                                    { id: 'Smoothening', label: 'Smoothening (6)' },
+                                    { id: 'Facial', label: 'Facials (22)' },
+                                    { id: 'Threading', label: 'Threading (13)' },
+                                    { id: 'Nail', label: 'Nails & Pedicure (16)' },
+                                    { id: 'Packages', label: 'Packages (10)' }
+                                ].map(cat => (
+                                    <button
+                                        key={cat.id}
+                                        onClick={() => setPromptCategoryFilter(cat.id)}
+                                        className={`px-3.5 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
+                                            promptCategoryFilter === cat.id
+                                                ? 'bg-[#4A0A16] text-amber-300 shadow-xs'
+                                                : 'bg-gray-100 text-gray-700 hover:bg-amber-100/60'
+                                        }`}
+                                    >
+                                        {cat.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* List of 172 Service Prompt Cards */}
+                        <div className="space-y-4">
+                            {serviceImagePrompts
+                                .filter(p => {
+                                    const matchesCat = promptCategoryFilter === 'All' ||
+                                        (promptCategoryFilter === 'Bridal' ? p.category === 'Bridal Makeup & Special Occasion Makeup' : p.category.includes(promptCategoryFilter));
+                                    const matchesSearch = !promptSearch.trim() ||
+                                        p.name.toLowerCase().includes(promptSearch.toLowerCase()) ||
+                                        p.fileName.toLowerCase().includes(promptSearch.toLowerCase()) ||
+                                        p.category.toLowerCase().includes(promptSearch.toLowerCase());
+                                    return matchesCat && matchesSearch;
+                                })
+                                .map((item) => {
+                                    const isBridal = item.category === 'Bridal Makeup & Special Occasion Makeup';
+                                    const activeImg = customServiceImages[item.id] || imagePresets[0].image;
+
+                                    return (
+                                        <div
+                                            key={item.id}
+                                            className={`bg-white rounded-3xl p-4 sm:p-6 border-2 transition-all ${
+                                                isBridal 
+                                                    ? 'border-amber-400 bg-amber-50/20 shadow-xs' 
+                                                    : 'border-[#E8D9C5] shadow-xs'
+                                            }`}
+                                        >
+                                            {/* Top Line: Service Number, Category Tag, Badges */}
+                                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 pb-3 border-b border-gray-100">
+                                                <div className="flex items-center gap-2 flex-wrap">
+                                                    <span className="font-mono font-bold text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-md">
+                                                        #{item.index}
+                                                    </span>
+                                                    <h3 className="font-serif font-black text-base sm:text-xl text-gray-950">
+                                                        {item.name}
+                                                    </h3>
+                                                    <span className="bg-amber-100 text-amber-900 text-xs font-black px-2.5 py-0.5 rounded-lg">
+                                                        {item.category}
+                                                    </span>
+                                                    {isBridal && (
+                                                        <span className="bg-gradient-to-r from-[#4A0A16] to-[#681022] text-amber-300 text-[11px] font-black px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
+                                                            <span>🌸</span> Kerala Natural Look + Gold Flower
+                                                        </span>
+                                                    )}
+                                                </div>
+
+                                                <div className="flex items-center gap-2">
+                                                    <button
+                                                        onClick={() => setPreviewServiceModal(item)}
+                                                        className="px-3 py-1.5 rounded-xl border border-gray-300 hover:border-amber-400 text-xs font-bold text-gray-700 bg-white hover:bg-amber-50 transition active:scale-95 flex items-center gap-1"
+                                                    >
+                                                        <FaEye size={12} className="text-amber-700" />
+                                                        <span>Preview Modal</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            {/* File Name Row with Copy Button */}
+                                            <div className="mb-3 p-3 rounded-2xl bg-gray-50 border border-gray-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                                <div className="flex items-center gap-2 min-w-0">
+                                                    <FaFolderOpen className="text-amber-700 text-sm shrink-0" />
+                                                    <span className="text-xs font-black text-gray-600 uppercase tracking-wider shrink-0">
+                                                        Target File Name:
+                                                    </span>
+                                                    <code className="text-xs sm:text-sm font-mono font-bold text-[#4A0A16] bg-white px-2.5 py-1 rounded-lg border border-gray-200 truncate">
+                                                        {item.fileName}
+                                                    </code>
+                                                </div>
+
+                                                <button
+                                                    onClick={() => handleCopyFileName(item.id, item.fileName)}
+                                                    className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 shrink-0 transition active:scale-95 ${
+                                                        copiedFileId === item.id
+                                                            ? 'bg-emerald-600 text-white'
+                                                            : 'bg-white hover:bg-gray-100 text-gray-800 border border-gray-300'
+                                                    }`}
+                                                >
+                                                    {copiedFileId === item.id ? <FaCheck size={11} /> : <FaCopy size={11} />}
+                                                    <span>{copiedFileId === item.id ? 'Copied!' : 'Copy File Name'}</span>
+                                                </button>
+                                            </div>
+
+                                            {/* Prompt Box with 1-Tap Copy Prompt */}
+                                            <div className="mb-4">
+                                                <div className="flex items-center justify-between mb-1.5">
+                                                    <label className="text-xs font-black uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
+                                                        <FaMagic className="text-amber-700" />
+                                                        <span>AI Model Image Generation Prompt</span>
+                                                    </label>
+
+                                                    <button
+                                                        onClick={() => handleCopyPrompt(item.id, item.prompt)}
+                                                        className={`px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-xs ${
+                                                            copiedPromptId === item.id
+                                                                ? 'bg-emerald-600 text-white'
+                                                                : 'bg-[#B98327] hover:bg-[#A3701E] text-white'
+                                                        }`}
+                                                    >
+                                                        {copiedPromptId === item.id ? <FaCheck size={11} /> : <FaCopy size={11} />}
+                                                        <span>{copiedPromptId === item.id ? '✓ Prompt Copied!' : 'Copy Prompt'}</span>
+                                                    </button>
+                                                </div>
+
+                                                <div className="p-3.5 rounded-2xl bg-[#FAF9F5] border-2 border-gray-200/90 text-xs sm:text-sm text-gray-800 leading-relaxed font-medium select-all">
+                                                    {item.prompt}
+                                                </div>
+
+                                                <div className="flex items-center justify-between text-[11px] text-gray-500 font-bold px-1 mt-1.5">
+                                                    <span>Aspect: {item.aspectRatio}</span>
+                                                    <span>Watermark: {item.watermark}</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Image Update & Modal Replacement Section */}
+                                            <div className="p-3.5 rounded-2xl bg-amber-50/50 border border-amber-200/80 space-y-2.5">
+                                                <div className="flex items-center justify-between">
+                                                    <span className="text-xs font-black uppercase tracking-wider text-gray-800 flex items-center gap-1">
+                                                        <FaPalette className="text-amber-700" /> Replace Image for Service & Modal
+                                                    </span>
+                                                    {customServiceImages[item.id] && (
+                                                        <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md">
+                                                            ✓ Custom Image Active
+                                                        </span>
+                                                    )}
+                                                </div>
+
+                                                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                                                    <input
+                                                        type="url"
+                                                        placeholder="Paste image URL (from Midjourney / Cloud / Drive)..."
+                                                        value={serviceInputImages[item.id] !== undefined ? serviceInputImages[item.id] : (customServiceImages[item.id] || '')}
+                                                        onChange={(e) => setServiceInputImages({ ...serviceInputImages, [item.id]: e.target.value })}
+                                                        className="flex-1 bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-mono text-gray-900 outline-none focus:ring-2 focus:ring-amber-500"
+                                                    />
+
+                                                    <button
+                                                        onClick={() => handleSaveServiceImage(item.id, serviceInputImages[item.id])}
+                                                        className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black transition active:scale-95 shrink-0 shadow-xs"
+                                                    >
+                                                        Save Image
+                                                    </button>
+                                                </div>
+
+                                                {/* Quick Preset Selector Buttons */}
+                                                <div className="flex items-center gap-1.5 overflow-x-auto pt-1 no-scrollbar">
+                                                    <span className="text-[10px] font-black uppercase text-gray-400 shrink-0">
+                                                        Presets:
+                                                    </span>
+                                                    {imagePresets.map((preset, pIdx) => (
+                                                        <button
+                                                            key={pIdx}
+                                                            type="button"
+                                                            onClick={() => {
+                                                                setServiceInputImages({ ...serviceInputImages, [item.id]: preset.image });
+                                                                handleSaveServiceImage(item.id, preset.image);
+                                                            }}
+                                                            className="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-gray-700 text-[11px] font-bold border border-gray-200 transition shrink-0"
+                                                        >
+                                                            {preset.name}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                        </div>
+
+                        {/* Service Modal Preview Popup */}
+                        {previewServiceModal && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+                                <div className="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border-2 border-amber-400 relative animate-in fade-in zoom-in-95 duration-200">
+                                    <div className="relative aspect-[4/3] bg-gray-100">
+                                        <img
+                                            src={customServiceImages[previewServiceModal.id] || imagePresets[0].image}
+                                            alt={previewServiceModal.name}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <button
+                                            onClick={() => setPreviewServiceModal(null)}
+                                            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition"
+                                        >
+                                            <FaTimes size={13} />
+                                        </button>
+
+                                        {/* Watermark Overlay Preview */}
+                                        <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-amber-400/60 shadow-md">
+                                            <div className="text-[11px] font-serif font-black text-amber-300 leading-tight">
+                                                Shobitha Haircare
+                                            </div>
+                                            <div className="text-[8px] font-bold text-amber-100 uppercase tracking-widest leading-tight">
+                                                & BRIDAL MAKEUP STUDIO
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-5 space-y-3">
+                                        <div>
+                                            <span className="text-[10px] font-black uppercase text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">
+                                                {previewServiceModal.category}
+                                            </span>
+                                            <h3 className="font-serif font-black text-xl text-gray-950 mt-1">
+                                                {previewServiceModal.name}
+                                            </h3>
+                                        </div>
+
+                                        <div className="p-3 rounded-2xl bg-[#FAF9F5] border border-gray-200 text-xs text-gray-700 leading-relaxed font-medium">
+                                            {previewServiceModal.prompt}
+                                        </div>
+
+                                        <button
+                                            onClick={() => setPreviewServiceModal(null)}
+                                            className="w-full btn-primary py-2.5 rounded-xl text-xs font-black"
+                                        >
+                                            Close Preview
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
                 {activeTab === 'offers' && (
                     <div className="space-y-5">
                         {/* Top Announcement Banner Card */}

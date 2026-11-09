@@ -17,6 +17,14 @@ const ServiceDetail = () => {
     // Look up service by either id or slug for maximum URL flexibility
     const service = services.find(s => s.id === id || s.slug === id);
 
+    const customImages = (() => {
+        try {
+            return JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
+        } catch (e) {
+            return {};
+        }
+    })();
+
     useEffect(() => {
         if (!service) {
             navigate('/services');
@@ -122,7 +130,7 @@ const ServiceDetail = () => {
                         {/* Service-Specific Image in 4:5 Portrait Ratio with Graceful Auto-Fallback */}
                         <div className="rounded-3xl overflow-hidden shadow-xl mb-8 bg-white border-2 border-primary-200 aspect-[4/5] relative group">
                             <img
-                                src={service.image}
+                                src={customImages[service.id] || service.image}
                                 alt={service.imageAlt || `${service.name} - Shobitha Haircare Kanhangad`}
                                 width="800"
                                 height="1000"

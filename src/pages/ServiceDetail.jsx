@@ -8,6 +8,7 @@ import {
     FaClock, FaTag, FaChevronLeft, FaCheckCircle, FaCalendarCheck, 
     FaPlusCircle, FaArrowRight, FaShieldAlt, FaWhatsapp, FaSpa, FaChevronRight 
 } from 'react-icons/fa';
+import Logo from '../components/Logo';
 
 const ServiceDetail = () => {
     const { id } = useParams();
@@ -141,6 +142,11 @@ const ServiceDetail = () => {
                                 }}
                                 loading="eager"
                             />
+
+                            {/* Official Logo Watermark Overlay matching Admin Preview */}
+                            <div className="absolute top-4 left-4 z-10 bg-black/75 backdrop-blur-sm px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-2xl border border-amber-400/50 shadow-md pointer-events-none">
+                                <Logo variant="gold" size="sm" showSwoop={true} align="left" />
+                            </div>
                         </div>
 
                         {/* Service FAQ Card */}

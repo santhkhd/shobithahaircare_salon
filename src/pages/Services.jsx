@@ -9,6 +9,7 @@ import {
     FaRegHeart, FaHeart, FaChevronRight, FaPhoneAlt, FaWhatsapp, FaTimes 
 } from 'react-icons/fa';
 import { getDiscountDetails } from '../utils/pricing';
+import Logo from '../components/Logo';
 
 import heroBride from '../assets/images/hero-kerala-bride.jpg';
 import bridalBannerBride from '../assets/images/bridal-banner-bride.jpg';
@@ -392,10 +393,15 @@ const Services = () => {
 
                                         {/* Discount Badge if available */}
                                         {discount.hasDiscount && (
-                                            <span className="absolute top-2 left-2 bg-emerald-600 text-white text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded-full shadow-md uppercase tracking-wider">
+                                            <span className="absolute top-2 left-2 bg-emerald-600 text-white text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded-full shadow-md uppercase tracking-wider z-10">
                                                 {discount.badge}
                                             </span>
                                         )}
+
+                                        {/* Official Logo Watermark matching Admin Preview */}
+                                        <div className="absolute bottom-2 left-2 z-10 bg-black/75 backdrop-blur-xs px-2 sm:px-2.5 py-1 rounded-xl border border-amber-400/50 shadow-md pointer-events-none">
+                                            <Logo variant="gold" size="xs" showSwoop={true} align="left" />
+                                        </div>
                                     </div>
 
                                     {/* Card Body */}

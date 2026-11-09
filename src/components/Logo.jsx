@@ -24,6 +24,22 @@ const Logo = ({
 }) => {
     // Sizing presets
     const sizeConfig = {
+        badge: {
+            titleSize: 'text-sm sm:text-base',
+            pr: 'pr-2.5',
+            leafSize: 'w-2 h-2 -top-0.5 right-0',
+            subtitleSize: 'text-[5px] sm:text-[6px] tracking-[0.14em]',
+            swoopWidth: 'max-w-[70px] sm:max-w-[85px]',
+            swoopHeight: 'h-0.5',
+        },
+        xs: {
+            titleSize: 'text-lg sm:text-[21px]',
+            pr: 'pr-3',
+            leafSize: 'w-2.5 h-2.5 -top-0.5 right-0',
+            subtitleSize: 'text-[6px] sm:text-[7.5px] tracking-[0.15em]',
+            swoopWidth: 'max-w-[95px] sm:max-w-[115px]',
+            swoopHeight: 'h-0.5 sm:h-1',
+        },
         sm: {
             titleSize: 'text-2xl sm:text-[27px]',
             pr: 'pr-3.5',

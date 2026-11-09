@@ -8,6 +8,7 @@ import {
     FaSpa, FaMagic, FaCrown, FaCheck, FaStar, 
     FaCalendarCheck, FaArrowRight 
 } from 'react-icons/fa';
+import Logo from '../components/Logo';
 
 // High-resolution image assets
 import bridalHeroBride from '../assets/images/bridal-hero-purple-saree.jpg';
@@ -202,6 +203,11 @@ const Bridal = () => {
                                     loading="lazy"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+
+                                {/* Official Logo Watermark Overlay */}
+                                <div className="absolute top-2 left-2 z-10 bg-black/75 backdrop-blur-xs px-2 py-0.5 rounded-xl border border-amber-400/50 shadow-md pointer-events-none">
+                                    <Logo variant="gold" size="xs" showSwoop={true} align="left" />
+                                </div>
 
                                 {/* Deep Burgundy Bottom Badge */}
                                 <div className="absolute bottom-2 left-2 right-2 z-10">

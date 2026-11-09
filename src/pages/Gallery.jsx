@@ -6,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import { useBooking } from '../context/BookingContext';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
+import Logo from '../components/Logo';
 
 // Gallery high-resolution image assets
 import bridalBannerBride from '../assets/images/bridal-banner-bride.jpg';
@@ -328,6 +329,11 @@ const Gallery = () => {
                                         </div>
                                     )}
 
+                                    {/* Top-Left Logo Watermark Overlay */}
+                                    <div className="absolute top-2.5 left-2.5 z-10 bg-black/75 backdrop-blur-xs px-2 py-0.5 rounded-xl border border-amber-400/50 shadow-md pointer-events-none">
+                                        <Logo variant="gold" size="xs" showSwoop={true} align="left" />
+                                    </div>
+
                                     {/* Bottom Overlay Gradient & Deep Crimson/Burgundy Badge */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
 
@@ -367,7 +373,11 @@ const Gallery = () => {
                                 </button>
 
                                 {/* Modal Media Body */}
-                                <div className="bg-stone-900 flex items-center justify-center max-h-[62vh] overflow-hidden">
+                                <div className="bg-stone-900 flex items-center justify-center max-h-[62vh] overflow-hidden relative">
+                                    {/* Watermark in Lightbox */}
+                                    <div className="absolute top-3 left-3 z-20 bg-black/75 backdrop-blur-sm px-3 py-1.5 rounded-2xl border border-amber-400/50 shadow-md pointer-events-none">
+                                        <Logo variant="gold" size="sm" showSwoop={true} align="left" />
+                                    </div>
                                     {selectedImage.isBeforeAfter ? (
                                         <div className="p-3 w-full">
                                             <BeforeAfterSlider

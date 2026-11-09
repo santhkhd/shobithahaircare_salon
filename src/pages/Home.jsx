@@ -18,6 +18,7 @@ import FAQ from '../components/FAQ';
 import InstagramFeed from '../components/InstagramFeed';
 import PriceCalculator from '../components/PriceCalculator';
 import LaurelBranch from '../components/LaurelBranch';
+import Logo from '../components/Logo';
 import { useSiteSettings } from '../context/SiteSettingsContext';
 
 // Bundled high-resolution images
@@ -37,6 +38,24 @@ const Home = () => {
     const [favorites, setFavorites] = useState({});
     const [activeCategory, setActiveCategory] = useState('All');
     const scrollContainerRef = useRef(null);
+
+    const [customImages, setCustomImages] = useState(() => {
+        try {
+            return JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}');
+        } catch (e) {
+            return {};
+        }
+    });
+
+    useEffect(() => {
+        const syncImages = () => {
+            try {
+                setCustomImages(JSON.parse(localStorage.getItem('shobitha_custom_service_images') || '{}'));
+            } catch (e) {}
+        };
+        window.addEventListener('service_images_updated', syncImages);
+        return () => window.removeEventListener('service_images_updated', syncImages);
+    }, []);
 
     useEffect(() => {
         document.title = "Shobitha Haircare & Bridal Makeup Studio | Kanhangad Luxury Salon";
@@ -450,10 +469,10 @@ const Home = () => {
                                     onClick={() => openBooking(srv)}
                                     className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8D9C5] shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden cursor-pointer group"
                                 >
-                                    {/* Image with Wishlist Button */}
+                                    {/* Image with Wishlist Button & Official Logo Watermark */}
                                     <div className="relative aspect-[4/3] sm:aspect-square overflow-hidden bg-stone-100">
                                         <img
-                                            src={srv.image}
+                                            src={customImages[srv.id] || srv.image}
                                             alt={srv.name}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                             loading="lazy"
@@ -471,8 +490,15 @@ const Home = () => {
                                                 <FaRegHeart className="text-white text-xs" />
                                             )}
                                         </button>
-                                        <div className="absolute bottom-2 left-2 bg-[#4A0A16]/90 backdrop-blur-xs text-amber-300 px-2 py-0.5 rounded-full text-[10px] font-bold">
+
+                                        {/* Category Pill Top-Left */}
+                                        <div className="absolute top-2.5 left-2.5 bg-[#4A0A16]/90 backdrop-blur-xs text-amber-300 px-2 py-0.5 rounded-full text-[10px] font-bold z-10 shadow-xs">
                                             {srv.category}
+                                        </div>
+
+                                        {/* Official Logo Watermark Overlay matching Admin Preview */}
+                                        <div className="absolute bottom-2 left-2 z-10 bg-black/75 backdrop-blur-xs px-2 sm:px-2.5 py-1 rounded-xl border border-amber-400/50 shadow-md pointer-events-none">
+                                            <Logo variant="gold" size="xs" showSwoop={true} align="left" />
                                         </div>
                                     </div>
 

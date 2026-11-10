@@ -9,15 +9,24 @@ import {
     FaPlusCircle, FaArrowRight, FaShieldAlt, FaWhatsapp, FaSpa, FaChevronRight 
 } from 'react-icons/fa';
 import Logo from '../components/Logo';
+import { useSiteSettings } from '../context/SiteSettingsContext';
 
 const ServiceDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { openBooking } = useBooking();
+    const { brandingSettings } = useSiteSettings();
+    const showWatermarkLogo = Boolean(brandingSettings?.showWatermarkLogo);
     const [, setPriceVersion] = useState(0);
 
-    // Look up service by either id or slug for maximum URL flexibility
-    const service = services.find(s => s.id === id || s.slug === id);
+    // Robust look up by id, slug, URL-decoded string, or lowercase match
+    const cleanId = decodeURIComponent(id || '').trim().toLowerCase();
+    const service = services.find(s => 
+        (s.id && s.id.toLowerCase() === cleanId) || 
+        (s.slug && s.slug.toLowerCase() === cleanId) ||
+        (s.name && s.name.toLowerCase() === cleanId) ||
+        (s.id && s.id.replace(/-/g, '') === cleanId.replace(/-/g, ''))
+    );
 
     // Custom Service Images from Admin AI Studio & Google Sheets Sync
     const [customImages, setCustomImages] = useState(() => {
@@ -48,9 +57,7 @@ const ServiceDetail = () => {
     }, []);
 
     useEffect(() => {
-        if (!service) {
-            navigate('/services');
-        } else {
+        if (service) {
             // SEO Document Title & Meta Description
             document.title = `${service.name} - Haircare & Bridal | Shobitha Salon Kanhangad`;
             const metaDesc = document.querySelector('meta[name="description"]');
@@ -73,6 +80,7 @@ const ServiceDetail = () => {
                 script.type = 'application/ld+json';
                 document.head.appendChild(script);
             }
+            const safePrice = String(service?.price || '').replace(/[^0-9]/g, '') || "500";
             script.textContent = JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "Service",
@@ -95,7 +103,7 @@ const ServiceDetail = () => {
                 },
                 "offers": {
                     "@type": "Offer",
-                    "price": service.price.replace(/[^0-9]/g, '') || "500",
+                    "price": safePrice,
                     "priceCurrency": "INR"
                 },
                 "description": service.shortDescription || service.description
@@ -103,9 +111,30 @@ const ServiceDetail = () => {
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    }, [service, navigate]);
+    }, [service]);
 
-    if (!service) return null;
+    // Graceful fallback UI instead of blank page when service is not found
+    if (!service) {
+        return (
+            <div className="pt-32 pb-20 bg-[#FAF8F5] min-h-screen text-center px-4 flex flex-col items-center justify-center">
+                <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-2xl mb-4 shadow-sm">
+                    <FaSpa />
+                </div>
+                <h1 className="font-serif font-black text-2xl text-gray-900 mb-2">Service Details</h1>
+                <p className="text-gray-600 text-sm max-w-md mb-6 leading-relaxed">
+                    We could not find the specific service requested. You can browse all 172 salon services in our catalogue.
+                </p>
+                <div className="flex items-center gap-3">
+                    <Link to="/services" className="btn-primary py-2.5 px-6 rounded-full text-xs font-bold shadow-md">
+                        Browse All Services
+                    </Link>
+                    <Link to="/" className="px-5 py-2.5 rounded-full text-xs font-bold bg-white border border-gray-300 text-gray-700 hover:bg-gray-50">
+                        Back to Home
+                    </Link>
+                </div>
+            </div>
+        );
+    }
 
     const defaultFallback = fallbackMap[service.fallbackVar] || fallbackMap.hairCut;
 
@@ -165,9 +194,11 @@ const ServiceDetail = () => {
                             />
 
                             {/* Official Logo Watermark Overlay - Compact Size */}
-                            <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-xl border border-amber-300/25 shadow-xs pointer-events-none opacity-70">
-                                <Logo variant="gold" size="xs" showSwoop={true} align="left" />
-                            </div>
+                            {showWatermarkLogo && (
+                                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-xl border border-amber-300/25 shadow-xs pointer-events-none opacity-70">
+                                    <Logo variant="gold" size="xs" showSwoop={true} align="left" />
+                                </div>
+                            )}
                         </div>
 
                         {/* Service FAQ Card */}

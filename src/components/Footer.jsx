@@ -5,15 +5,18 @@ import { useSiteSettings } from '../context/SiteSettingsContext';
 import Logo from './Logo';
 
 const Footer = () => {
-    const { pageVisibility } = useSiteSettings();
+    const { pageVisibility, brandingSettings } = useSiteSettings();
+    const showFooterLogo = brandingSettings?.showFooterLogo !== false;
     return (
         <footer className="bg-dark text-white pt-16 pb-10 border-t border-white/10">
             <div className="container-custom grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12 px-4 sm:px-6">
                 {/* Brand Column */}
                 <div>
-                    <div className="mb-4">
-                        <Logo variant="gold" size="lg" align="left" showSwoop={true} />
-                    </div>
+                    {showFooterLogo && (
+                        <div className="mb-4">
+                            <Logo variant="gold" size="lg" align="left" showSwoop={true} />
+                        </div>
+                    )}
                     <p className="text-gray-300 text-sm mb-6 leading-relaxed font-normal">
                         Premier Kerala bridal makeover studio and professional haircare salon located at Municipal Bus Stand Road, Kanhangad.
                     </p>
@@ -89,7 +92,7 @@ const Footer = () => {
                             <Link to="/services/hair-smoothening" className="hover:text-primary transition-colors font-medium">Permanent Hair Smoothening</Link>
                         </li>
                         <li>
-                            <Link to="/services/facial-glow" className="hover:text-primary transition-colors font-medium">Instant Glow Herbal Facial</Link>
+                            <Link to="/services/o3-bridal-facial" className="hover:text-primary transition-colors font-medium">Instant Glow Herbal Facial</Link>
                         </li>
                         <li>
                             <Link to="/services/hair-color" className="hover:text-primary transition-colors font-medium">Global Hair Color & Balayage</Link>

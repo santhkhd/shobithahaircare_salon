@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { services, categories } from '../data/services';
 import { specialOffers, defaultOffers } from '../data/offers';
 import { reviews } from '../data/reviews';
@@ -7,6 +7,7 @@ import { initialStoreProducts, storeCategories } from '../data/storeProducts';
 import { serviceImagePrompts } from '../data/serviceImagePrompts';
 import { useSiteSettings } from '../context/SiteSettingsContext';
 import { syncWithGoogleSheets } from '../services/googleSheetsSync';
+import { getCloudinaryConfig, saveCloudinaryConfig, smartUploadServiceImage } from '../services/imageUploadService';
 import Logo from '../components/Logo';
 import { 
     FaTag, FaCheck, FaCopy, FaDownload, FaSyncAlt, FaArrowRight, 
@@ -161,9 +162,10 @@ const PriceManager = () => {
     const [copied, setCopied] = useState(false);
     const [savedNotification, setSavedNotification] = useState(false);
 
-    // Site Settings Context Integration (Navigation, Status, Home Sections, Affiliates)
+    // Site Settings Context Integration (Navigation, Status, Home Sections, Affiliates, Branding)
     const { 
         pageVisibility, togglePage, 
+        brandingSettings, toggleBranding,
         salonStatus, setSalonState, 
         homeSections, toggleHomeSection, 
         contactSettings, affiliateSettings,
@@ -281,27 +283,32 @@ const PriceManager = () => {
     const [customTargetFileNames, setCustomTargetFileNames] = useState({});
     const [resizeQualityMode, setResizeQualityMode] = useState('800x1000'); // '800x1000' | '1000x1250' | '600x750'
     const [galleryViewMode, setGalleryViewMode] = useState('grid'); // 'grid' | 'detailed'
+    const [cloudinaryConfig, setCloudinaryConfig] = useState(() => getCloudinaryConfig());
+    const [cloudinarySavedMsg, setCloudinarySavedMsg] = useState(false);
     const [showPromptDetails, setShowPromptDetails] = useState({}); // { [id]: boolean } (prompts hidden by default)
     const [showAllPromptsGlobal, setShowAllPromptsGlobal] = useState(false);
     const [showModalPrompt, setShowModalPrompt] = useState(false);
 
+    const openServicePreviewModal = (item) => {
+        setShowModalPrompt(false);
+        setPreviewServiceModal(item);
+    };
+
     const togglePromptVisibility = (id) => {
-        setShowPromptDetails(prev => ({
-            ...prev,
-            [id]: !prev[id]
-        }));
+        setShowPromptDetails(prev => {
+            const currentlyOpen = prev[id] !== undefined ? prev[id] : showAllPromptsGlobal;
+            return {
+                ...prev,
+                [id]: !currentlyOpen
+            };
+        });
     };
 
     const toggleAllPromptsGlobal = () => {
         const next = !showAllPromptsGlobal;
         setShowAllPromptsGlobal(next);
-        if (!next) {
-            setShowPromptDetails({});
-        } else {
-            const allOpen = {};
-            serviceImagePrompts.forEach(p => { allOpen[p.id] = true; });
-            setShowPromptDetails(allOpen);
-        }
+        // Clear individual overrides so all cards follow the global state
+        setShowPromptDetails({});
     };
 
     const [customServiceImages, setCustomServiceImages] = useState(() => {
@@ -323,6 +330,36 @@ const PriceManager = () => {
             return {};
         }
     });
+
+    // Cloud Sync Debounce Ref to ensure smooth 60fps UI with zero lag during rapid image changes
+    // This is a SILENT background sync — it never touches syncStatus so the header pill stays "Synced"
+    const cloudSyncTimeoutRef = useRef(null);
+    const queueCloudSync = (updatedImages) => {
+        if (!sheetWebhookUrl) return; // skip silently — no webhook configured
+        if (cloudSyncTimeoutRef.current) {
+            clearTimeout(cloudSyncTimeoutRef.current);
+        }
+        cloudSyncTimeoutRef.current = setTimeout(async () => {
+            try {
+                // Fire-and-forget silent POST — ONLY syncs serviceImages
+                // Does NOT touch prices, offers, or trigger full sheet rewrite
+                const activeImages = updatedImages || customServiceImages;
+                const payload = {
+                    timestamp: new Date().toISOString(),
+                    serviceImages: activeImages
+                };
+                await fetch(sheetWebhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                console.log('[BG Sync] Silent cloud sync completed.');
+            } catch (e) {
+                console.warn('[BG Sync] Silent background sync failed (ignored):', e);
+            }
+        }, 2000);
+    };
 
     // Helper: Select best high-res photo for each of the 172 service cards
     const getServiceDisplayImage = (item) => {
@@ -433,15 +470,30 @@ const PriceManager = () => {
                         dataUrl = canvas.toDataURL('image/jpeg', currentQuality);
                     }
 
-                    // Dynamically reduce quality if needed so the base64 payload fits safely in Google Sheets
+                    // Dynamically reduce quality and dimensions so base64 string NEVER exceeds 38,000 characters
                     let attempts = 0;
-                    while (dataUrl && dataUrl.length > 40000 && attempts < 4) {
+                    let activeCanvas = canvas;
+                    while (dataUrl && dataUrl.length > 38000 && attempts < 5) {
                         attempts++;
-                        currentQuality = Math.max(0.40, currentQuality - 0.10);
+                        currentQuality = Math.max(0.40, currentQuality - 0.08);
+                        const shrinkScale = 0.85;
+                        const newW = Math.max(300, Math.round(activeCanvas.width * shrinkScale));
+                        const newH = Math.max(375, Math.round(activeCanvas.height * shrinkScale));
+                        const smallCanvas = document.createElement('canvas');
+                        smallCanvas.width = newW;
+                        smallCanvas.height = newH;
+                        const sCtx = smallCanvas.getContext('2d');
+                        sCtx.imageSmoothingEnabled = true;
+                        sCtx.imageSmoothingQuality = 'high';
+                        sCtx.drawImage(activeCanvas, 0, 0, newW, newH);
+                        activeCanvas = smallCanvas;
                         try {
-                            dataUrl = canvas.toDataURL('image/webp', currentQuality);
+                            dataUrl = activeCanvas.toDataURL('image/webp', currentQuality);
+                            if (!dataUrl || !dataUrl.startsWith('data:image/webp')) {
+                                dataUrl = activeCanvas.toDataURL('image/jpeg', currentQuality);
+                            }
                         } catch (e) {
-                            dataUrl = canvas.toDataURL('image/jpeg', currentQuality);
+                            dataUrl = activeCanvas.toDataURL('image/jpeg', currentQuality);
                         }
                     }
 
@@ -507,24 +559,26 @@ const PriceManager = () => {
             }
         }
 
-        // Save to local storage
+        // Instant local update (0ms)
         const updated = { ...customServiceImages, [serviceId]: finalUrl };
         setCustomServiceImages(updated);
+        // Clear any stale typed input so input box displays the newly saved URL
+        setServiceInputImages(prev => {
+            const next = { ...prev };
+            delete next[serviceId];
+            return next;
+        });
         try {
             localStorage.setItem('shobitha_custom_service_images', JSON.stringify(updated));
             window.dispatchEvent(new Event('service_images_updated'));
             if (showAlert) {
-                alert(`✓ Saved image for ${serviceId}! Live preview updated.`);
+                setSavedNotification(`✓ Image updated for ${serviceId}! Live preview active.`);
+                setTimeout(() => setSavedNotification(false), 2500);
             }
-            // Auto-push image to Google Sheet cloud so all visitors worldwide see it immediately
-            setTimeout(() => {
-                if (sheetWebhookUrl) {
-                    handlePushToGoogleSheet();
-                }
-            }, 500);
+            // Debounced Google Sheet cloud sync in background (doesn't block UI)
+            queueCloudSync(updated);
         } catch (e) {
             console.error(e);
-            alert('Could not save to browser storage. If uploading large files, please use the Upload & Auto-Resize button.');
         }
     };
 
@@ -535,42 +589,51 @@ const PriceManager = () => {
             return;
         }
 
+        // 1. Instant Optimistic Preview (0ms): image swaps on screen immediately!
+        const tempBlobUrl = URL.createObjectURL(file);
+        setCustomServiceImages(prev => ({ ...prev, [serviceId]: tempBlobUrl }));
         setIsProcessingUpload(prev => ({ ...prev, [serviceId]: true }));
 
         try {
-            // Pick target dimensions according to selected mode
-            let targetW = 800;
-            let targetH = 1000;
-            if (resizeQualityMode === '1000x1250') {
-                targetW = 1000;
-                targetH = 1250;
-            } else if (resizeQualityMode === '600x750') {
-                targetW = 600;
-                targetH = 750;
+            // 2. Ultra-fast Cloudinary CDN upload (<0.4s) with client-side WebP compression
+            const uploadRes = await smartUploadServiceImage(file, serviceId, targetFileName, {
+                webhookUrl: sheetWebhookUrl,
+                clientResizeFn: resizeAndOptimizeImage
+            });
+
+            if (!uploadRes.success) {
+                throw new Error(uploadRes.reason || 'Upload failed');
             }
 
-            // Automatically resize and optimize (even 20MB files shrink to ~60KB)
-            const result = await resizeAndOptimizeImage(file, targetW, targetH, 0.82);
-
-            // Save optimized image without interruptive alert
-            handleSaveServiceImage(serviceId, result.dataUrl, false);
+            // 3. Save permanent CDN / WebP URL
+            handleSaveServiceImage(serviceId, uploadRes.url, false);
 
             setUploadStats(prev => ({
                 ...prev,
                 [serviceId]: {
-                    originalDisplay: result.originalDisplay,
-                    newDisplay: result.newDisplay,
-                    reduction: result.reduction,
-                    dimensions: `${result.width}×${result.height}`,
+                    provider: uploadRes.provider,
+                    details: uploadRes.details,
+                    url: uploadRes.url,
                     fileName: targetFileName || file.name,
                     timestamp: Date.now()
                 }
             }));
+            setSavedNotification(`✓ Image uploaded successfully for ${serviceId}!`);
+            setTimeout(() => setSavedNotification(false), 2500);
         } catch (err) {
-            console.error('Resize failed:', err);
-            alert('Failed to process and resize image. Please try another image.');
+            console.error('Upload failed:', err);
+            // Revert optimistic preview on failure
+            setCustomServiceImages(prev => {
+                const next = { ...prev };
+                delete next[serviceId];
+                return next;
+            });
+            alert('Failed to upload image: ' + err.message);
         } finally {
             setIsProcessingUpload(prev => ({ ...prev, [serviceId]: false }));
+            // Delay revoke so React has time to commit the CDN URL to the DOM
+            // before the blob URL is invalidated (prevents blank image flash)
+            setTimeout(() => URL.revokeObjectURL(tempBlobUrl), 500);
         }
     };
 
@@ -592,31 +655,63 @@ const PriceManager = () => {
     };
 
     const handleRemoveServiceImage = (serviceId) => {
+        // Instant local removal (0ms)
         const updated = { ...customServiceImages };
         delete updated[serviceId];
         setCustomServiceImages(updated);
+
+        // Clear input text and upload status for this card immediately
+        setServiceInputImages(prev => {
+            const next = { ...prev };
+            delete next[serviceId];
+            return next;
+        });
+        setUploadStats(prev => {
+            const next = { ...prev };
+            delete next[serviceId];
+            return next;
+        });
+
         try {
-            localStorage.setItem('shobitha_custom_service_images', JSON.stringify(updated));
+            if (Object.keys(updated).length === 0) {
+                localStorage.removeItem('shobitha_custom_service_images');
+            } else {
+                localStorage.setItem('shobitha_custom_service_images', JSON.stringify(updated));
+            }
             window.dispatchEvent(new Event('service_images_updated'));
-            alert(`Reset ${serviceId} to default image.`);
-        } catch (e) {}
+
+            // Background debounced cloud sync (zero freeze/lag)
+            queueCloudSync(updated);
+
+            // Instant non-blocking notification toast
+            setSavedNotification(`✓ Image reset to default for ${serviceId}`);
+            setTimeout(() => setSavedNotification(false), 2500);
+        } catch (e) {
+            console.error('Failed to reset image:', e);
+        }
     };
 
     const handleResetAllCustomImages = () => {
         const count = Object.keys(customServiceImages).length;
-        if (count === 0) {
-            alert("No custom uploaded images found on this device.");
+        if (!window.confirm(`Restore original catalogue photos for all services? This will clear all custom uploaded images.`)) {
             return;
         }
-        if (!window.confirm(`Are you sure you want to restore the original website catalogue images? This will clear all ${count} custom uploaded images on this device.`)) {
-            return;
-        }
+
         setCustomServiceImages({});
+        setServiceInputImages({});
+        setUploadStats({});
+
         try {
             localStorage.removeItem('shobitha_custom_service_images');
             window.dispatchEvent(new Event('service_images_updated'));
-            alert("✓ All service images have been restored to the original website catalogue!");
-        } catch (e) {}
+
+            if (sheetWebhookUrl) {
+                handlePushToGoogleSheet(false, {});
+            }
+            alert(`✓ All custom service images cleared! Original website catalogue photos restored.`);
+        } catch (e) {
+            console.error('Failed to clear custom images:', e);
+        }
     };
 
     const handleExportImagesBackup = () => {
@@ -719,7 +814,18 @@ const PriceManager = () => {
                     const map = new Map(parsed.map(item => [item.id, item]));
                     const merged = services.map(s => {
                         const custom = map.get(s.id);
-                        return custom ? { ...s, ...custom } : s;
+                        if (custom) {
+                            let op = custom.offerPrice;
+                            if (op) {
+                                const str = String(op).trim();
+                                const num = parseFloat(str);
+                                if (!str.includes('%') && !isNaN(num) && num > 0 && num < 1) {
+                                    op = `${Math.round(num * 100)}%`;
+                                }
+                            }
+                            return { ...s, ...custom, offerPrice: op };
+                        }
+                        return s;
                     });
                     setServiceList(merged);
                     return () => window.removeEventListener('keydown', handleEscape);
@@ -799,7 +905,15 @@ const PriceManager = () => {
 
     // Update offer discount
     const handleOfferChange = (id, offerVal) => {
-        const updated = serviceList.map(s => s.id === id ? { ...s, offerPrice: offerVal } : s);
+        let val = offerVal;
+        if (val) {
+            const str = String(val).trim();
+            const num = parseFloat(str);
+            if (!str.includes('%') && !isNaN(num) && num > 0 && num < 1) {
+                val = `${Math.round(num * 100)}%`;
+            }
+        }
+        const updated = serviceList.map(s => s.id === id ? { ...s, offerPrice: val } : s);
         setServiceList(updated);
     };
 
@@ -860,7 +974,7 @@ const PriceManager = () => {
     };
 
     // Push Live to Google Sheet Webhook (Master Cloud Sync - Worldwide)
-    const handlePushToGoogleSheet = async (shouldSaveLocal = true) => {
+    const handlePushToGoogleSheet = async (shouldSaveLocal = true, customImagesOverride = null) => {
         if (!sheetWebhookUrl) {
             alert("Please paste your Google Sheet Webhook URL in the 'Google Sheets' tab first!");
             setActiveTab('sheet');
@@ -869,6 +983,7 @@ const PriceManager = () => {
 
         setSyncStatus('syncing');
         try {
+            const activeImages = customImagesOverride || customServiceImages;
             const payload = {
                 timestamp: new Date().toISOString(),
                 banner: {
@@ -886,9 +1001,10 @@ const PriceManager = () => {
                     image: typeof promoImage === 'string' && promoImage.startsWith('data:') ? '[Base64 Image]' : promoImage
                 },
                 storeStatus,
-                serviceImages: customServiceImages,
+                serviceImages: activeImages,
                 siteSettings: {
                     pageVisibility,
+                    brandingSettings,
                     salonStatus,
                     homeSections,
                     contactSettings,
@@ -904,7 +1020,7 @@ const PriceManager = () => {
                     offerPrice: s.offerPrice || '',
                     duration: s.duration || '',
                     hidden: !!s.hidden,
-                    imageUrl: customServiceImages[s.id] || ''
+                    imageUrl: activeImages[s.id] || ''
                 }))
             };
 
@@ -947,10 +1063,18 @@ const PriceManager = () => {
                 const merged = serviceList.map(s => {
                     const fromSheet = map.get(s.id);
                     if (fromSheet) {
+                        let op = fromSheet.offerPrice !== undefined ? fromSheet.offerPrice : s.offerPrice;
+                        if (op) {
+                            const str = String(op).trim();
+                            const num = parseFloat(str);
+                            if (!str.includes('%') && !isNaN(num) && num > 0 && num < 1) {
+                                op = `${Math.round(num * 100)}%`;
+                            }
+                        }
                         return {
                             ...s,
                             price: fromSheet.price || s.price,
-                            offerPrice: fromSheet.offerPrice || s.offerPrice
+                            offerPrice: op
                         };
                     }
                     return s;
@@ -1074,16 +1198,46 @@ function doPost(e) {
     var data = JSON.parse(e.postData.contents);
     var ss = SpreadsheetApp.getActiveSpreadsheet();
 
-    // 1. SERVICES & PRICES
-    if (data.services && Array.isArray(data.services)) {
+    // 0. GOOGLE DRIVE IMAGE UPLOAD (TIER 2 FALLBACK - 15GB FREE CLOUD)
+    if (data.action === "upload_image_to_drive" && data.base64Data) {
+      try {
+        var folderName = "Shobitha_Salon_Uploads";
+        var folders = DriveApp.getFoldersByName(folderName);
+        var folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(folderName);
+        folder.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+
+        var base64Str = data.base64Data.split(",")[1] || data.base64Data;
+        var decoded = Utilities.base64Decode(base64Str);
+        var blob = Utilities.newBlob(decoded, data.mimeType || "image/webp", data.fileName || (data.serviceId + ".webp"));
+        var file = folder.createFile(blob);
+        file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+
+        var directUrl = "https://lh3.googleusercontent.com/d/" + file.getId();
+
+        return ContentService.createTextOutput(JSON.stringify({
+          status: "success",
+          url: directUrl,
+          fileId: file.getId()
+        })).setMimeType(ContentService.MimeType.JSON);
+      } catch (err) {
+        return ContentService.createTextOutput(JSON.stringify({
+          status: "error",
+          message: err.toString()
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    // 1. SERVICES & PRICES (Fast Batch Insert - Writes 172 rows in 50ms)
+    if (data.services && Array.isArray(data.services) && data.services.length > 0) {
       var priceSheet = ss.getSheetByName("Prices") || ss.insertSheet("Prices");
-      priceSheet.clear();
-      priceSheet.appendRow(["ID", "Service Name", "Category", "Price", "Offer", "Duration", "Hidden", "ImageURL"]);
+      var priceRows = [["ID", "Service Name", "Category", "Price", "Offer", "Duration", "Hidden", "ImageURL"]];
       data.services.forEach(function(s) {
         var img = s.imageUrl || "";
         if (img && img.length > 45000) { img = img.substring(0, 45000); }
-        priceSheet.appendRow([s.id, s.name, s.category, s.price, s.offerPrice, s.duration || "", s.hidden ? "YES" : "NO", img]);
+        priceRows.push([s.id, s.name, s.category, s.price, s.offerPrice || "", s.duration || "", s.hidden ? "YES" : "NO", img]);
       });
+      priceSheet.clear();
+      priceSheet.getRange(1, 1, priceRows.length, priceRows[0].length).setValues(priceRows);
     }
 
     // 2. OFFERS & FESTIVE BANNERS
@@ -1113,17 +1267,22 @@ function doPost(e) {
       statusSheet.appendRow(["Last Updated", new Date().toISOString()]);
     }
 
-    // 4. CUSTOM SERVICE IMAGES (IMAGE UPLOADS SYNC WORLDWIDE)
+    // 4. CUSTOM SERVICE IMAGES (Fast Batch Insert - Never Duplicates)
     if (data.serviceImages && typeof data.serviceImages === "object") {
       var imgSheet = ss.getSheetByName("ServiceImages") || ss.insertSheet("ServiceImages");
-      imgSheet.clear();
-      imgSheet.appendRow(["ServiceID", "ImageURL", "LastUpdated"]);
+      var imgRows = [["ServiceID", "ImageURL", "LastUpdated"]];
       for (var sId in data.serviceImages) {
         if (data.serviceImages.hasOwnProperty(sId)) {
           var val = String(data.serviceImages[sId]);
           if (val.length > 45000) val = val.substring(0, 45000);
-          imgSheet.appendRow([sId, val, new Date().toISOString()]);
+          imgRows.push([sId, val, new Date().toISOString()]);
         }
+      }
+      imgSheet.clear();
+      if (imgRows.length > 1) {
+        imgSheet.getRange(1, 1, imgRows.length, imgRows[0].length).setValues(imgRows);
+      } else {
+        imgSheet.appendRow(imgRows[0]);
       }
     }
 
@@ -1176,12 +1335,17 @@ function doGet(e) {
         if (imgUrl) {
           result.serviceImages[sId] = imgUrl;
         }
+        var offerVal = rows[i][4] !== undefined && rows[i][4] !== null ? String(rows[i][4]).trim() : "";
+        var numOffer = parseFloat(offerVal);
+        if (!offerVal.includes("%") && !isNaN(numOffer) && numOffer > 0 && numOffer < 1) {
+          offerVal = Math.round(numOffer * 100) + "%";
+        }
         result.services.push({
           id: sId,
           name: String(rows[i][1]),
           category: String(rows[i][2]),
           price: String(rows[i][3]),
-          offerPrice: String(rows[i][4]),
+          offerPrice: offerVal,
           duration: rows[i][5] ? String(rows[i][5]) : "",
           hidden: String(rows[i][6]).toUpperCase() === "YES",
           imageUrl: imgUrl
@@ -1310,38 +1474,91 @@ function doGet(e) {
             {savedNotification && (
                 <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#155724] text-white px-6 py-3 rounded-full shadow-2xl text-sm font-black flex items-center gap-2 border-2 border-emerald-300 animate-bounce">
                     <FaCheck size={14} className="text-emerald-300" />
-                    <span>Saved live to website! Changes visible immediately.</span>
+                    <span>{typeof savedNotification === 'string' ? savedNotification : 'Saved live to website! Changes visible immediately.'}</span>
                 </div>
             )}
 
-            {/* TOP LUXURY ADMIN HEADER NAVBAR (MATCHING MOCKUP) */}
-            <header className="bg-white/90 backdrop-blur-md border-b border-[#EADBCE] sticky top-0 z-40 px-4 py-3 shadow-xs mb-4">
+            {/* SINGLE MASTER ADMIN HEADER NAVBAR */}
+            <header className="bg-white/95 backdrop-blur-md border-b border-[#EADBCE] sticky top-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3 shadow-xs">
                 <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
-                    {/* Left: Hamburger & Shobitha Script Logo */}
-                    <div className="flex items-center gap-3">
+                    {/* Left: Gold S Emblem + Brand Title (Clicking takes user back to Home Page) */}
+                    <a 
+                        href="#/" 
+                        className="flex items-center gap-2.5 sm:gap-3.5 group cursor-pointer hover:opacity-90 transition"
+                        title="Click to Exit Admin and Go to Website Home"
+                    >
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-[#801328] via-[#520B19] to-[#30050E] text-amber-300 flex items-center justify-center font-serif font-black text-lg sm:text-xl shadow-xs shrink-0 border border-amber-400/40 group-hover:scale-105 transition">
+                            S
+                        </div>
+                        <div>
+                            <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.16em] text-[#9A6216] block leading-tight">
+                                SALON MANAGEMENT CONSOLE
+                            </span>
+                            <h1 className="font-serif font-black text-base sm:text-xl text-gray-950 leading-tight">
+                                Shobitha Studio Control
+                            </h1>
+                        </div>
+                    </a>
+
+                    {/* Right: Quick Actions & Status */}
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                        {/* Go to Home Page Button */}
+                        <a
+                            href="#/"
+                            className="bg-amber-100 hover:bg-amber-200 text-[#4A0A16] border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-black shadow-2xs flex items-center gap-1.5 transition active:scale-95 shrink-0"
+                            title="Exit Admin and Go to Public Website Home"
+                        >
+                            <FaHome size={13} className="text-[#8E580B]" />
+                            <span className="hidden sm:inline">Home Page</span>
+                        </a>
+
+                        {/* Live Sync Pill */}
+                        <button
+                            onClick={() => handlePushToGoogleSheet(true)}
+                            disabled={syncStatus === 'syncing' || syncStatus === 'pulling'}
+                            className="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 py-1.5 px-3 rounded-full text-xs font-black shadow-2xs flex items-center gap-1.5 active:scale-95 transition"
+                            title="Push all prices, image uploads, offers, and settings to Google Sheets"
+                        >
+                            <FaCloudUploadAlt size={13} className={syncStatus === 'syncing' ? 'animate-bounce text-emerald-600' : 'text-emerald-700'} />
+                            <span className="hidden sm:inline">{syncStatus === 'syncing' ? 'Syncing...' : 'Synced'}</span>
+                        </button>
+
+                        {/* Push All Data */}
+                        <button
+                            onClick={() => handlePushToGoogleSheet(true)}
+                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white hover:bg-amber-50 text-gray-800 border border-gray-200 hover:border-amber-400 flex items-center justify-center transition shadow-2xs active:scale-95"
+                            title="Push All Data to Google Cloud"
+                        >
+                            <FaCloudUploadAlt size={14} />
+                        </button>
+
+                        {/* Save Live */}
+                        <button
+                            onClick={() => handleSaveToWebsite(true)}
+                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white hover:bg-amber-50 text-gray-800 border border-gray-200 hover:border-amber-400 flex items-center justify-center transition shadow-2xs active:scale-95"
+                            title="Save Live to Website"
+                        >
+                            <FaSave size={14} />
+                        </button>
+
+                        {/* Quick Logo Visibility Toggle */}
                         <button
                             type="button"
-                            onClick={() => setActiveTab(activeTab === 'prompts' ? 'prices' : 'prompts')}
-                            className="w-10 h-10 rounded-2xl hover:bg-amber-50 text-gray-800 flex items-center justify-center transition border border-gray-200"
-                            title="Toggle Menu / Views"
+                            onClick={() => toggleBranding('showNavbarLogo')}
+                            className={`h-9 sm:h-10 px-2.5 sm:px-3 rounded-xl text-xs font-extrabold transition border flex items-center gap-1.5 shadow-2xs ${
+                                brandingSettings?.showNavbarLogo !== false
+                                    ? 'bg-amber-50 hover:bg-amber-100 text-[#8E580B] border-amber-300'
+                                    : 'bg-red-50 hover:bg-red-100 text-red-700 border-red-300'
+                            }`}
+                            title={brandingSettings?.showNavbarLogo !== false ? "Navbar Logo is VISIBLE (Click to Hide)" : "Navbar Logo is HIDDEN (Click to Show)"}
                         >
-                            <FaBars size={17} />
-                        </button>
-                        <div className="flex flex-col">
-                            <div className="flex items-center gap-1.5">
-                                <span className="font-serif italic font-black text-xl sm:text-2xl text-[#5A0C1A] tracking-tight">
-                                    Shobitha
-                                </span>
-                                <span className="text-amber-500 text-xs">✨</span>
-                            </div>
-                            <span className="text-[9px] font-black tracking-[0.24em] text-gray-500 uppercase -mt-0.5">
-                                HAIRCARE & BRIDAL MAKEUP
+                            <span className="text-xs">✨</span>
+                            <span className="hidden sm:inline">
+                                {brandingSettings?.showNavbarLogo !== false ? 'Logo: Show' : 'Logo: Hide'}
                             </span>
-                        </div>
-                    </div>
+                        </button>
 
-                    {/* Right: Search, Notification Bell, Cog, Gold S Avatar */}
-                    <div className="flex items-center gap-2 sm:gap-2.5">
+                        {/* Search Button */}
                         <button
                             type="button"
                             onClick={() => {
@@ -1349,105 +1566,45 @@ function doGet(e) {
                                 const el = document.getElementById('studio-search-input');
                                 if (el) el.focus();
                             }}
-                            className="w-10 h-10 rounded-full bg-gray-50 hover:bg-amber-50 text-gray-700 flex items-center justify-center transition border border-gray-200 shadow-2xs"
+                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-700 flex items-center justify-center transition border border-gray-200 shadow-2xs"
                             title="Search 172 Prompts & Services"
                         >
-                            <FaSearch size={14} />
+                            <FaSearch size={13} />
                         </button>
 
+                        {/* Notifications Bell */}
                         <div className="relative">
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('leads')}
-                                className="w-10 h-10 rounded-full bg-gray-50 hover:bg-amber-50 text-gray-700 flex items-center justify-center transition border border-gray-200 shadow-2xs"
+                                className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-700 flex items-center justify-center transition border border-gray-200 shadow-2xs"
                                 title={`Inquiries & Notifications (${appointmentLeads.length})`}
                             >
-                                <FaBell size={14} />
+                                <FaBell size={13} />
                             </button>
-                            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-rose-500 rounded-full ring-2 ring-white"></span>
+                            {appointmentLeads.length > 0 && (
+                                <span className="absolute top-1 right-1 w-2 h-2 bg-rose-500 rounded-full ring-2 ring-white"></span>
+                            )}
                         </div>
 
+                        {/* Lock Console */}
                         <button
-                            type="button"
-                            onClick={() => setActiveTab('sheet')}
-                            className="w-10 h-10 rounded-full bg-gray-50 hover:bg-amber-50 text-gray-700 flex items-center justify-center transition border border-gray-200 shadow-2xs"
-                            title="Settings & Google Sheets Sync"
-                        >
-                            <FaCog size={15} />
-                        </button>
-
-                        <div
-                            className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8E580B] to-[#5A0C1A] text-amber-200 flex items-center justify-center font-serif font-black text-base shadow-sm ring-2 ring-amber-300/60 cursor-pointer active:scale-95 transition"
-                            title="Click to Lock Admin Console"
                             onClick={handleLock}
+                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white hover:bg-red-50 text-gray-800 hover:text-red-700 border border-gray-200 hover:border-red-300 flex items-center justify-center transition shadow-2xs active:scale-95"
+                            title="Lock Admin Console"
                         >
-                            S
-                        </div>
+                            <FaLock size={13} />
+                        </button>
                     </div>
                 </div>
             </header>
 
-            <div className="container-custom px-3 sm:px-6 max-w-6xl mx-auto space-y-4">
-
-                {/* 1. SALON MANAGEMENT CONSOLE EMBOSSED CARD (MATCHING MOCKUP) */}
-                <div className="bg-gradient-to-r from-[#FFFBF7] via-white to-[#FDF8F2] rounded-3xl p-4 sm:p-5 border border-[#EADBCE] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="flex items-center gap-3.5 relative z-10">
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#801328] via-[#520B19] to-[#30050E] text-amber-300 flex items-center justify-center font-serif font-black text-2xl shadow-md shrink-0 border border-amber-400/50">
-                            S
-                        </div>
-                        <div>
-                            <span className="text-[11px] font-black uppercase tracking-[0.16em] text-[#9A6216] block">
-                                SALON MANAGEMENT CONSOLE
-                            </span>
-                            <h1 className="font-serif font-black text-xl sm:text-2xl text-gray-950 leading-tight">
-                                Shobitha Studio Control
-                            </h1>
-                        </div>
-                    </div>
-
-                    {/* Right Console Actions: Live Sync Pill + Squircles */}
-                    <div className="flex items-center gap-2 sm:gap-2.5 relative z-10 flex-wrap">
-                        {/* Live Sync Pill */}
-                        <button
-                            onClick={() => handlePushToGoogleSheet(true)}
-                            disabled={syncStatus === 'syncing' || syncStatus === 'pulling'}
-                            className="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 py-2 px-3.5 rounded-full text-xs font-black shadow-xs flex items-center gap-1.5 active:scale-95 transition"
-                            title="Push all prices, image uploads, offers, and settings to Google Sheets"
-                        >
-                            <FaCloudUploadAlt size={14} className={syncStatus === 'syncing' ? 'animate-bounce text-emerald-600' : 'text-emerald-700'} />
-                            <span>{syncStatus === 'syncing' ? 'Syncing...' : 'Synced'}</span>
-                        </button>
-
-                        <button
-                            onClick={() => handlePushToGoogleSheet(true)}
-                            className="w-10 h-10 rounded-2xl bg-white hover:bg-amber-50 text-gray-800 border border-gray-200 hover:border-amber-400 flex items-center justify-center transition shadow-xs active:scale-95"
-                            title="Push All Data to Google Cloud"
-                        >
-                            <FaCloudUploadAlt size={15} />
-                        </button>
-
-                        <button
-                            onClick={() => handleSaveToWebsite(true)}
-                            className="w-10 h-10 rounded-2xl bg-white hover:bg-amber-50 text-gray-800 border border-gray-200 hover:border-amber-400 flex items-center justify-center transition shadow-xs active:scale-95"
-                            title="Save Live to Website"
-                        >
-                            <FaSave size={15} />
-                        </button>
-
-                        <button
-                            onClick={handleLock}
-                            className="w-10 h-10 rounded-2xl bg-white hover:bg-red-50 text-gray-800 hover:text-red-700 border border-gray-200 hover:border-red-300 flex items-center justify-center transition shadow-xs active:scale-95"
-                            title="Lock Admin Console"
-                        >
-                            <FaLock size={14} />
-                        </button>
-                    </div>
-                </div>
+            <div className="container-custom px-3 sm:px-6 max-w-6xl mx-auto space-y-4 pt-3">
 
                 {/* 2. HORIZONTAL SQUIRCLE TAB NAVIGATION BAR (MATCHING MOCKUP) */}
                 <div className="bg-[#F6EFE8] p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl border border-[#EADBCE] shadow-2xs flex items-center justify-between gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar">
                     {[
-                        { id: 'prompts', title: '172 AI Image Studio', icon: FaHome },
+                        { id: 'prompts', title: '172 AI Image Studio', icon: FaMagic },
                         { id: 'prices', title: `Prices Management (${serviceList.length})`, icon: FaTag },
                         { id: 'offers', title: 'Offers & Promos', icon: FaImage },
                         { id: 'pages', title: 'Menu & Pages', icon: FaLayerGroup },
@@ -1901,7 +2058,7 @@ function doGet(e) {
                                     <button
                                         type="button"
                                         onClick={() => {
-                                            if (filteredPrompts[0]) setPreviewServiceModal(filteredPrompts[0]);
+                                            if (filteredPrompts[0]) openServicePreviewModal(filteredPrompts[0]);
                                         }}
                                         className="w-10 h-10 rounded-2xl bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 flex items-center justify-center transition shadow-2xs active:scale-95"
                                         title="Upload / Manage Photos"
@@ -2046,7 +2203,7 @@ function doGet(e) {
                                             return (
                                                 <div
                                                     key={item.id}
-                                                    onClick={() => setPreviewServiceModal(item)}
+                                                    onClick={() => openServicePreviewModal(item)}
                                                     className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-[#241510] border border-[#EADBCE] shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer select-none"
                                                 >
                                                     {/* Background Image */}
@@ -2062,7 +2219,7 @@ function doGet(e) {
                                                         className="absolute top-2.5 right-2.5 z-10 bg-black/60 hover:bg-black/80 backdrop-blur-md px-2 py-1 rounded-full text-white/90 flex items-center gap-1.5 border border-white/20 text-[11px] shadow-sm transition"
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            setPreviewServiceModal(item);
+                                                            openServicePreviewModal(item);
                                                         }}
                                                         title="Preview Service Details"
                                                     >
@@ -2120,65 +2277,73 @@ function doGet(e) {
                                             const isPromptVisible = showPromptDetails[item.id] !== undefined
                                                 ? showPromptDetails[item.id]
                                                 : showAllPromptsGlobal;
+                                            const svc = services.find(s => s.id === item.id);
+                                            const targetPath = svc?.image || `/images/services/${svc?.folder || '01-haircuts-and-styling'}/${customTargetFileNames[item.id] || item.fileName}`;
+                                            const displayInputVal = serviceInputImages[item.id] !== undefined
+                                                ? serviceInputImages[item.id]
+                                                : (customServiceImages[item.id] && !customServiceImages[item.id].startsWith('data:')
+                                                    ? customServiceImages[item.id]
+                                                    : targetPath);
 
                                             return (
                                                 <div
                                                     key={item.id}
-                                                    className={`bg-[#FAF7F2] rounded-3xl p-4 sm:p-5 border-2 transition-all ${
+                                                    className={`bg-white rounded-3xl p-5 sm:p-6 border transition-all space-y-4 ${
                                                         isBridal 
-                                                            ? 'border-amber-400 bg-amber-50/30 shadow-xs' 
-                                                            : 'border-[#EADBCE] shadow-xs'
+                                                            ? 'border-amber-400/80 shadow-md ring-1 ring-amber-300/40' 
+                                                            : 'border-[#EADBCE] shadow-sm'
                                                     }`}
                                                 >
-                                                    {/* Top Line: Service Number, Category Tag, Badges */}
-                                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 pb-3 border-b border-gray-200/80">
-                                                        <div className="flex items-center gap-2 flex-wrap">
-                                                            <span className="font-mono font-bold text-xs text-gray-500 bg-white px-2 py-0.5 rounded-md border border-gray-200">
+                                                    {/* Header matching Image 3: #2 U-Cut [Haircuts & Styling] ... Preview Modal */}
+                                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-3 border-b border-[#F0E4D8]">
+                                                        <div className="flex items-center gap-2.5 flex-wrap">
+                                                            <span className="font-mono font-bold text-xs text-gray-500 bg-[#F5EDE4] px-2.5 py-0.5 rounded-md border border-[#EADBCE]">
                                                                 #{item.index}
                                                             </span>
-                                                            <h3 className="font-serif font-black text-base sm:text-lg text-gray-950">
+                                                            <h3 className="font-serif font-black text-lg sm:text-xl text-gray-950">
                                                                 {item.name}
                                                             </h3>
-                                                            <span className="bg-amber-100 text-amber-900 text-xs font-black px-2.5 py-0.5 rounded-lg">
+                                                            <span className="bg-[#FFF4D9] text-[#9A6216] border border-amber-300/60 text-xs font-black px-3 py-0.5 rounded-full">
                                                                 {item.category}
                                                             </span>
                                                             {isBridal && (
                                                                 <span className="bg-gradient-to-r from-[#4A0A16] to-[#681022] text-amber-300 text-[11px] font-black px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
-                                                                    <span>🌸</span> Kerala Bridal + Gold Flower
+                                                                    <span>🌸</span> Kerala Bridal
                                                                 </span>
                                                             )}
                                                         </div>
 
                                                         <button
-                                                            onClick={() => setPreviewServiceModal(item)}
-                                                            className="px-3 py-1.5 rounded-xl border border-gray-300 hover:border-amber-400 text-xs font-bold text-gray-700 bg-white hover:bg-amber-50 transition active:scale-95 flex items-center gap-1 self-start sm:self-center"
+                                                            type="button"
+                                                            onClick={() => openServicePreviewModal(item)}
+                                                            className="px-3.5 py-1.5 rounded-xl border border-gray-300 hover:border-amber-400 text-xs font-bold text-gray-700 bg-white hover:bg-amber-50 transition active:scale-95 flex items-center gap-1.5 shadow-2xs self-start sm:self-center"
                                                         >
                                                             <FaEye size={12} className="text-amber-700" />
                                                             <span>Preview Modal</span>
                                                         </button>
                                                     </div>
 
-                                                    {/* File Name & Download Row */}
-                                                    <div className="mb-3 p-3 rounded-2xl bg-white border border-gray-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                                    {/* Row 1 matching Image 3: TARGET FILE NAME: [ u-cut.webp ] [ Copy Name ] [ Download File ] */}
+                                                    <div className="p-3 sm:p-3.5 rounded-2xl bg-[#FFFBF7] border border-[#EADBCE] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 shadow-2xs">
                                                         <div className="flex items-center gap-2 min-w-0 flex-1">
-                                                            <FaFolderOpen className="text-amber-700 text-sm shrink-0" />
-                                                            <span className="text-xs font-black text-gray-600 uppercase tracking-wider shrink-0">
-                                                                Target File Name:
+                                                            <FaFolderOpen className="text-[#8E580B] text-sm shrink-0" />
+                                                            <span className="text-xs font-black text-gray-800 uppercase tracking-wider shrink-0">
+                                                                TARGET FILE NAME:
                                                             </span>
                                                             <input
                                                                 type="text"
                                                                 value={customTargetFileNames[item.id] !== undefined ? customTargetFileNames[item.id] : item.fileName}
                                                                 onChange={(e) => setCustomTargetFileNames({ ...customTargetFileNames, [item.id]: e.target.value })}
-                                                                className="text-xs sm:text-sm font-mono font-bold text-[#4A0A16] bg-amber-50/50 px-2.5 py-1 rounded-lg border border-gray-300 focus:border-amber-500 outline-none flex-1 max-w-xs"
-                                                                title="Click to edit target file name"
+                                                                className="text-xs sm:text-sm font-mono font-bold text-[#4A0A16] bg-white px-3 py-1.5 rounded-lg border border-gray-300 focus:border-amber-500 outline-none flex-1 max-w-sm"
+                                                                title="Target File Name for Image Generation"
                                                             />
                                                         </div>
 
-                                                        <div className="flex items-center gap-1.5 shrink-0">
+                                                        <div className="flex items-center gap-2 shrink-0">
                                                             <button
                                                                 type="button"
                                                                 onClick={() => handleCopyFileName(item.id, customTargetFileNames[item.id] || item.fileName)}
-                                                                className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition active:scale-95 ${
+                                                                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition active:scale-95 ${
                                                                     copiedFileId === item.id
                                                                         ? 'bg-emerald-600 text-white'
                                                                         : 'bg-white hover:bg-gray-100 text-gray-800 border border-gray-300'
@@ -2188,62 +2353,51 @@ function doGet(e) {
                                                                 <span>{copiedFileId === item.id ? 'Copied!' : 'Copy Name'}</span>
                                                             </button>
 
-                                                            {customServiceImages[item.id] && (
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={() => handleDownloadResizedFile(item.id, customTargetFileNames[item.id] || item.fileName)}
-                                                                    className="px-3 py-1.5 rounded-xl text-xs font-black bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-xs"
-                                                                    title="Download this resized image"
-                                                                >
-                                                                    <FaDownload size={11} className="text-amber-400" />
-                                                                    <span>Download File</span>
-                                                                </button>
-                                                            )}
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => handleDownloadResizedFile(item.id, customTargetFileNames[item.id] || item.fileName)}
+                                                                className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#4A0A16] hover:bg-[#681022] text-amber-200 hover:text-white flex items-center gap-1.5 transition active:scale-95 shadow-xs"
+                                                                title="Download Image File"
+                                                            >
+                                                                <FaDownload size={11} className="text-amber-300" />
+                                                                <span>Download File</span>
+                                                            </button>
                                                         </div>
                                                     </div>
 
-                                                    {/* COLLAPSIBLE PROMPT SECTION (HIDDEN BY DEFAULT, CLICK TO SHOW) */}
-                                                    <div className="rounded-2xl border border-amber-200/80 bg-white overflow-hidden shadow-2xs transition-all">
+                                                    {/* Section 2 matching Image 3: AI MODEL IMAGE GENERATION PROMPT + [ Copy Prompt ] */}
+                                                    <div className="rounded-2xl border border-[#EADBCE] bg-[#FAF8F5] overflow-hidden shadow-2xs">
                                                         <div 
                                                             onClick={() => togglePromptVisibility(item.id)}
-                                                            className="p-3 bg-gradient-to-r from-amber-50/80 via-white to-amber-50/40 hover:bg-amber-100/40 cursor-pointer flex items-center justify-between gap-2 select-none transition"
+                                                            className="p-3 bg-gradient-to-r from-amber-50/80 via-white to-amber-50/40 flex items-center justify-between gap-2 border-b border-[#F0E4D8] cursor-pointer hover:bg-amber-100/50 transition select-none"
+                                                            title={isPromptVisible ? 'Click to hide prompt' : 'Click to view prompt'}
                                                         >
-                                                            <div className="flex items-center gap-2.5 min-w-0">
-                                                                <span className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-xs shrink-0 shadow-2xs">
-                                                                    <FaMagic />
+                                                            <div className="flex items-center gap-2">
+                                                                <FaMagic className="text-[#8E580B] text-sm shrink-0" />
+                                                                <span className="text-xs font-black uppercase tracking-wider text-gray-900">
+                                                                    AI MODEL IMAGE GENERATION PROMPT
                                                                 </span>
-                                                                <div className="min-w-0">
-                                                                    <div className="text-xs font-black uppercase tracking-wider text-gray-800 flex items-center gap-2 flex-wrap">
-                                                                        <span>AI Model Image Generation Prompt</span>
-                                                                        <span className="text-[10px] font-black text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
-                                                                            {isPromptVisible ? 'Tap to Hide' : 'Tap to Show'}
-                                                                        </span>
-                                                                    </div>
-                                                                    {!isPromptVisible && (
-                                                                        <p className="text-[11px] text-gray-500 font-medium truncate mt-0.5 max-w-md">
-                                                                            {item.prompt.slice(0, 90)}...
-                                                                        </p>
-                                                                    )}
-                                                                </div>
                                                             </div>
 
-                                                            <div className="flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
-                                                                {/* Show / Hide Toggle Button */}
+                                                            <div className="flex items-center gap-2">
                                                                 <button
                                                                     type="button"
-                                                                    onClick={() => togglePromptVisibility(item.id)}
-                                                                    className="px-3 py-1.5 rounded-xl text-xs font-black bg-amber-50 hover:bg-amber-100 text-[#4A0A16] border border-amber-200 flex items-center gap-1.5 transition active:scale-95 shadow-2xs"
-                                                                    title={isPromptVisible ? "Hide Prompt Text" : "Click to Show Full Prompt Text"}
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        togglePromptVisibility(item.id);
+                                                                    }}
+                                                                    className="text-[11px] font-bold text-gray-700 hover:text-gray-950 bg-white hover:bg-amber-50 border border-[#EADBCE] px-2.5 py-1 rounded-lg flex items-center gap-1 transition shadow-2xs active:scale-95"
                                                                 >
-                                                                    {isPromptVisible ? <FaChevronUp size={11} className="text-amber-700" /> : <FaChevronDown size={11} className="text-amber-700" />}
+                                                                    {isPromptVisible ? <FaEyeSlash size={11} className="text-gray-500" /> : <FaEye size={11} className="text-amber-700" />}
                                                                     <span>{isPromptVisible ? 'Hide Prompt' : 'Show Prompt'}</span>
                                                                 </button>
-
-                                                                {/* Quick Copy Prompt Button */}
                                                                 <button
                                                                     type="button"
-                                                                    onClick={() => handleCopyPrompt(item.id, item.prompt)}
-                                                                    className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-2xs ${
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        handleCopyPrompt(item.id, item.prompt);
+                                                                    }}
+                                                                    className={`px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-2xs ${
                                                                         copiedPromptId === item.id
                                                                             ? 'bg-emerald-600 text-white'
                                                                             : 'bg-[#B98327] hover:bg-[#A3701E] text-white'
@@ -2256,24 +2410,22 @@ function doGet(e) {
                                                             </div>
                                                         </div>
 
-                                                        {/* Expanded Prompt Details (Only visible when toggled open) */}
                                                         {isPromptVisible && (
-                                                            <div className="p-3.5 pt-2 border-t border-amber-100 bg-[#FAF9F5] space-y-2.5 animate-in fade-in duration-200">
-                                                                <div className="p-3.5 rounded-2xl bg-white border border-gray-200 text-xs sm:text-sm text-gray-800 leading-relaxed font-medium select-all">
+                                                            <div className="p-4 space-y-3">
+                                                                <div className="p-4 rounded-2xl bg-white border border-[#EADBCE] text-xs sm:text-sm text-gray-800 leading-relaxed font-normal select-all shadow-2xs">
                                                                     {item.prompt}
                                                                 </div>
 
-                                                                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-gray-500 font-bold px-1 gap-1">
+                                                                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-gray-500 font-semibold px-1 gap-1">
                                                                     <span>Aspect: {item.aspectRatio}</span>
                                                                     <span>Watermark: {item.watermark}</span>
                                                                 </div>
 
                                                                 {item.modelVariation && (
-                                                                    <div className="mt-2.5 p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/60 flex flex-wrap items-center gap-2 text-xs">
-                                                                        <span className="font-black text-amber-950">Model Variation:</span>
-                                                                        <span className="text-amber-900">{item.modelVariation.modelProfile}</span>
+                                                                    <div className="p-3 rounded-xl bg-[#FFF8EA] border border-[#F5E6CC] text-xs text-amber-950 font-medium">
+                                                                        <span className="font-bold text-[#8E580B]">Model Variation:</span> {item.modelVariation.modelProfile}
                                                                         {item.modelVariation.pose && (
-                                                                            <span className="text-gray-600 ml-2 font-medium">Pose: {item.modelVariation.pose}</span>
+                                                                            <span className="text-gray-600 ml-2 font-normal">({item.modelVariation.pose})</span>
                                                                         )}
                                                                     </div>
                                                                 )}
@@ -2281,72 +2433,98 @@ function doGet(e) {
                                                         )}
                                                     </div>
 
-                                                    {/* Image Update & Modal Replacement Section */}
-                                                    <div className="mt-3 p-3.5 rounded-2xl bg-amber-50/50 border border-amber-200/80 space-y-2.5">
+                                                    {/* Section 3 matching Image 3: REPLACE IMAGE FOR SERVICE & MODAL */}
+                                                    <div className="p-3.5 sm:p-4 rounded-2xl bg-[#FFFBF7] border border-[#EADBCE] space-y-2.5 shadow-2xs">
                                                         <div className="flex items-center justify-between flex-wrap gap-2">
-                                                            <span className="text-xs font-black uppercase tracking-wider text-gray-800 flex items-center gap-1.5">
-                                                                <FaPalette className="text-amber-700" /> Replace Image for Service & Modal
+                                                            <span className="text-xs font-black uppercase tracking-wider text-gray-900 flex items-center gap-1.5">
+                                                                <FaPalette className="text-[#8E580B]" /> REPLACE IMAGE FOR SERVICE & MODAL
                                                             </span>
                                                             <div className="flex items-center gap-2">
-                                                                {customServiceImages[item.id] && (
+                                                                {customServiceImages[item.id] ? (
                                                                     <>
-                                                                        <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md">
+                                                                        <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md border border-emerald-300">
                                                                             ✓ Custom Active
                                                                         </span>
                                                                         <button
                                                                             type="button"
                                                                             onClick={() => handleRemoveServiceImage(item.id)}
-                                                                            className="text-[11px] font-bold text-red-600 hover:text-red-700 underline"
+                                                                            className="px-2.5 py-1 rounded-lg text-xs font-bold text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 transition active:scale-95 flex items-center gap-1 shadow-2xs"
+                                                                            title="Reset to original default catalog photo"
                                                                         >
-                                                                            Reset
+                                                                            <FaTrash size={10} />
+                                                                            <span>Reset to Default</span>
                                                                         </button>
                                                                     </>
+                                                                ) : (
+                                                                    <span className="text-[10px] font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md">
+                                                                        • Default Catalog Photo
+                                                                    </span>
                                                                 )}
                                                             </div>
                                                         </div>
 
-                                                        {/* File Upload Button + Direct URL Input */}
-                                                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                                                            <label
-                                                                htmlFor={`file-upload-${item.id}`}
-                                                                className={`px-3.5 py-2 rounded-xl text-xs font-black transition active:scale-95 shrink-0 shadow-xs flex items-center justify-center gap-1.5 cursor-pointer ${
-                                                                    isProcessingUpload[item.id]
-                                                                        ? 'bg-gray-400 text-white cursor-wait'
-                                                                        : 'bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white'
-                                                                }`}
-                                                                title="Upload downloaded image from phone gallery or PC (Auto-resizes & compresses)"
+                                                        {/* Live Image Thumbnail + Upload & Path Controls */}
+                                                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                                                            {/* Live Active Image Thumbnail (Clickable to preview) */}
+                                                            <div 
+                                                                onClick={() => openServicePreviewModal(item)}
+                                                                className="w-12 h-14 sm:w-14 sm:h-16 rounded-xl overflow-hidden bg-stone-900 border-2 border-amber-300/70 shrink-0 shadow-xs cursor-pointer group/thumb relative self-start sm:self-center"
+                                                                title="Click to preview service photo"
                                                             >
-                                                                <FaCloudUploadAlt size={14} className="text-amber-400" />
-                                                                <span>{isProcessingUpload[item.id] ? '⚡ Auto-Resizing...' : '📁 Upload & Auto-Resize'}</span>
-                                                            </label>
-                                                            <input
-                                                                id={`file-upload-${item.id}`}
-                                                                type="file"
-                                                                accept="image/*"
-                                                                disabled={isProcessingUpload[item.id]}
-                                                                className="hidden"
-                                                                onChange={(e) => {
-                                                                    if (e.target.files && e.target.files[0]) {
-                                                                        handleFileUpload(item.id, e.target.files[0], customTargetFileNames[item.id] || item.fileName);
-                                                                        e.target.value = '';
-                                                                    }
-                                                                }}
-                                                            />
+                                                                <img
+                                                                    src={getServiceDisplayImage(item)}
+                                                                    alt={item.name}
+                                                                    className="w-full h-full object-cover group-hover/thumb:scale-110 transition duration-300"
+                                                                />
+                                                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition">
+                                                                    <FaEye size={13} className="text-white drop-shadow" />
+                                                                </div>
+                                                            </div>
 
-                                                            <input
-                                                                type="url"
-                                                                placeholder="Or paste direct image URL (.jpg, .webp, .png)..."
-                                                                value={serviceInputImages[item.id] !== undefined ? serviceInputImages[item.id] : (customServiceImages[item.id] || '')}
-                                                                onChange={(e) => setServiceInputImages({ ...serviceInputImages, [item.id]: e.target.value })}
-                                                                className="flex-1 bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-mono text-gray-900 outline-none focus:ring-2 focus:ring-amber-500"
-                                                            />
+                                                            {/* Upload Button + Clean Path URL Input */}
+                                                            <div className="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 min-w-0">
+                                                                <label
+                                                                    htmlFor={`file-upload-${item.id}`}
+                                                                    className={`px-4 py-2.5 rounded-xl text-xs font-black transition active:scale-95 shrink-0 shadow-xs flex items-center justify-center gap-1.5 cursor-pointer ${
+                                                                        isProcessingUpload[item.id]
+                                                                            ? 'bg-gray-400 text-white cursor-wait'
+                                                                            : 'bg-[#4A0A16] hover:bg-[#681022] text-amber-300 hover:text-white'
+                                                                    }`}
+                                                                    title="Upload image from phone or PC (Instant Auto-Resize & Compression)"
+                                                                >
+                                                                    <FaCloudUploadAlt size={14} className="text-amber-400" />
+                                                                    <span>{isProcessingUpload[item.id] ? '⚡ Processing...' : '📁 Upload & Auto-Resize'}</span>
+                                                                </label>
+                                                                <input
+                                                                    id={`file-upload-${item.id}`}
+                                                                    type="file"
+                                                                    accept="image/*"
+                                                                    disabled={isProcessingUpload[item.id]}
+                                                                    className="hidden"
+                                                                    onChange={(e) => {
+                                                                        if (e.target.files && e.target.files[0]) {
+                                                                            handleFileUpload(item.id, e.target.files[0], customTargetFileNames[item.id] || item.fileName);
+                                                                            e.target.value = '';
+                                                                        }
+                                                                    }}
+                                                                />
 
-                                                            <button
-                                                                onClick={() => handleSaveServiceImage(item.id, serviceInputImages[item.id])}
-                                                                className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black transition active:scale-95 shrink-0 shadow-xs"
-                                                            >
-                                                                Save URL
-                                                            </button>
+                                                                <input
+                                                                    type="text"
+                                                                    placeholder="/images/services/..."
+                                                                    value={displayInputVal}
+                                                                    onChange={(e) => setServiceInputImages({ ...serviceInputImages, [item.id]: e.target.value })}
+                                                                    className="flex-1 bg-white border border-[#EADBCE] rounded-xl px-3.5 py-2.5 text-xs font-mono text-gray-900 outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs"
+                                                                />
+
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => handleSaveServiceImage(item.id, displayInputVal)}
+                                                                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black transition active:scale-95 shrink-0 shadow-xs"
+                                                                >
+                                                                    Save URL
+                                                                </button>
+                                                            </div>
                                                         </div>
 
                                                         {/* Upload Stats / Auto-Resize Result Banner */}
@@ -2383,56 +2561,64 @@ function doGet(e) {
                     );
                 })()}
 
-                        {/* Service Modal Preview Popup (Responsive, Scrollable, Easy to Close) */}
+                        {/* Service Modal Preview Popup (Compact, 100% Scrollable, Easy to Close on Mobile) */}
                         {previewServiceModal && (() => {
                             const serviceObj = services.find(s => s.id === previewServiceModal.id);
                             const modalImg = getServiceDisplayImage(previewServiceModal);
 
                             return (
                                 <div 
-                                    className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto"
+                                    className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-xs overflow-y-auto"
                                     onClick={() => setPreviewServiceModal(null)}
                                 >
                                     <div 
-                                        className="bg-white rounded-3xl w-full max-w-md max-h-[88vh] flex flex-col overflow-hidden shadow-2xl border-2 border-amber-400 relative animate-in fade-in zoom-in-95 duration-200 my-auto"
+                                        className="bg-white rounded-3xl w-full max-w-md max-h-[85vh] flex flex-col overflow-hidden shadow-2xl border-2 border-amber-400 relative animate-in fade-in zoom-in-95 duration-200 my-auto"
                                         onClick={(e) => e.stopPropagation()}
                                     >
-                                        {/* Header Image with Fixed-Position Close Button */}
-                                        <div className="relative h-44 sm:h-52 bg-stone-900 shrink-0 overflow-hidden">
+                                        {/* Sticky Top Header with High-Contrast Close Button */}
+                                        <div className="p-3.5 bg-gradient-to-r from-[#4A0A16] to-[#2D060D] text-white flex items-center justify-between shrink-0 border-b border-amber-400/30">
+                                            <div className="flex items-center gap-2 min-w-0">
+                                                <span className="text-[10px] font-black uppercase text-amber-300 bg-black/40 px-2 py-0.5 rounded-md shrink-0">
+                                                    {previewServiceModal.category}
+                                                </span>
+                                                <h3 className="font-serif font-black text-sm sm:text-base text-white truncate">
+                                                    {previewServiceModal.name}
+                                                </h3>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => setPreviewServiceModal(null)}
+                                                className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition active:scale-90 shrink-0"
+                                                title="Close Preview (or tap outside)"
+                                                aria-label="Close Preview"
+                                            >
+                                                <FaTimes size={14} />
+                                            </button>
+                                        </div>
+
+                                        {/* Compact Image Preview with Watermark Overlay */}
+                                        <div className="relative h-36 sm:h-44 bg-stone-900 shrink-0 overflow-hidden">
                                             <img
                                                 src={modalImg}
                                                 alt={previewServiceModal.name}
                                                 className="w-full h-full object-cover"
                                             />
-                                            {/* Prominent High-Contrast Close Button */}
-                                            <button
-                                                type="button"
-                                                onClick={() => setPreviewServiceModal(null)}
-                                                className="absolute top-2.5 right-2.5 w-9 h-9 rounded-full bg-black/80 hover:bg-black text-white flex items-center justify-center transition shadow-lg z-20 active:scale-90"
-                                                title="Close Preview (or tap outside)"
-                                                aria-label="Close Preview"
-                                            >
-                                                <FaTimes size={15} />
-                                            </button>
-
-                                            {/* Watermark Overlay Preview - Micro Compact Size */}
-                                            <div className="absolute top-2.5 left-2.5 bg-black/50 backdrop-blur-xs px-2 py-0.5 rounded-lg border border-amber-300/30 shadow-xs opacity-80 pointer-events-none">
+                                            <div className="absolute top-2.5 left-2.5 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-lg border border-amber-300/30 shadow-xs opacity-90 pointer-events-none">
                                                 <Logo variant="gold" size="micro" showSwoop={true} align="left" />
                                             </div>
                                         </div>
 
                                         {/* Scrollable Content Body */}
-                                        <div className="p-4 sm:p-5 overflow-y-auto space-y-3 flex-1 overscroll-contain">
-                                            <div>
-                                                <span className="text-[10px] font-black uppercase text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">
-                                                    {previewServiceModal.category}
-                                                </span>
-                                                <h3 className="font-serif font-black text-lg sm:text-xl text-gray-950 mt-1 leading-snug">
-                                                    {previewServiceModal.name}
-                                                </h3>
-                                                <div className="text-[11px] font-mono font-bold text-gray-400 mt-0.5 truncate">
-                                                    File: {customTargetFileNames[previewServiceModal.id] || previewServiceModal.fileName}
+                                        <div className="p-4 overflow-y-auto space-y-3 flex-1 overscroll-contain">
+                                            <div className="flex items-center justify-between gap-2">
+                                                <div className="text-[11px] font-mono font-bold text-gray-500 truncate">
+                                                    File: <span className="text-[#4A0A16]">{customTargetFileNames[previewServiceModal.id] || previewServiceModal.fileName}</span>
                                                 </div>
+                                                {customServiceImages[previewServiceModal.id] && (
+                                                    <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md">
+                                                        ✓ Custom Active
+                                                    </span>
+                                                )}
                                             </div>
 
                                             {/* Service Description */}
@@ -2442,27 +2628,25 @@ function doGet(e) {
                                                 </div>
                                             )}
 
-                                            {/* Collapsible Prompt Toggle inside Modal (Hidden by Default) */}
+                                            {/* Collapsible Prompt Toggle inside Modal (HIDDEN BY DEFAULT - Tap to Show) */}
                                             <div className="rounded-2xl border border-amber-200/80 bg-white overflow-hidden shadow-2xs">
-                                                <div 
+                                                <button 
+                                                    type="button"
                                                     onClick={() => setShowModalPrompt(prev => !prev)}
-                                                    className="p-2.5 bg-amber-50/70 hover:bg-amber-100/50 cursor-pointer flex items-center justify-between gap-2 select-none"
+                                                    className="w-full p-2.5 bg-amber-50/80 hover:bg-amber-100/60 cursor-pointer flex items-center justify-between gap-2 select-none text-left transition"
                                                 >
                                                     <span className="text-[11px] font-black uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
                                                         <FaMagic className="text-amber-700" />
                                                         <span>AI Generation Prompt</span>
-                                                        <span className="text-[9px] font-bold text-amber-800 bg-amber-200/60 px-1.5 py-0.5 rounded-full">
-                                                            {showModalPrompt ? 'Hide' : 'Show'}
-                                                        </span>
                                                     </span>
-                                                    <div className="flex items-center gap-1 text-xs text-amber-900 font-bold">
+                                                    <div className="flex items-center gap-1 text-[11px] text-amber-900 font-bold bg-amber-200/60 px-2 py-0.5 rounded-full">
                                                         {showModalPrompt ? <FaChevronUp size={10} /> : <FaChevronDown size={10} />}
-                                                        <span>{showModalPrompt ? 'Hide' : 'Show Prompt'}</span>
+                                                        <span>{showModalPrompt ? 'Hide Prompt' : 'Tap to View Prompt'}</span>
                                                     </div>
-                                                </div>
+                                                </button>
 
                                                 {showModalPrompt && (
-                                                    <div className="p-3 border-t border-amber-100 bg-[#FAF9F5] space-y-2 text-xs text-gray-700 max-h-40 overflow-y-auto animate-in fade-in duration-200">
+                                                    <div className="p-3 border-t border-amber-100 bg-[#FAF9F5] space-y-2 text-xs text-gray-700 max-h-36 overflow-y-auto animate-in fade-in duration-200">
                                                         <div className="leading-relaxed select-all">
                                                             {previewServiceModal.prompt}
                                                         </div>
@@ -2483,16 +2667,33 @@ function doGet(e) {
                                             {previewServiceModal.modelVariation && (
                                                 <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/80 text-[11px] text-amber-950 flex flex-col gap-1">
                                                     <div><span className="font-bold text-[#4A0A16]">Model:</span> {previewServiceModal.modelVariation.modelProfile}</div>
-                                                    <div><span className="font-bold text-gray-700">Pose:</span> {previewServiceModal.modelVariation.pose}</div>
+                                                    {previewServiceModal.modelVariation.pose && (
+                                                        <div><span className="font-bold text-gray-700">Pose:</span> {previewServiceModal.modelVariation.pose}</div>
+                                                    )}
                                                 </div>
                                             )}
                                         </div>
 
                                         {/* Sticky Bottom Actions Bar */}
-                                        <div className="p-3.5 bg-gray-50 border-t border-gray-100 flex items-center justify-between shrink-0">
-                                            <span className="text-[11px] text-gray-500 font-bold truncate">
-                                                {customServiceImages[previewServiceModal.id] ? '✓ Custom Image Active' : '• Default Service Image'}
-                                            </span>
+                                        <div className="p-3 bg-gray-50 border-t border-gray-100 flex items-center justify-between shrink-0">
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-[11px] text-gray-500 font-bold truncate">
+                                                    {customServiceImages[previewServiceModal.id] ? '✓ Custom Image Active' : '• Default Service Image'}
+                                                </span>
+                                                {customServiceImages[previewServiceModal.id] && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            handleRemoveServiceImage(previewServiceModal.id);
+                                                        }}
+                                                        className="px-2.5 py-1 rounded-lg bg-red-100 hover:bg-red-200 text-red-800 text-xs font-bold border border-red-300 flex items-center gap-1 active:scale-95 transition shadow-2xs"
+                                                        title="Reset this service image to default catalog photo"
+                                                    >
+                                                        <FaTrash size={10} />
+                                                        <span>Reset</span>
+                                                    </button>
+                                                )}
+                                            </div>
                                             <button
                                                 type="button"
                                                 onClick={() => setPreviewServiceModal(null)}
@@ -2932,6 +3133,120 @@ function doGet(e) {
                             </span>
                         </div>
 
+                        {/* SALON LOGO & BRANDING VISIBILITY SWITCHES */}
+                        <div className="p-5 rounded-3xl bg-gradient-to-br from-[#FFF9F2] via-white to-[#FDF4EA] border-2 border-amber-300 shadow-sm space-y-4">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 border-b border-amber-200/70">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#8E580B] to-[#4A0A16] text-amber-300 flex items-center justify-center text-lg shadow-xs shrink-0">
+                                        ✨
+                                    </div>
+                                    <div>
+                                        <h3 className="font-serif font-black text-base sm:text-lg text-gray-950 flex items-center gap-2">
+                                            Salon Logo & Branding Controls
+                                            <span className="text-[10px] font-black bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-300">
+                                                Live Switches
+                                            </span>
+                                        </h3>
+                                        <p className="text-xs text-gray-600 font-medium">
+                                            Easily show or hide the calligraphy logo and photo watermarks across your website.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                {/* 1. Navbar Header Logo */}
+                                <div className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${
+                                    brandingSettings?.showNavbarLogo !== false ? 'border-amber-300 bg-white' : 'border-gray-200 bg-gray-50 opacity-75'
+                                }`}>
+                                    <div>
+                                        <div className="flex items-center justify-between mb-1.5">
+                                            <span className="text-[11px] font-black uppercase text-amber-900 tracking-wider">Top Header</span>
+                                            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+                                                brandingSettings?.showNavbarLogo !== false ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700'
+                                            }`}>
+                                                {brandingSettings?.showNavbarLogo !== false ? 'Showing' : 'Hidden'}
+                                            </span>
+                                        </div>
+                                        <h4 className="font-serif font-bold text-sm text-gray-950">Navbar Header Logo</h4>
+                                        <p className="text-[11px] text-gray-500 mt-0.5">Signature calligraphy logo in the fixed top website header</p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleBranding('showNavbarLogo')}
+                                        className={`w-full py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 transition active:scale-95 shadow-xs border ${
+                                            brandingSettings?.showNavbarLogo !== false
+                                                ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-700'
+                                                : 'bg-gray-700 hover:bg-gray-800 text-white border-gray-900'
+                                        }`}
+                                    >
+                                        {brandingSettings?.showNavbarLogo !== false ? <FaCheck size={11} /> : <FaTimes size={11} />}
+                                        <span>{brandingSettings?.showNavbarLogo !== false ? 'Hide Logo' : 'Show Logo'}</span>
+                                    </button>
+                                </div>
+
+                                {/* 2. Photo Watermarks Logo */}
+                                <div className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${
+                                    Boolean(brandingSettings?.showWatermarkLogo) ? 'border-amber-300 bg-white' : 'border-gray-200 bg-gray-50 opacity-75'
+                                }`}>
+                                    <div>
+                                        <div className="flex items-center justify-between mb-1.5">
+                                            <span className="text-[11px] font-black uppercase text-amber-900 tracking-wider">Photos & Cards</span>
+                                            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+                                                Boolean(brandingSettings?.showWatermarkLogo) ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700'
+                                            }`}>
+                                                {Boolean(brandingSettings?.showWatermarkLogo) ? 'Showing' : 'Hidden'}
+                                            </span>
+                                        </div>
+                                        <h4 className="font-serif font-bold text-sm text-gray-950">Photo Watermarks</h4>
+                                        <p className="text-[11px] text-gray-500 mt-0.5">Micro gold logo watermark stamped on service & gallery cards</p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleBranding('showWatermarkLogo')}
+                                        className={`w-full py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 transition active:scale-95 shadow-xs border ${
+                                            Boolean(brandingSettings?.showWatermarkLogo)
+                                                ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-700'
+                                                : 'bg-gray-700 hover:bg-gray-800 text-white border-gray-900'
+                                        }`}
+                                    >
+                                        {Boolean(brandingSettings?.showWatermarkLogo) ? <FaCheck size={11} /> : <FaTimes size={11} />}
+                                        <span>{Boolean(brandingSettings?.showWatermarkLogo) ? 'Hide Watermarks' : 'Show Watermarks'}</span>
+                                    </button>
+                                </div>
+
+                                {/* 3. Footer Logo */}
+                                <div className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${
+                                    brandingSettings?.showFooterLogo !== false ? 'border-amber-300 bg-white' : 'border-gray-200 bg-gray-50 opacity-75'
+                                }`}>
+                                    <div>
+                                        <div className="flex items-center justify-between mb-1.5">
+                                            <span className="text-[11px] font-black uppercase text-amber-900 tracking-wider">Bottom Footer</span>
+                                            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+                                                brandingSettings?.showFooterLogo !== false ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700'
+                                            }`}>
+                                                {brandingSettings?.showFooterLogo !== false ? 'Showing' : 'Hidden'}
+                                            </span>
+                                        </div>
+                                        <h4 className="font-serif font-bold text-sm text-gray-950">Footer Brand Logo</h4>
+                                        <p className="text-[11px] text-gray-500 mt-0.5">Large metallic gold logo placed in the bottom footer</p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleBranding('showFooterLogo')}
+                                        className={`w-full py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 transition active:scale-95 shadow-xs border ${
+                                            brandingSettings?.showFooterLogo !== false
+                                                ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-700'
+                                                : 'bg-gray-700 hover:bg-gray-800 text-white border-gray-900'
+                                        }`}
+                                    >
+                                        {brandingSettings?.showFooterLogo !== false ? <FaCheck size={11} /> : <FaTimes size={11} />}
+                                        <span>{brandingSettings?.showFooterLogo !== false ? 'Hide Footer Logo' : 'Show Footer Logo'}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {[
                                 { key: 'store', name: 'Wedding Store & Essentials', path: '/wedding-store', desc: 'Bridal sarees, jewellery, haircare oils, and shaadi shopping hub', icon: '🛍️' },
@@ -3111,6 +3426,120 @@ function doGet(e) {
                                 <p className="text-xs sm:text-sm text-gray-500 font-medium">
                                     Turn specific interactive features On or Off on the Home Page.
                                 </p>
+                            </div>
+                        </div>
+
+                        {/* SALON LOGO & BRANDING VISIBILITY SWITCHES */}
+                        <div className="p-5 rounded-3xl bg-gradient-to-br from-[#FFF9F2] via-white to-[#FDF4EA] border-2 border-amber-300 shadow-sm space-y-4">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 border-b border-amber-200/70">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#8E580B] to-[#4A0A16] text-amber-300 flex items-center justify-center text-lg shadow-xs shrink-0">
+                                        ✨
+                                    </div>
+                                    <div>
+                                        <h3 className="font-serif font-black text-base sm:text-lg text-gray-950 flex items-center gap-2">
+                                            Salon Logo & Branding Controls
+                                            <span className="text-[10px] font-black bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-300">
+                                                Live Switches
+                                            </span>
+                                        </h3>
+                                        <p className="text-xs text-gray-600 font-medium">
+                                            Easily show or hide the calligraphy logo and photo watermarks across your website.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                {/* 1. Navbar Header Logo */}
+                                <div className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${
+                                    brandingSettings?.showNavbarLogo !== false ? 'border-amber-300 bg-white' : 'border-gray-200 bg-gray-50 opacity-75'
+                                }`}>
+                                    <div>
+                                        <div className="flex items-center justify-between mb-1.5">
+                                            <span className="text-[11px] font-black uppercase text-amber-900 tracking-wider">Top Header</span>
+                                            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+                                                brandingSettings?.showNavbarLogo !== false ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700'
+                                            }`}>
+                                                {brandingSettings?.showNavbarLogo !== false ? 'Showing' : 'Hidden'}
+                                            </span>
+                                        </div>
+                                        <h4 className="font-serif font-bold text-sm text-gray-950">Navbar Header Logo</h4>
+                                        <p className="text-[11px] text-gray-500 mt-0.5">Signature calligraphy logo in the fixed top website header</p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleBranding('showNavbarLogo')}
+                                        className={`w-full py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 transition active:scale-95 shadow-xs border ${
+                                            brandingSettings?.showNavbarLogo !== false
+                                                ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-700'
+                                                : 'bg-gray-700 hover:bg-gray-800 text-white border-gray-900'
+                                        }`}
+                                    >
+                                        {brandingSettings?.showNavbarLogo !== false ? <FaCheck size={11} /> : <FaTimes size={11} />}
+                                        <span>{brandingSettings?.showNavbarLogo !== false ? 'Hide Logo' : 'Show Logo'}</span>
+                                    </button>
+                                </div>
+
+                                {/* 2. Photo Watermarks Logo */}
+                                <div className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${
+                                    Boolean(brandingSettings?.showWatermarkLogo) ? 'border-amber-300 bg-white' : 'border-gray-200 bg-gray-50 opacity-75'
+                                }`}>
+                                    <div>
+                                        <div className="flex items-center justify-between mb-1.5">
+                                            <span className="text-[11px] font-black uppercase text-amber-900 tracking-wider">Photos & Cards</span>
+                                            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+                                                Boolean(brandingSettings?.showWatermarkLogo) ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700'
+                                            }`}>
+                                                {Boolean(brandingSettings?.showWatermarkLogo) ? 'Showing' : 'Hidden'}
+                                            </span>
+                                        </div>
+                                        <h4 className="font-serif font-bold text-sm text-gray-950">Photo Watermarks</h4>
+                                        <p className="text-[11px] text-gray-500 mt-0.5">Micro gold logo watermark stamped on service & gallery cards</p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleBranding('showWatermarkLogo')}
+                                        className={`w-full py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 transition active:scale-95 shadow-xs border ${
+                                            Boolean(brandingSettings?.showWatermarkLogo)
+                                                ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-700'
+                                                : 'bg-gray-700 hover:bg-gray-800 text-white border-gray-900'
+                                        }`}
+                                    >
+                                        {Boolean(brandingSettings?.showWatermarkLogo) ? <FaCheck size={11} /> : <FaTimes size={11} />}
+                                        <span>{Boolean(brandingSettings?.showWatermarkLogo) ? 'Hide Watermarks' : 'Show Watermarks'}</span>
+                                    </button>
+                                </div>
+
+                                {/* 3. Footer Logo */}
+                                <div className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${
+                                    brandingSettings?.showFooterLogo !== false ? 'border-amber-300 bg-white' : 'border-gray-200 bg-gray-50 opacity-75'
+                                }`}>
+                                    <div>
+                                        <div className="flex items-center justify-between mb-1.5">
+                                            <span className="text-[11px] font-black uppercase text-amber-900 tracking-wider">Bottom Footer</span>
+                                            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+                                                brandingSettings?.showFooterLogo !== false ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700'
+                                            }`}>
+                                                {brandingSettings?.showFooterLogo !== false ? 'Showing' : 'Hidden'}
+                                            </span>
+                                        </div>
+                                        <h4 className="font-serif font-bold text-sm text-gray-950">Footer Brand Logo</h4>
+                                        <p className="text-[11px] text-gray-500 mt-0.5">Large metallic gold logo placed in the bottom footer</p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleBranding('showFooterLogo')}
+                                        className={`w-full py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 transition active:scale-95 shadow-xs border ${
+                                            brandingSettings?.showFooterLogo !== false
+                                                ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-700'
+                                                : 'bg-gray-700 hover:bg-gray-800 text-white border-gray-900'
+                                        }`}
+                                    >
+                                        {brandingSettings?.showFooterLogo !== false ? <FaCheck size={11} /> : <FaTimes size={11} />}
+                                        <span>{brandingSettings?.showFooterLogo !== false ? 'Hide Footer Logo' : 'Show Footer Logo'}</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -3553,14 +3982,93 @@ function doGet(e) {
                 {/* ============================================================ */}
                 {activeTab === 'sheet' && (
                     <div className="bg-white rounded-3xl p-5 sm:p-7 border border-[#E8D9C5] shadow-xs space-y-5">
-                        <div className="flex items-center gap-3">
+                        
+                        {/* 1. CLOUDINARY ULTRA-FAST CDN (OPTION 2 PREFERRED) */}
+                        <div className="p-5 rounded-3xl bg-gradient-to-br from-[#F0F7FF] via-white to-[#F6F4FF] border border-[#CCDFF8] space-y-4 shadow-xs">
+                            <div className="flex items-center justify-between flex-wrap gap-2">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center text-xl shadow-xs shrink-0">
+                                        ⚡
+                                    </div>
+                                    <div>
+                                        <div className="flex items-center gap-2">
+                                            <h3 className="font-serif font-black text-base sm:text-lg text-gray-950">
+                                                Cloudinary Image CDN (Ultra Fast & 25GB Free)
+                                            </h3>
+                                            <span className="bg-blue-100 text-blue-800 text-[10px] font-black px-2 py-0.5 rounded-full">
+                                                Preferred Option 2
+                                            </span>
+                                        </div>
+                                        <p className="text-xs text-gray-500 font-medium">
+                                            Direct high-speed image uploads from mobile or PC. Instant worldwide CDN delivery.
+                                        </p>
+                                    </div>
+                                </div>
+                                <a
+                                    href="https://cloudinary.com/users/register_free"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xs font-black text-blue-600 hover:text-blue-800 underline flex items-center gap-1"
+                                >
+                                    Get Free Cloudinary Account <FaExternalLinkAlt size={10} />
+                                </a>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                                <div>
+                                    <label className="block text-[11px] font-black text-gray-700 uppercase tracking-wider mb-1">
+                                        Cloud Name:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        placeholder="e.g. shobitha-salon"
+                                        value={cloudinaryConfig.cloudName}
+                                        onChange={(e) => setCloudinaryConfig({ ...cloudinaryConfig, cloudName: e.target.value })}
+                                        className="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-mono text-gray-900 outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-[11px] font-black text-gray-700 uppercase tracking-wider mb-1">
+                                        Upload Preset (Unsigned):
+                                    </label>
+                                    <input
+                                        type="text"
+                                        placeholder="e.g. shobitha_preset"
+                                        value={cloudinaryConfig.uploadPreset}
+                                        onChange={(e) => setCloudinaryConfig({ ...cloudinaryConfig, uploadPreset: e.target.value })}
+                                        className="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-mono text-gray-900 outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="flex items-center justify-between flex-wrap gap-2 pt-2 border-t border-blue-100">
+                                <div className="text-[11px] text-gray-600 font-medium max-w-md">
+                                    💡 <strong>1-Minute Setup</strong>: In Cloudinary Dashboard → Settings → Upload → Add Upload Preset → set Signing mode to <strong>Unsigned</strong>, copy its name here, and click Save!
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        saveCloudinaryConfig(cloudinaryConfig.cloudName, cloudinaryConfig.uploadPreset);
+                                        setCloudinarySavedMsg(true);
+                                        setTimeout(() => setCloudinarySavedMsg(false), 3000);
+                                    }}
+                                    className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black transition active:scale-95 shadow-xs flex items-center gap-1.5"
+                                >
+                                    <FaCheck size={11} />
+                                    <span>{cloudinarySavedMsg ? '✓ Saved CDN Config!' : 'Save CDN Settings'}</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* 2. GOOGLE SHEETS LIVE SYNC & GOOGLE DRIVE FALLBACK */}
+                        <div className="flex items-center gap-3 pt-2">
                             <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl shadow-md shrink-0">
                                 <FaTable />
                             </div>
                             <div>
                                 <div className="flex items-center gap-2">
                                     <h2 className="font-serif font-black text-lg sm:text-xl text-gray-950">
-                                        Google Sheets Live Sync
+                                        Google Sheets Live Sync & Drive Cloud (Fallback Option 1)
                                     </h2>
                                     <span className="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2 py-0.5 rounded-full flex items-center gap-1">
                                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>

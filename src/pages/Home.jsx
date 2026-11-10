@@ -32,7 +32,8 @@ import hairSmootheningAfter from '../assets/images/hair-smoothening-after.jpg';
 
 const Home = () => {
     const { openBooking } = useBooking();
-    const { homeSections } = useSiteSettings();
+    const { homeSections, brandingSettings } = useSiteSettings();
+    const showWatermarkLogo = Boolean(brandingSettings?.showWatermarkLogo);
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
     const [favorites, setFavorites] = useState({});
@@ -501,9 +502,11 @@ const Home = () => {
                                         </div>
 
                                         {/* Official Logo Watermark Overlay - Micro Compact Size */}
-                                        <div className="absolute bottom-1.5 left-1.5 z-10 bg-black/40 backdrop-blur-xs px-1.5 py-0.5 rounded-lg border border-amber-300/20 shadow-2xs pointer-events-none opacity-65 group-hover:opacity-85 transition-opacity">
-                                            <Logo variant="gold" size="micro" showSwoop={true} align="left" />
-                                        </div>
+                                        {showWatermarkLogo && (
+                                            <div className="absolute bottom-1.5 left-1.5 z-10 bg-black/40 backdrop-blur-xs px-1.5 py-0.5 rounded-lg border border-amber-300/20 shadow-2xs pointer-events-none opacity-65 group-hover:opacity-85 transition-opacity">
+                                                <Logo variant="gold" size="micro" showSwoop={true} align="left" />
+                                            </div>
+                                        )}
                                     </div>
 
                                     {/* Card Body */}

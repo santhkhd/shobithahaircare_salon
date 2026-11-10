@@ -36,13 +36,16 @@ const Layout = ({ children }) => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const isAdminRoute = pathname.includes('admin') || 
-        pathname.includes('price-editor') || 
-        (typeof window !== 'undefined' && (window.location.hash.includes('admin') || window.location.hash.includes('price-editor')));
+    const lowerPath = (pathname || '').toLowerCase();
+    const lowerHash = (typeof window !== 'undefined' ? (window.location.hash || '').toLowerCase() : '');
+    const isAdminRoute = lowerPath.includes('admin') || 
+        lowerPath.includes('price-editor') || 
+        lowerHash.includes('admin') || 
+        lowerHash.includes('price-editor');
 
     return (
         <div className="flex flex-col min-h-screen relative bg-[#FAF9F6] text-gray-800">
-            <Navbar />
+            {!isAdminRoute && <Navbar />}
 
             {/* Main Content with bottom padding on mobile to account for fixed bottom bar */}
             <main className={`flex-grow ${isAdminRoute ? 'pb-8' : 'pb-24 lg:pb-0'}`}>

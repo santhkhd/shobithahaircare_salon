@@ -11633,7 +11633,14 @@ if (typeof window !== 'undefined' && window.localStorage) {
                     const custom = map.get(s.id);
                     if (custom) {
                         if (custom.price) s.price = custom.price;
-                        if (custom.offerPrice !== undefined) s.offerPrice = custom.offerPrice;
+                        if (custom.offerPrice !== undefined) {
+                            let op = String(custom.offerPrice).trim();
+                            const numOffer = parseFloat(op);
+                            if (!op.includes('%') && !isNaN(numOffer) && numOffer > 0 && numOffer < 1) {
+                                op = `${Math.round(numOffer * 100)}%`;
+                            }
+                            s.offerPrice = op;
+                        }
                         if (custom.duration) s.duration = custom.duration;
                         if (custom.hidden !== undefined) s.hidden = custom.hidden;
                     }

@@ -50,9 +50,17 @@ export const syncWithGoogleSheets = async () => {
                         s.price = sheetItem.price;
                         updatedCount++;
                     }
-                    if (sheetItem.offerPrice !== undefined && sheetItem.offerPrice !== s.offerPrice) {
-                        s.offerPrice = sheetItem.offerPrice;
-                        updatedCount++;
+                    if (sheetItem.offerPrice !== undefined) {
+                        let op = String(sheetItem.offerPrice).trim();
+                        // Auto-convert decimal percentages from Google Sheets (e.g. 0.5 -> 50%)
+                        const numVal = parseFloat(op);
+                        if (!op.includes('%') && !isNaN(numVal) && numVal > 0 && numVal < 1) {
+                            op = `${Math.round(numVal * 100)}%`;
+                        }
+                        if (op !== s.offerPrice) {
+                            s.offerPrice = op;
+                            updatedCount++;
+                        }
                     }
                     if (sheetItem.duration && sheetItem.duration !== s.duration) {
                         s.duration = sheetItem.duration;

@@ -13,7 +13,8 @@ const Navbar = () => {
     const [favoriteCount, setFavoriteCount] = useState(0);
     const { openBooking } = useBooking();
     const { cartCount, openCart } = useCart();
-    const { pageVisibility, salonStatus } = useSiteSettings();
+    const { pageVisibility, salonStatus, brandingSettings } = useSiteSettings();
+    const showNavbarLogo = brandingSettings?.showNavbarLogo !== false;
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -78,6 +79,13 @@ const Navbar = () => {
         };
     }, [isOpen]);
 
+    // Do not render Navbar on Admin or Price Editor pages
+    const lowerPath = (location.pathname || '').toLowerCase();
+    const lowerHash = (typeof window !== 'undefined' ? (window.location.hash || '').toLowerCase() : '');
+    if (lowerPath.includes('admin') || lowerPath.includes('price-editor') || lowerHash.includes('admin') || lowerHash.includes('price-editor')) {
+        return null;
+    }
+
     const allNavLinks = [
         { name: 'Home', path: '/', visible: true },
         { name: 'Services', path: '/services', visible: true },
@@ -102,9 +110,17 @@ const Navbar = () => {
                 scrolled ? 'py-2' : 'py-2.5 sm:py-3'
             }`}>
                 {/* Official Salon Calligraphy Logo (Triple-tap secretly opens Admin) */}
-                <Link to="/" onClick={handleLogoClick} className="group select-none py-1 block shrink-0" title="Shobitha Haircare & Bridal Makeup Studio">
-                    <Logo variant="dark" size="sm" align="left" showSwoop={true} />
-                </Link>
+                {showNavbarLogo ? (
+                    <Link to="/" onClick={handleLogoClick} className="group select-none py-1 block shrink-0" title="Shobitha Haircare & Bridal Makeup Studio">
+                        <Logo variant="dark" size="sm" align="left" showSwoop={true} />
+                    </Link>
+                ) : (
+                    <Link to="/" onClick={handleLogoClick} className="group select-none py-1 flex items-center gap-2 shrink-0" title="Shobitha Haircare & Bridal Makeup Studio">
+                        <span className="font-serif font-black text-xl sm:text-2xl text-[#4A0A16] tracking-tight">
+                            Shobitha
+                        </span>
+                    </Link>
+                )}
 
                 {/* Desktop Nav - Neatly aligned & spaced */}
                 <nav className="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-7">

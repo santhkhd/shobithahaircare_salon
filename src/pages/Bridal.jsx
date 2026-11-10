@@ -9,6 +9,7 @@ import {
     FaCalendarCheck, FaArrowRight 
 } from 'react-icons/fa';
 import Logo from '../components/Logo';
+import { useSiteSettings } from '../context/SiteSettingsContext';
 
 // High-resolution image assets
 import bridalHeroBride from '../assets/images/bridal-hero-purple-saree.jpg';
@@ -20,6 +21,8 @@ import bridalGiftBoxes from '../assets/images/bridal-gift-boxes.jpg';
 
 const Bridal = () => {
     const { openBooking } = useBooking();
+    const { brandingSettings } = useSiteSettings();
+    const showWatermarkLogo = Boolean(brandingSettings?.showWatermarkLogo);
 
     useEffect(() => {
         document.title = "The Bridal Studio | Signature Bridal Makeovers | Shobitha Haircare Kanhangad";
@@ -205,9 +208,11 @@ const Bridal = () => {
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
                                 {/* Official Logo Watermark Overlay - Micro Compact Size */}
-                                <div className="absolute top-1.5 left-1.5 z-10 bg-black/40 backdrop-blur-xs px-1.5 py-0.5 rounded-lg border border-amber-300/20 shadow-2xs pointer-events-none opacity-65">
-                                    <Logo variant="gold" size="micro" showSwoop={true} align="left" />
-                                </div>
+                                {showWatermarkLogo && (
+                                    <div className="absolute top-1.5 left-1.5 z-10 bg-black/40 backdrop-blur-xs px-1.5 py-0.5 rounded-lg border border-amber-300/20 shadow-2xs pointer-events-none opacity-65">
+                                        <Logo variant="gold" size="micro" showSwoop={true} align="left" />
+                                    </div>
+                                )}
 
                                 {/* Deep Burgundy Bottom Badge */}
                                 <div className="absolute bottom-2 left-2 right-2 z-10">

@@ -15,6 +15,13 @@ export const defaultSiteSettings = {
         contact: true     // /contact
     },
 
+    // 1b. Logo & Branding Display (Show / Hide options)
+    brandingSettings: {
+        showNavbarLogo: true,        // Main logo in Header / Navbar
+        showWatermarkLogo: false,    // Logo watermark on service & gallery photos (default hidden)
+        showFooterLogo: true         // Logo in Footer
+    },
+
     // 2. Salon Operating Status
     salonStatus: {
         state: 'open', // 'open' | 'closed' | 'booked' | 'bridal_event'
@@ -63,6 +70,7 @@ export const SiteSettingsProvider = ({ children }) => {
                     ...defaultSiteSettings,
                     ...parsed,
                     pageVisibility: { ...defaultSiteSettings.pageVisibility, ...(parsed.pageVisibility || {}) },
+                    brandingSettings: { ...defaultSiteSettings.brandingSettings, ...(parsed.brandingSettings || {}) },
                     salonStatus: { ...defaultSiteSettings.salonStatus, ...(parsed.salonStatus || {}) },
                     homeSections: { ...defaultSiteSettings.homeSections, ...(parsed.homeSections || {}) },
                     contactSettings: { ...defaultSiteSettings.contactSettings, ...(parsed.contactSettings || {}) },
@@ -140,6 +148,19 @@ export const SiteSettingsProvider = ({ children }) => {
         }));
     };
 
+    const toggleBranding = (brandingKey) => {
+        updateSettings(prev => {
+            const current = prev.brandingSettings || defaultSiteSettings.brandingSettings;
+            return {
+                ...prev,
+                brandingSettings: {
+                    ...current,
+                    [brandingKey]: !current[brandingKey]
+                }
+            };
+        });
+    };
+
     const toggleHomeSection = (sectionKey) => {
         updateSettings(prev => ({
             ...prev,
@@ -169,8 +190,10 @@ export const SiteSettingsProvider = ({ children }) => {
             updateSettings,
             togglePage,
             toggleHomeSection,
+            toggleBranding,
             setSalonState,
             pageVisibility: settings.pageVisibility,
+            brandingSettings: settings.brandingSettings || defaultSiteSettings.brandingSettings,
             salonStatus: settings.salonStatus,
             homeSections: settings.homeSections,
             contactSettings: settings.contactSettings,
@@ -187,12 +210,14 @@ export const useSiteSettings = () => {
         return {
             settings: defaultSiteSettings,
             pageVisibility: defaultSiteSettings.pageVisibility,
+            brandingSettings: defaultSiteSettings.brandingSettings,
             salonStatus: defaultSiteSettings.salonStatus,
             homeSections: defaultSiteSettings.homeSections,
             contactSettings: defaultSiteSettings.contactSettings,
             affiliateSettings: defaultSiteSettings.affiliateSettings,
             togglePage: () => {},
             toggleHomeSection: () => {},
+            toggleBranding: () => {},
             setSalonState: () => {},
             updateSettings: () => {}
         };

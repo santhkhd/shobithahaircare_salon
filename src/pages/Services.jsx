@@ -9,6 +9,7 @@ import {
     FaRegHeart, FaHeart, FaChevronRight, FaPhoneAlt, FaWhatsapp, FaTimes 
 } from 'react-icons/fa';
 import { getDiscountDetails } from '../utils/pricing';
+import { useSiteSettings } from '../context/SiteSettingsContext';
 import Logo from '../components/Logo';
 
 import heroBride from '../assets/images/hero-kerala-bride.jpg';
@@ -70,6 +71,8 @@ const carouselSlides = [
 ];
 
 const Services = () => {
+    const { brandingSettings } = useSiteSettings();
+    const showWatermarkLogo = Boolean(brandingSettings?.showWatermarkLogo);
     const location = useLocation();
     const [searchTerm, setSearchTerm] = useState('');
     const [activeCategory, setActiveCategory] = useState('All');
@@ -423,9 +426,11 @@ const Services = () => {
                                         )}
 
                                         {/* Official Logo Watermark - Micro Compact Size */}
-                                        <div className="absolute bottom-1.5 left-1.5 z-10 bg-black/40 backdrop-blur-xs px-1.5 py-0.5 rounded-lg border border-amber-300/20 shadow-2xs pointer-events-none opacity-65 group-hover:opacity-85 transition-opacity">
-                                            <Logo variant="gold" size="micro" showSwoop={true} align="left" />
-                                        </div>
+                                        {showWatermarkLogo && (
+                                            <div className="absolute bottom-1.5 left-1.5 z-10 bg-black/40 backdrop-blur-xs px-1.5 py-0.5 rounded-lg border border-amber-300/20 shadow-2xs pointer-events-none opacity-65 group-hover:opacity-85 transition-opacity">
+                                                <Logo variant="gold" size="micro" showSwoop={true} align="left" />
+                                            </div>
+                                        )}
                                     </div>
 
                                     {/* Card Body */}

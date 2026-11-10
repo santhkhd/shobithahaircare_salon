@@ -7,6 +7,7 @@ import {
 import { useBooking } from '../context/BookingContext';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import Logo from '../components/Logo';
+import { useSiteSettings } from '../context/SiteSettingsContext';
 
 // Gallery high-resolution image assets
 import bridalBannerBride from '../assets/images/bridal-banner-bride.jpg';
@@ -47,6 +48,8 @@ const Gallery = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [favorites, setFavorites] = useState({});
     const { openBooking } = useBooking();
+    const { brandingSettings } = useSiteSettings();
+    const showWatermarkLogo = Boolean(brandingSettings?.showWatermarkLogo);
 
     useEffect(() => {
         document.title = "Artistry & Transformations Gallery | Shobitha Haircare Kanhangad";
@@ -330,9 +333,11 @@ const Gallery = () => {
                                     )}
 
                                     {/* Top-Left Logo Watermark - Micro Compact Size */}
-                                    <div className="absolute top-2 left-2 z-10 bg-black/40 backdrop-blur-xs px-1.5 py-0.5 rounded-lg border border-amber-300/20 shadow-2xs pointer-events-none opacity-65 group-hover:opacity-85 transition-opacity">
-                                        <Logo variant="gold" size="micro" showSwoop={true} align="left" />
-                                    </div>
+                                    {showWatermarkLogo && (
+                                        <div className="absolute top-2 left-2 z-10 bg-black/40 backdrop-blur-xs px-1.5 py-0.5 rounded-lg border border-amber-300/20 shadow-2xs pointer-events-none opacity-65 group-hover:opacity-85 transition-opacity">
+                                            <Logo variant="gold" size="micro" showSwoop={true} align="left" />
+                                        </div>
+                                    )}
 
                                     {/* Bottom Overlay Gradient & Deep Crimson/Burgundy Badge */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
@@ -375,9 +380,11 @@ const Gallery = () => {
                                 {/* Modal Media Body */}
                                 <div className="bg-stone-900 flex items-center justify-center max-h-[62vh] overflow-hidden relative">
                                     {/* Watermark in Lightbox with Soft Opacity */}
-                                    <div className="absolute top-3 left-3 z-20 bg-black/45 backdrop-blur-sm px-3 py-1.5 rounded-2xl border border-amber-300/30 shadow-md pointer-events-none opacity-80">
-                                        <Logo variant="gold" size="sm" showSwoop={true} align="left" />
-                                    </div>
+                                    {showWatermarkLogo && (
+                                        <div className="absolute top-3 left-3 z-20 bg-black/45 backdrop-blur-sm px-3 py-1.5 rounded-2xl border border-amber-300/30 shadow-md pointer-events-none opacity-80">
+                                            <Logo variant="gold" size="sm" showSwoop={true} align="left" />
+                                        </div>
+                                    )}
                                     {selectedImage.isBeforeAfter ? (
                                         <div className="p-3 w-full">
                                             <BeforeAfterSlider
